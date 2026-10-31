@@ -1,6 +1,24 @@
-/* EDC16U34 KH Linker Script */
-
+/* EDC16U34 (MPC563) Custom OS Linker Script */
 MEMORY
 {
-  ram (rwx) : ORIGIN = 0x00000000, LENGTH = 0x200000
+    flash (rx)  : ORIGIN = 0x00000000, LENGTH = 2M
+    sram  (rwx) : ORIGIN = 0x003F8000, LENGTH = 32K
+    immr  (rw)  : ORIGIN = 0x006FC000, LENGTH = 32K
+}
+
+SECTIONS
+{
+    .text : {
+        *(.text.startup)
+        *(.text)
+        *(.rodata)
+    } > flash
+
+    .data : {
+        *(.data)
+    } > sram AT > flash
+
+    .bss : {
+        *(.bss)
+    } > sram
 }

@@ -49,10 +49,10 @@ def run():
                     s = inst.toString().lower()
                     if "0x6fc" in s:
                         peripheral_pfx = "CAN_HAL"
-                    elif "0x6f8" in s:
-                        peripheral_pfx = "ADC_HAL"
                     elif "0x6f80" in s:
                         peripheral_pfx = "eTPU_HAL"
+                    elif "0x6f8" in s:
+                        peripheral_pfx = "ADC_HAL"
                                 
             new_name = None
             if prefixes_hit:

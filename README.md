@@ -79,3 +79,8 @@ This repository is for educational and research purposes only. Modifying engine 
 
 MIT License. See the LICENSE file.
 
+
+### ⚠️ CRITICAL WARNING: Inner Block Checksums
+While `edc16_fix_checksum.py` fixes the outer FADECAFE additive checksum (`0xD01FE500`), there is an **inner checksum** (avalanche-type/CRC32) located at `0x1BFF74` and `0x1FDF78`. 
+
+If you modify a calibration map inside these regions, correcting only the outer additive sum is **not enough**. The inner checksum will fail, and the ECU will refuse to boot. You must use a professional tool (like WinOLS or ECM Titanium) to recalculate both the inner and outer checksums before flashing a modified map.

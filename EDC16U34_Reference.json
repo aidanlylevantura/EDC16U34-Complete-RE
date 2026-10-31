@@ -1,15 +1,15 @@
 {
   "meta": {
     "ecu": "EDC16U34",
-    "vehicle": "SEAT Leon 1.9 TDI PD 105 hp (2006)",
-    "vag_part": "03G906021LK",
+    "vehicle": "VW Golf 5 1.9 TDI PD 105 hp (2006)",
+    "vag_part": "03G906021KH",
     "bosch_part": "0281013279",
     "sw_version": "1037382081",
     "cpu": "PowerPC MPC563",
     "flash_dump_size": "0x200000",
     "flash_dump_last_valid": "0x1FDFFF",
     "generated": "2026-10-31T19:09:27.358176",
-    "function_source": "EDC16U34_MASTER_v9.c (may be stale)"
+    "function_source": "Golf_KH_MASTER.c"
   },
   "resolved_facts": {
     "additive_checksum_table": "0xD01FE500",
