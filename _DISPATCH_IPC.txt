@@ -1,0 +1,235 @@
+==============================================================================
+SECTION 1 — Callers of helper_func_021490 (IPC setter)
+==============================================================================
+
+The setter writes _DAT_007fefd0 = param_1.
+Whoever calls it installs the boot-side IPC handler pointer.
+
+Callers of helper_func_021490: 1
+  State_auto_0d262c @ 0x000D262C
+
+--- xrefs to 0x21490 (direct xrefs) @ 0x00021490 ---
+  from 0x000D2714 [UNCONDITIONAL_CALL] in State_auto_0d262c @ 0x000D262C
+  from 0x000D2738 [UNCONDITIONAL_CALL] in State_auto_0d262c @ 0x000D262C
+
+==============================================================================
+SECTION — BOOT VERIFIER DSM_helper_auto_000f68 (0x00000F68)
+==============================================================================
+
+Function: DSM_helper_auto_000f68 @ 0x00000F68  size=816 bytes
+
+
+/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+
+void DSM_helper_auto_000f68(void)
+
+{
+  bool bVar1;
+  bool bVar2;
+  byte bVar3;
+  undefined2 *puVar4;
+  uint uVar5;
+  undefined4 *puVar6;
+  int iVar7;
+  uint in_SPRG1;
+  int in_SPRG3;
+  
+  bVar1 = true;
+  if (((~in_SPRG1 & 0xffff) == in_SPRG1 >> 0x10) &&
+     (((in_SPRG1 & 0xffff) == (uint)_DAT_007fefd6 || ((in_SPRG1 & 0xffff) == 0x1a)))) {
+    bVar2 = true;
+  }
+  else {
+    bVar2 = false;
+  }
+  if ((DAT_007fd80c == '\0') && (bVar2)) {
+    DSM_func_000f24();
+    if ((in_SPRG1 & 0xffff) != 10) {
+      DAT_007fefe4 = DAT_007fefe4 + 1;
+    }
+    if (((_DAT_006fc288 >> 0xc & 1) != 0) && ((in_SPRG1 & 0xffff) == 0x1a)) {
+      DAT_007fefe4 = DAT_007fefe4 - 1;
+    }
+    if ((_DAT_006fc288 >> 0xb & 1) != 0) {
+      bVar1 = false;
+    }
+  }
+  else {
+    iVar7 = 0x429;
+    puVar6 = (undefined4 *)&DAT_007fdf58;
+    do {
+      puVar6 = puVar6 + 1;
+      *puVar6 = 0;
+      iVar7 = iVar7 + -1;
+    } while (iVar7 != 0);
+    _DAT_007fefd0 = 0;
+    in_SPRG3 = 0;
+    DSM_func_000d78();
+    iVar7 = 7;
+    puVar4 = (undefined2 *)&DAT_007fefee;
+    DAT_007fefe4 = 0;
+    _DAT_007fefe0 = 0;
+    do {
+      puVar4 = puVar4 + 1;
+      *puVar4 = 0;
+      iVar7 = iVar7 + -1;
+    } while (iVar7 != 0);
+    _DAT_007fefee = 0;
+    DAT_007feffe = 0;
+  }
+  _DAT_006fc288 = 0xffff;
+  if (bVar1) {
+    in_SPRG3 = _DAT_007fd808;
+  }
+  _DAT_007fefe0 = in_SPRG3 + _DAT_007fefe0;
+  if ((_DAT_007fefd4 == 0) || (_DAT_007fefd0 == 0)) {
+    bVar3 = 0xff;
+    uVar5 = 0;
+  }
+  else {
+    bVar3 = *(byte *)(_DAT_007fefd0 + 0xc);
+    uVar5 = *(uint *)(_DAT_007fefd0 + 8);
+  }
+  if ((bVar3 < DAT_007fefe4) && (_DAT_007fefe0 < uVar5)) {
+    DSM_func_000e98(0xdeadbeef);
+  }
+  iVar7 = DSM_helper_auto_000ce8();
+  if (iVar7 != 0x1a) {
+    DSM_func_000d78();
+    uVar5 = DAT_007feffe + 1;
+    *(ushort *)(&DAT_007fefee + (uint)DAT_007feffe * 2) = _DAT_007fefd6;
+    DAT_007feffe = (byte)uVar5;
+    if (7 < (uVar5 & 0xff)) {
+      DAT_007feffe = 0;
+    }
+  }
+  return;
+}
+
+
+
+==============================================================================
+SECTION — BOOT READER DSM_helper_auto_000d14 (0x00000D14)
+==============================================================================
+
+Function: DSM_helper_auto_000d14 @ 0x00000D14  size=100 bytes
+
+
+/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+
+undefined2 DSM_helper_auto_000d14(void)
+
+{
+  undefined2 uVar1;
+  int in_SPRG0;
+  uint in_SPRG1;
+  
+  if ((in_SPRG0 == 0) || (_DAT_007fefd0 == 0)) {
+    uVar1 = 0xfdff;
+  }
+  else {
+    uVar1 = *(undefined2 *)(*(int *)(_DAT_007fefd0 + 4) + (in_SPRG1 & 0xffff) * 2);
+  }
+  return uVar1;
+}
+
+
+
+==============================================================================
+SECTION 4 — Instruction context around 0x1040 (IPC pointer write)
+==============================================================================
+
+This is where DSM_helper_auto_000f68 writes 0x7FEFD0.
+Showing instructions 0x1000–0x1070 to see what value is stored.
+
+  0x00001000  rlwinm. r12,r30,0x0,0x18,0x1f   
+  0x00001004  bne 0x000010ac                  
+  0x00001008  lis r31,0x80                    
+  0x0000100C  lis r11,0x80                    
+  0x00001010  subi r31,r31,0x20a4             
+  0x00001014  subi r11,r11,0x1000             
+  0x00001018  subf r11,r31,r11                
+  0x0000101C  rlwinm. r27,r11,0x1e,0x2,0x1f   
+  0x00001020  beq 0x00001038                  
+  0x00001024  subi r30,r31,0x4                
+  0x00001028  li r31,0x0                      
+  0x0000102C  mtspr CTR,r27                   
+  0x00001030  stwu r31,0x4(r30)               
+  0x00001034  bdnz 0x00001030                 
+  0x00001038  li r30,0x0                        <-- write site
+  0x0000103C  lis r11,0x80                      <-- write site
+  0x00001040  stw r30,-0x1030(r11)              <-- write site
+  0x00001044  addi r3,r30,0x0                   <-- write site
+  0x00001048  mtspr SPRG0,r3                    <-- write site
+  0x0000104C  lis r3,-0x1                     
+  0x00001050  mtspr SPRG1,r3                  
+  0x00001054  li r3,0x0                       
+  0x00001058  mtspr SPRG2,r3                  
+  0x0000105C  li r3,0x0                       
+  0x00001060  mtspr SPRG3,r3                  
+  0x00001064  bl 0x00000d78                   
+  0x00001068  li r11,0x7                      
+  0x0000106C  mtspr CTR,r11                   
+
+==============================================================================
+SECTION 5 — Period/counter array before dispatch table: 0x43900-0x43A00
+==============================================================================
+
+If the 125-entry dispatch table at 0x43A00 has a parallel
+period array, it should be at a nearby fixed offset. Scanning
+backward 0x100 bytes for plausible small integer patterns.
+
+  0x00043900:  0x00052428  0x000524FC  0x000B5D50  0x00070F14  [FNPTR]
+  0x00043910:  0x0005BCF0  0x00084BB8  0x000708D4  0x00070C80  [FNPTR]
+  0x00043920:  0x00112464  0x00053FA8  0x0004389C  0x00000004  [SMALL]
+  0x00043930:  0x00000001  0x007FA186  0x0000001C  0x00000000  [SMALL]
+  0x00043940:  0x00112364  0x0008A738  0x000E6AF0  0x000E6D90  [FNPTR]
+  0x00043950:  0x000E7000  0x000963DC  0x0010221C  0x000FA79C  [FNPTR]
+  0x00043960:  0x001012B4  0x000FD918  0x000E3FCC  0x0007A38C  [FNPTR]
+  0x00043970:  0x000FC4C0  0x000D3838  0x000AA6CC  0x000AD030  [FNPTR]
+  0x00043980:  0x000A984C  0x000AB2BC  0x000AC5E8  0x000A8D84  [FNPTR]
+  0x00043990:  0x000A7F64  0x000A91C8  0x000AC0A8  0x000A9598  [FNPTR]
+  0x000439A0:  0x000AB794  0x000A6A58  0x000A601C  0x000A8470  [FNPTR]
+  0x000439B0:  0x000B2030  0x000AE194  0x000AC20C  0x000AAF34  [FNPTR]
+  0x000439C0:  0x000A65C8  0x000E3988  0x0006DB0C  0x0007C754  [FNPTR]
+  0x000439D0:  0x000611DC  0x000611D4  0x000BB6EC  0x000BC96C  [FNPTR]
+  0x000439E0:  0x000672C4  0x0007135C  0x0005C0F4  0x0005C174
+  0x000439F0:  0x00057E5C  0x00061930  0x000F27A4  0x00071A3C  [FNPTR]
+
+==============================================================================
+SECTION 6 — Dispatch table extent: 0x43BC0-0x44000
+==============================================================================
+
+Finding where the dispatch table ends and something else begins.
+Scanning forward from 0x43BF0.
+
+  0x00043BF0  -> 0x00077B5C  <-- END OF DISPATCH TABLE
+
+Last valid dispatch entry: 0x00043C00
+Total dispatch table size: 0x00043C00 - 0x43A00 = 0x200 bytes (129 entries)
+
+==============================================================================
+SECTION 7 — Who references 0x43A00 (the dispatcher walker)
+==============================================================================
+
+If any code loads the dispatch table base, that's the walker.
+Also checking 0x43B24 (the '32-entry' slice) and 0x43B00.
+
+--- xrefs to dispatch table base @ 0x00043A00 ---
+  (none)
+
+--- xrefs to mid-table @ 0x00043B00 ---
+  (none)
+
+--- xrefs to 32-entry slice start @ 0x00043B24 ---
+  (none)
+
+--- xrefs to post-table region @ 0x00043C00 ---
+  (none)
+
+==============================================================================
+SECTION 8 — Fast scan for lis 0x4 + addi 0x3A00/0x3B00/0x3B24
+==============================================================================
+
+Instructions scanned: 400998
+Matches: 0

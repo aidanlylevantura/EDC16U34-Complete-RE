@@ -1,0 +1,183 @@
+==============================================================================
+SECTION 1 - r15+0x304 usage in EngPrt_FUN_0009afdc
+==============================================================================
+
+  0x0009AFE8  lwz r31,0x300(r15)
+  0x0009B450  lwz r31,0x304(r15)
+
+==============================================================================
+SECTION 2 - EngPrt_FUN_0009afdc decompile (lines around r15+0x304)
+==============================================================================
+
+--- line 212 (context) ---
+      if (sVar18 < local_82) {
+        sVar9 = sVar18;
+      }
+      *(short *)(unaff_r13 + -0x670e) = sVar9;
+      *(undefined2 *)(unaff_r13 + -0x671a) = *(undefined2 *)(unaff_r13 + -0x441a);
+>>>   puVar24 = *(uint **)(unaff_r15 + 0x304);
+      iVar3 = FUN_000f94dc((int)*(short *)(unaff_r13 + -0x68e2),(int)*(short *)(unaff_r13 + -0x6360),
+                           (short *)(puVar24 + 0x98),abStack_64);
+      _DAT_009ff542 = (short)iVar3;
+      if ((*(short *)((int)puVar24 + 0x5a2) < *(short *)(unaff_r13 + -0x5f50)) &&
+         (*(short *)(unaff_r13 + -0x5f50) < *(short *)(puVar24 + 0x168))) {
+        iVar3 = 1;
+      }
+      else {
+        iVar3 = 0;
+
+
+==============================================================================
+SECTION 3 - Region 0x1D16EA (presumed descriptor base)
+==============================================================================
+
+If iVar23 + 0xC = 0x1D16F6 (map header), then iVar23 = 0x1D16EA.
+Dumping 0x1D16C0-0x1D1720 to see the descriptor header layout.
+
+  0x001D16C0  00 00 00 00 00 00 00 00 00 00 00 00 00 01 33 33  ..............33
+  0x001D16D0  00 03 00 00 04 4C 04 4C 00 00 FF FF 00 00 00 3C  .....L.L.......<
+  0x001D16E0  00 64 00 02 00 02 01 F4 02 BC 00 C8 01 90 7F FF  .d..............
+  0x001D16F0  7F FF 7F FF 7F FF 00 04 00 14 02 58 02 BC 03 7A  ...........X...z
+  0x001D1700  03 A2 00 00 02 26 02 27 03 E8 04 E2 05 DC 07 08  .....&.'........
+  0x001D1710  07 6C 07 D0 08 CA 09 C4 0A BE 0B B8 0C B2 0D AC  .l..............
+
+==============================================================================
+SECTION 4 - Presumed B-set location 0x1E16F6
+==============================================================================
+
+If the multimap duplicates 0x1D16F6 to 0x1E16F6 (offset +0x10000),
+that region should currently be erased flash (0xFF) or unused.
+
+  0x001E16C0  21 9A 26 66 21 9A 21 9A 21 9A 21 9A 21 9A 26 66  !.&f!.!.!.!.!.&f
+  0x001E16D0  21 9A 26 66 21 9A 26 66 21 9A 21 9A 21 9A 21 9A  !.&f!.&f!.!.!.!.
+  0x001E16E0  21 9A 26 66 21 9A 26 66 21 9A 26 66 21 9A 21 9A  !.&f!.&f!.&f!.!.
+  0x001E16F0  21 9A 21 9A 21 9A 26 66 21 9A 26 66 21 9A 26 66  !.!.!.&f!.&f!.&f
+  0x001E1700  21 9A 21 9A 21 9A 21 9A 21 9A 00 00 00 00 00 00  !.!.!.!.!.......
+  0x001E1710  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+  0x001E1720  00 0E 00 0A 08 B7 09 7F 09 E3 0A 79 0A AB 0B 0F  ...........y....
+  0x001E1730  0C 09 0C 4F 0C 9F 0C D1 0D 99 0D CB 0D FD 10 87  ...O............
+
+==============================================================================
+SECTION 5 - Callers of FUN_000f94dc
+==============================================================================
+
+Direct callers: 103
+  FUN_00056b00 @ 0x00056B00
+  FUN_00056e14 @ 0x00056E14
+  FUN_00058a24 @ 0x00058A24
+  FUN_00058d4c @ 0x00058D4C
+  FUN_00059c80 @ 0x00059C80
+  FUN_0005b238 @ 0x0005B238
+  FUN_0005bc24 @ 0x0005BC24
+  FUN_0005bcf0 @ 0x0005BCF0
+  FUN_0005d2c0 @ 0x0005D2C0
+  FUN_0005da3c @ 0x0005DA3C
+  FUN_0005e818 @ 0x0005E818
+  FUN_0005fbb8 @ 0x0005FBB8
+  FUN_00061224 @ 0x00061224
+  FUN_000614f0 @ 0x000614F0
+  FUN_000657b0 @ 0x000657B0
+  FUN_000672c4 @ 0x000672C4
+  FUN_00067760 @ 0x00067760
+  FUN_00067850 @ 0x00067850
+  FUN_00069ad4 @ 0x00069AD4
+  FUN_0006a200 @ 0x0006A200
+  FUN_0006aec0 @ 0x0006AEC0
+  FUN_0006b7f8 @ 0x0006B7F8
+  FUN_0006cb94 @ 0x0006CB94
+  FUN_0006de44 @ 0x0006DE44
+  FUN_0006dfb4 @ 0x0006DFB4
+  FUN_0006e198 @ 0x0006E198
+  FUN_0006e388 @ 0x0006E388
+  FUN_0008194c @ 0x0008194C
+  FUN_0008218c @ 0x0008218C
+  FUN_0008c474 @ 0x0008C474
+  FUN_0008c7bc @ 0x0008C7BC
+  FUN_0008f860 @ 0x0008F860
+  FUN_000903b0 @ 0x000903B0
+  FUN_00090434 @ 0x00090434
+  FUN_000904f4 @ 0x000904F4
+  FUN_00090a70 @ 0x00090A70
+  FUN_00090cb0 @ 0x00090CB0
+  FUN_00090e3c @ 0x00090E3C
+  FUN_000915a8 @ 0x000915A8
+  FUN_00091804 @ 0x00091804
+  FUN_00093544 @ 0x00093544
+  FUN_00093640 @ 0x00093640
+  FUN_0009a58c @ 0x0009A58C
+  FUN_0009afdc @ 0x0009AFDC
+  FUN_0009e2f8 @ 0x0009E2F8
+  FUN_0009e80c @ 0x0009E80C
+  FUN_0009e910 @ 0x0009E910
+  FUN_000a1e90 @ 0x000A1E90
+  FUN_000a1f70 @ 0x000A1F70
+  FUN_000a202c @ 0x000A202C
+  FUN_000a2110 @ 0x000A2110
+  FUN_000a351c @ 0x000A351C
+  FUN_000a3714 @ 0x000A3714
+  FUN_000a4aac @ 0x000A4AAC
+  FUN_000ae38c @ 0x000AE38C
+  FUN_000b34f4 @ 0x000B34F4
+  FUN_000b50d4 @ 0x000B50D4
+  FUN_000b76a4 @ 0x000B76A4
+  FUN_000b8e8c @ 0x000B8E8C
+  FUN_000b9714 @ 0x000B9714
+  FUN_000bfaac @ 0x000BFAAC
+  FUN_000bfb20 @ 0x000BFB20
+  FUN_000bff28 @ 0x000BFF28
+  FUN_000c09e0 @ 0x000C09E0
+  FUN_000c0e28 @ 0x000C0E28
+  FUN_000c1098 @ 0x000C1098
+  FUN_000c1354 @ 0x000C1354
+  FUN_000c16ac @ 0x000C16AC
+  FUN_000c1ac4 @ 0x000C1AC4
+  FUN_000c1e44 @ 0x000C1E44
+  FUN_000c202c @ 0x000C202C
+  FUN_000c2238 @ 0x000C2238
+  FUN_000c2520 @ 0x000C2520
+  FUN_000c2e08 @ 0x000C2E08
+  FUN_000c3834 @ 0x000C3834
+  FUN_000c3ec4 @ 0x000C3EC4
+  FUN_000c48ac @ 0x000C48AC
+  FUN_000c4c60 @ 0x000C4C60
+  FUN_000c6238 @ 0x000C6238
+  FUN_000c642c @ 0x000C642C
+  FUN_000c65a4 @ 0x000C65A4
+  FUN_000ca088 @ 0x000CA088
+  FUN_000ca1cc @ 0x000CA1CC
+  FUN_000cae0c @ 0x000CAE0C
+  FUN_000cb024 @ 0x000CB024
+  FUN_000cf35c @ 0x000CF35C
+  FUN_000d584c @ 0x000D584C
+  FUN_000d5fa0 @ 0x000D5FA0
+  FUN_000d6420 @ 0x000D6420
+  FUN_000d6abc @ 0x000D6ABC
+  FUN_000d83e0 @ 0x000D83E0
+  FUN_000d9940 @ 0x000D9940
+  FUN_000da57c @ 0x000DA57C
+  FUN_000ddbac @ 0x000DDBAC
+  FUN_000dddb8 @ 0x000DDDB8
+  FUN_000deb38 @ 0x000DEB38
+  FUN_000e35d8 @ 0x000E35D8
+  FUN_000e3fcc @ 0x000E3FCC
+  FUN_000e426c @ 0x000E426C
+  FUN_000e4814 @ 0x000E4814
+  FUN_000e50a0 @ 0x000E50A0
+  FUN_000e6154 @ 0x000E6154
+  FUN_000e65a0 @ 0x000E65A0
+
+==============================================================================
+SECTION 6 - Maps in 0x1D1600-0x1D1900 range
+==============================================================================
+
+If all EngPrt maps are in this range, the +0x10000 offset
+moves them cleanly to 0x1E1600-0x1E1900.
+
+  0x001D17FC  nx=2, ny=2  (possible map header)
+
+==============================================================================
+SECTION 7 - Toggle byte 0x7FEF8C references
+==============================================================================
+
+Confirming 0x7FEF8C is truly unused (safe for toggle).
+

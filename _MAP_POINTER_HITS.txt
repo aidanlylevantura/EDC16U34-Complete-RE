@@ -1,0 +1,50 @@
+==============================================================================
+MAP POINTER TABLE HUNT
+==============================================================================
+
+Loaded 482 maps
+
+
+Maps with any hits: 3 / 482 (0.6%)
+Total hit locations: 4
+
+==============================================================================
+Maps with pointer hits in CODE functions
+==============================================================================
+
+  ACCCD_FUN_000e95c8                       1 maps
+    ASDdc_NGvnrRstIPos4_MAP
+
+==============================================================================
+Sample: first 15 maps with hits in code
+==============================================================================
+
+  0x001C7F6C  ASDdc_NGvnrRstIPos4_MAP           -> hit at 0x000E975A  in ACCCD_FUN_000e95c8
+
+==============================================================================
+Maps with zero hits
+==============================================================================
+
+  Total: 479
+
+    0x001C1EA6  ACCCD_facEnv_MAP
+    0x001C2080  ACCCD_facKiCorr_MAP
+    0x001C20E4  ACCCD_facKpCorr_MAP
+    0x001C2166  ACCCD_IKiPos_MAP
+    0x001C2208  ACCCD_PKpPos_MAP
+    0x001C23A4  AccPed_trqEng0_MAP
+    0x001C24FA  AccPed_trqEng1_MAP
+    0x001C2650  AccPed_trqEng2_MAP
+    0x001C27A6  AccPed_trqEng3_MAP
+    0x001C28FC  AccPed_trqEng4_MAP
+    0x001C2A52  AccPed_trqEng5_MAP
+    0x001C2BA8  AccPed_trqEng6_MAP
+    0x001C2CFE  AccPed_trqEngLow_MAP
+    0x001C2E50  AccPed_trqPrpSport_MAP
+    0x001C2F3C  AccPed_trqPrp_MAP
+    0x001C3070  ACCtl_tiDAmax_MAP
+    0x001C30A4  ACCtl_tiDAmin_MAP
+    0x001C312A  ACTrqC_trqConvp_MAP
+    0x001C31BE  ACTrqC_trqConvt_MAP
+    0x001C3434  AFSCD_dmPlsCor_MAP
+    ... and 459 more

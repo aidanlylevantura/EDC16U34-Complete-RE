@@ -1,0 +1,16 @@
+Maps: 482
+
+Instructions scanned: 400998
+Functions with 'lis': 834
+
+==============================================================================
+MAP CONSUMERS (base+offset matched)
+==============================================================================
+
+Maps with consumers: 1 / 482 (0.2%)
+
+Top consumer functions by map count:
+  ASDdc_FUN_000e0b78                       @ 0x000E0B78  1 maps
+    SvLp_dSootLoad_MAP                       @ insn 0x000E0F60
+
+Wrote C:\Users\user\Documents\Complete ECU Disassembly\MAP_CONSUMERS_REAL.csv

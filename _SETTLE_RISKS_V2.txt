@@ -1,0 +1,767 @@
+==============================================================================
+SECTION 1 — SIGNAL DESCRIPTOR CANDIDATES (Item 1)
+==============================================================================
+
+Candidates from the start=16/len=1/msg=21 scan.
+For each: hex dump + 16-bit word interpretation + enclosing fn + xrefs.
+
+--- Candidate 0x0007C55E ---
+
+  Hex dump (64 bytes):
+  0x0007C55E  00 10 99 81 00 0F 3B 4C 00 00 48 00 00 0C 39 80  ......;L..H...9.
+  0x0007C56E  00 01 99 81 00 0F 89 9C 00 14 89 7C 00 15 55 8C  ...........|..U.
+  0x0007C57E  26 B6 55 6B 36 32 7D 8C 5B 78 61 8C 00 09 39 40  &.Uk62}.[xa...9@
+  0x0007C58E  00 08 99 81 00 11 99 41 00 10 38 6D B5 7E 38 81  .......A..8m.~8.
+
+  16-bit words (BE):
+    [+0x00] 0x0010  <-- START bit 16
+    [+0x04] 0x9981
+    [+0x08] 0x000F
+    [+0x0C] 0x3B4C
+    [+0x10] 0x0000
+    [+0x14] 0x4800
+    [+0x18] 0x000C
+    [+0x1C] 0x3980
+    [+0x20] 0x0001  <-- LEN 1
+    [+0x24] 0x9981
+    [+0x28] 0x000F
+    [+0x2C] 0x899C
+    [+0x30] 0x0014
+    [+0x34] 0x897C
+    [+0x38] 0x0015  <-- MSG 21
+    [+0x3C] 0x558C
+
+  Enclosing function: AirCtl_FUN_0007c108 @ 0x0007C108
+
+  Xrefs: (none — accessed via base+offset)
+
+--- Candidate 0x000BA8F2 ---
+
+  Hex dump (64 bytes):
+  0x000BA8F2  00 10 89 81 00 15 55 8C E7 3F 41 82 00 50 88 01  ......U..?A..P..
+  0x000BA902  00 14 3B C0 00 01 53 C0 36 72 98 01 00 14 88 01  ..;...S.6r......
+  0x000BA912  00 15 54 AB FF FF 53 C0 0F BC 98 01 00 15 41 82  ..T...S.......A.
+  0x000BA922  00 2C 57 EC FF FF 41 82 00 0C 3B C0 00 02 48 00  .,W...A...;...H.
+
+  16-bit words (BE):
+    [+0x00] 0x0010  <-- START bit 16
+    [+0x04] 0x8981
+    [+0x08] 0x0015  <-- MSG 21
+    [+0x0C] 0x558C
+    [+0x10] 0xE73F
+    [+0x14] 0x4182
+    [+0x18] 0x0050
+    [+0x1C] 0x8801
+    [+0x20] 0x0014
+    [+0x24] 0x3BC0
+    [+0x28] 0x0001  <-- LEN 1
+    [+0x2C] 0x53C0
+    [+0x30] 0x3672
+    [+0x34] 0x9801
+    [+0x38] 0x0014
+    [+0x3C] 0x8801
+
+  Enclosing function: State_func_0ba50c @ 0x000BA50C
+
+  Xrefs: (none — accessed via base+offset)
+
+--- Candidate 0x000D495A ---
+
+  Hex dump (64 bytes):
+  0x000D495A  00 10 39 40 01 1F 39 20 00 01 61 8C 86 A0 3B FE  ..9@..9 ..a...;.
+  0x000D496A  00 7A 9B 41 00 14 99 61 00 15 B1 41 00 18 99 21  .z.A...a...A...!
+  0x000D497A  00 1A 91 81 00 1C 39 7A 00 00 B3 41 00 20 38 61  ......9z...A. 8a
+  0x000D498A  00 14 38 8D C8 CC 38 DE 00 7E 39 3E 00 C2 39 5E  ..8...8..~9>..9^
+
+  16-bit words (BE):
+    [+0x00] 0x0010  <-- START bit 16
+    [+0x04] 0x3940
+    [+0x08] 0x011F
+    [+0x0C] 0x3920
+    [+0x10] 0x0001  <-- LEN 1
+    [+0x14] 0x618C
+    [+0x18] 0x86A0
+    [+0x1C] 0x3BFE
+    [+0x20] 0x007A
+    [+0x24] 0x9B41
+    [+0x28] 0x0014
+    [+0x2C] 0x9961
+    [+0x30] 0x0015  <-- MSG 21
+    [+0x34] 0xB141
+    [+0x38] 0x0018
+    [+0x3C] 0x9921
+
+  Enclosing function: ACCCD_FUN_000d4800 @ 0x000D4800
+
+  Xrefs: (none — accessed via base+offset)
+
+--- Candidate 0x000EC552 ---
+
+  Hex dump (64 bytes):
+  0x000EC552  00 10 B1 2D 9C 74 88 01 00 14 3B E0 00 01 53 E0  ...-.t....;...S.
+  0x000EC562  36 72 98 01 00 14 88 01 00 15 53 E0 0F BC 98 01  6r........S.....
+  0x000EC572  00 15 48 00 01 DC 8B ED D2 68 2C 1F 00 00 41 82  ..H......h,...A.
+  0x000EC582  00 30 89 8D D2 5F 2C 0C 00 00 41 82 00 1C 39 80  .0..._,...A...9.
+
+  16-bit words (BE):
+    [+0x00] 0x0010  <-- START bit 16
+    [+0x04] 0xB12D
+    [+0x08] 0x9C74
+    [+0x0C] 0x8801
+    [+0x10] 0x0014
+    [+0x14] 0x3BE0
+    [+0x18] 0x0001  <-- LEN 1
+    [+0x1C] 0x53E0
+    [+0x20] 0x3672
+    [+0x24] 0x9801
+    [+0x28] 0x0014
+    [+0x2C] 0x8801
+    [+0x30] 0x0015  <-- MSG 21
+    [+0x34] 0x53E0
+    [+0x38] 0x0FBC
+    [+0x3C] 0x9801
+
+  Enclosing function: ACCCD_FUN_000eb990 @ 0x000EB990
+
+  Xrefs: (none — accessed via base+offset)
+
+--- Candidate 0x0010F8A6 ---
+
+  Hex dump (64 bytes):
+  0x0010F8A6  00 10 48 00 00 18 38 E0 00 01 48 00 00 08 38 E0  ..H...8...H...8.
+  0x0010F8B6  00 00 38 67 00 00 48 00 00 15 80 01 00 0C 7C 08  ..8g..H.......|.
+  0x0010F8C6  03 A6 38 21 00 08 4E 80 00 20 2C 03 00 00 41 82  ..8!..N.. ,...A.
+  0x0010F8D6  00 0C 38 60 00 05 48 00 00 08 38 60 00 04 98 6D  ..8`..H...8`...m
+
+  16-bit words (BE):
+    [+0x00] 0x0010  <-- START bit 16
+    [+0x04] 0x4800
+    [+0x08] 0x0018
+    [+0x0C] 0x38E0
+    [+0x10] 0x0001  <-- LEN 1
+    [+0x14] 0x4800
+    [+0x18] 0x0008
+    [+0x1C] 0x38E0
+    [+0x20] 0x0000
+    [+0x24] 0x3867
+    [+0x28] 0x0000
+    [+0x2C] 0x4800
+    [+0x30] 0x0015  <-- MSG 21
+    [+0x34] 0x8001
+    [+0x38] 0x000C
+    [+0x3C] 0x7C08
+
+  Enclosing function: Ramp_auto_10f478 @ 0x0010F478
+
+  Xrefs: (none — accessed via base+offset)
+
+==============================================================================
+SECTION 2 — CAN TABLE BASE REGISTER SCAN (Item 1)
+==============================================================================
+
+CAN table base computed from entry 21:
+  0x4159C - 21*0x14 = 0x413F8
+
+Searching for lis rX, 0x0004 + addi/ori rX, rX, 0x13F8
+              or lis rX, 0x0004 + addi/ori rX, rX, 0x159C
+
+Functions with 'lis rX, 0x0004': 14
+
+--- Functions matching CAN table base or entry 21 ---
+  (no direct matches)
+
+==============================================================================
+SECTION 3 — INTEGRITY TABLE BASE REGISTER SCAN (Item 2)
+==============================================================================
+
+Integrity table at 0x49420.
+Searching for lis rX, 0x0004 + addi/ori rX, rX, 0x9420
+
+  (no direct matches — integrity table accessed via pointer load or alias)
+
+==============================================================================
+SECTION 4 — OUTER SUM-CHECK WRAPPER (Item 3)
+==============================================================================
+
+Region 0x4D200-0x4D520 — the function(s) that own the flag initialization
+(0x4D34C/0x4D360 in the (no fn) region) and call func_04d520.
+
+Functions starting in 0x4D200-0x4D520: 5
+  helper_func_04d284 @ 0x0004D284  size=16
+  func_04d38c @ 0x0004D38C  size=116
+  func_04d400 @ 0x0004D400  size=80
+  func_04d4a0 @ 0x0004D4A0  size=72
+  func_04d4e8 @ 0x0004D4E8  size=56
+
+--- Disassembly 0x4D200-0x4D520 ---
+
+  0x0004D200  (data)
+  0x0004D204  (data)
+  0x0004D208  (data)
+  0x0004D20C  (data)
+  0x0004D210  (data)
+  0x0004D214  (data)
+  0x0004D218  (data)
+  0x0004D21C  (data)
+  0x0004D220  (data)
+  0x0004D224  (data)
+  0x0004D228  (data)
+  0x0004D22C  (data)
+  0x0004D230  (data)
+  0x0004D234  (data)
+  0x0004D238  (data)
+  0x0004D23C  (data)
+  0x0004D240  fnmadd. f31,f31,f31,f31          [?]
+  0x0004D244  (data)
+  0x0004D248  (data)
+  0x0004D24C  (data)
+  0x0004D250  (data)
+  0x0004D254  (data)
+  0x0004D258  (data)
+  0x0004D25C  (data)
+  0x0004D260  (data)
+  0x0004D264  (data)
+  0x0004D268  (data)
+  0x0004D26C  (data)
+  0x0004D270  (data)
+  0x0004D274  (data)
+  0x0004D278  rlwimi r0,r3,0x0,0x0,0x0         [?]
+  0x0004D27C  (data)
+  0x0004D280  (data)
+  0x0004D284  addi r5,r15,0x0                  [helper_func_04d284]
+  0x0004D288  lwz r6,0x4e0c(r14)               [helper_func_04d284]
+  0x0004D28C  lwz r7,0x4e08(r14)               [helper_func_04d284]
+  0x0004D290  b 0x000fcd90                     [helper_func_04d284]
+  0x0004D294  (data)
+  0x0004D298  (data)
+  0x0004D29C  (data)
+  0x0004D2A0  (data)
+  0x0004D2A4  (data)
+  0x0004D2A8  (data)
+  0x0004D2AC  (data)
+  0x0004D2B0  (data)
+  0x0004D2B4  (data)
+  0x0004D2B8  (data)
+  0x0004D2BC  (data)
+  0x0004D2C0  (data)
+  0x0004D2C4  lwz r5,-0x2d68(r5)               [?]
+  0x0004D2C8  lis r11,0x80                     [?]
+  0x0004D2CC  stw r5,-0x5768(r11)              [?]
+  0x0004D2D0  nor r10,r5,r5                    [?]
+  0x0004D2D4  lis r5,0x5                       [?]
+  0x0004D2D8  stw r10,-0x297c(r13)             [?]
+  0x0004D2DC  subi r5,r5,0x2d60                [?]
+  0x0004D2E0  lis r12,0x80                     [?]
+  0x0004D2E4  stw r5,-0x575c(r12)              [?]
+  0x0004D2E8  nor r11,r5,r5                    [?]
+  0x0004D2EC  stw r11,-0x2970(r13)             [?]
+  0x0004D2F0  lwz r3,0x0(r5)                   [?]
+  0x0004D2F4  lis r9,0x80                      [?]
+  0x0004D2F8  stw r3,-0x5760(r9)               [?]
+  0x0004D2FC  nor r12,r3,r3                    [?]
+  0x0004D300  stw r12,-0x2974(r13)             [?]
+  0x0004D304  lwz r4,0x8(r5)                   [?]
+  0x0004D308  lis r10,0x80                     [?]
+  0x0004D30C  stw r4,-0x5764(r10)              [?]
+  0x0004D310  nor r9,r4,r4                     [?]
+  0x0004D314  lis r4,0x80                      [?]
+  0x0004D318  stw r9,-0x2978(r13)              [?]
+  0x0004D31C  subi r4,r4,0x5758                [?]
+  0x0004D320  li r11,0x0                       [?]
+  0x0004D324  stw r11,0x0(r4)                  [?]
+  0x0004D328  lwz r10,0x0(r4)                  [?]
+  0x0004D32C  lis r12,0x80                     [?]
+  0x0004D330  nor r10,r10,r10                  [?]
+  0x0004D334  stw r10,-0x296c(r13)             [?]
+  0x0004D338  stw r3,-0x5754(r12)              [?]
+  0x0004D33C  nor r11,r3,r3                    [?]
+  0x0004D340  stw r11,-0x2968(r13)             [?]
+  0x0004D344  lwz r5,0x4(r5)                   [?]
+  0x0004D348  lis r10,0x80                     [?]
+  0x0004D34C  stw r5,-0x5750(r10)              [?]
+  0x0004D350  nor r12,r5,r5                    [?]
+  0x0004D354  stw r12,-0x2964(r13)             [?]
+  0x0004D358  li r5,0x0                        [?]
+  0x0004D35C  lis r9,0x80                      [?]
+  0x0004D360  stb r5,-0x574c(r9)               [?]
+  0x0004D364  lis r10,0x80                     [?]
+  0x0004D368  stb r5,-0x576c(r10)              [?]
+  0x0004D36C  lis r12,0x80                     [?]
+  0x0004D370  stb r5,-0x576b(r12)              [?]
+  0x0004D374  li r5,0x99                       [?]
+  0x0004D378  lis r9,0x80                      [?]
+  0x0004D37C  lis r10,0x80                     [?]
+  0x0004D380  stb r5,-0x574b(r9)               [?]
+  0x0004D384  stb r5,-0x574a(r10)              [?]
+  0x0004D388  blr                              [?]
+  0x0004D38C  cmplw r3,r4                      [func_04d38c]
+  0x0004D390  ble 0x0004d398                   [func_04d38c]
+  0x0004D394  addi r3,r4,0x0                   [func_04d38c]
+  0x0004D398  cmplw r3,r4                      [func_04d38c]
+  0x0004D39C  addi r7,r3,0x0                   [func_04d38c]
+  0x0004D3A0  bge 0x0004d3f8                   [func_04d38c]
+  0x0004D3A4  lis r5,0x4                       [func_04d38c]
+  0x0004D3A8  addi r5,r5,0x1bac                [func_04d38c]
+  0x0004D3AC  lwz r3,0x0(r5)                   [func_04d38c]
+  0x0004D3B0  lwz r6,0x0(r7)                   [func_04d38c]
+  0x0004D3B4  stw r3,0x0(r7)                   [func_04d38c]
+  0x0004D3B8  lwz r10,0x0(r7)                  [func_04d38c]
+  0x0004D3BC  cmplw r10,r3                     [func_04d38c]
+  0x0004D3C0  beq 0x0004d3cc                   [func_04d38c]
+  0x0004D3C4  addi r3,r7,0x0                   [func_04d38c]
+  0x0004D3C8  blr                              [func_04d38c]
+  0x0004D3CC  lwz r3,0x4(r5)                   [func_04d38c]
+  0x0004D3D0  stw r3,0x0(r7)                   [func_04d38c]
+  0x0004D3D4  lwz r11,0x0(r7)                  [func_04d38c]
+  0x0004D3D8  cmplw r11,r3                     [func_04d38c]
+  0x0004D3DC  beq 0x0004d3e8                   [func_04d38c]
+  0x0004D3E0  addi r3,r7,0x0                   [func_04d38c]
+  0x0004D3E4  blr                              [func_04d38c]
+  0x0004D3E8  stw r6,0x0(r7)                   [func_04d38c]
+  0x0004D3EC  addi r7,r7,0x4                   [func_04d38c]
+  0x0004D3F0  cmplw r7,r4                      [func_04d38c]
+  0x0004D3F4  blt 0x0004d3ac                   [func_04d38c]
+  0x0004D3F8  li r3,0x0                        [func_04d38c]
+  0x0004D3FC  blr                              [func_04d38c]
+  0x0004D400  lbz r5,0x0(r3)                   [func_04d400]
+  0x0004D404  lis r4,0x4                       [func_04d400]
+  0x0004D408  addi r4,r4,0x1bac                [func_04d400]
+  0x0004D40C  lwz r6,0x0(r4)                   [func_04d400]
+  0x0004D410  stb r6,0x0(r3)                   [func_04d400]
+  0x0004D414  lbz r9,0x0(r3)                   [func_04d400]
+  0x0004D418  rlwinm r12,r6,0x0,0x18,0x1f      [func_04d400]
+  0x0004D41C  cmpw r9,r12                      [func_04d400]
+  0x0004D420  beq 0x0004d428                   [func_04d400]
+  0x0004D424  blr                              [func_04d400]
+  0x0004D428  lwz r6,0x4(r4)                   [func_04d400]
+  0x0004D42C  stb r6,0x0(r3)                   [func_04d400]
+  0x0004D430  lbz r11,0x0(r3)                  [func_04d400]
+  0x0004D434  rlwinm r10,r6,0x0,0x18,0x1f      [func_04d400]
+  0x0004D438  cmpw r11,r10                     [func_04d400]
+  0x0004D43C  beq 0x0004d444                   [func_04d400]
+  0x0004D440  blr                              [func_04d400]
+  0x0004D444  stb r5,0x0(r3)                   [func_04d400]
+  0x0004D448  li r3,0x0                        [func_04d400]
+  0x0004D44C  blr                              [func_04d400]
+  0x0004D450  lhz r5,0x0(r3)                   [?]
+  0x0004D454  lis r4,0x4                       [?]
+  0x0004D458  addi r4,r4,0x1bac                [?]
+  0x0004D45C  lwz r6,0x0(r4)                   [?]
+  0x0004D460  sth r6,0x0(r3)                   [?]
+  0x0004D464  lhz r9,0x0(r3)                   [?]
+  0x0004D468  rlwinm r12,r6,0x0,0x10,0x1f      [?]
+  0x0004D46C  cmpw r9,r12                      [?]
+  0x0004D470  beq 0x0004d478                   [?]
+  0x0004D474  blr                              [?]
+  0x0004D478  lwz r6,0x4(r4)                   [?]
+  0x0004D47C  sth r6,0x0(r3)                   [?]
+  0x0004D480  lhz r11,0x0(r3)                  [?]
+  0x0004D484  rlwinm r10,r6,0x0,0x10,0x1f      [?]
+  0x0004D488  cmpw r11,r10                     [?]
+  0x0004D48C  beq 0x0004d494                   [?]
+  0x0004D490  blr                              [?]
+  0x0004D494  sth r5,0x0(r3)                   [?]
+  0x0004D498  li r3,0x0                        [?]
+  0x0004D49C  blr                              [?]
+  0x0004D4A0  lwz r5,0x0(r3)                   [func_04d4a0]
+  0x0004D4A4  lis r4,0x4                       [func_04d4a0]
+  0x0004D4A8  addi r4,r4,0x1bac                [func_04d4a0]
+  0x0004D4AC  lwz r6,0x0(r4)                   [func_04d4a0]
+  0x0004D4B0  stw r6,0x0(r3)                   [func_04d4a0]
+  0x0004D4B4  lwz r9,0x0(r3)                   [func_04d4a0]
+  0x0004D4B8  cmplw r9,r6                      [func_04d4a0]
+  0x0004D4BC  beq 0x0004d4c4                   [func_04d4a0]
+  0x0004D4C0  blr                              [func_04d4a0]
+  0x0004D4C4  lwz r6,0x4(r4)                   [func_04d4a0]
+  0x0004D4C8  stw r6,0x0(r3)                   [func_04d4a0]
+  0x0004D4CC  lwz r11,0x0(r3)                  [func_04d4a0]
+  0x0004D4D0  cmplw r11,r6                     [func_04d4a0]
+  0x0004D4D4  beq 0x0004d4dc                   [func_04d4a0]
+  0x0004D4D8  blr                              [func_04d4a0]
+  0x0004D4DC  stw r5,0x0(r3)                   [func_04d4a0]
+  0x0004D4E0  li r3,0x0                        [func_04d4a0]
+  0x0004D4E4  blr                              [func_04d4a0]
+  0x0004D4E8  cmplw r3,r4                      [func_04d4e8]
+  0x0004D4EC  ble 0x0004d4f4                   [func_04d4e8]
+  0x0004D4F0  addi r3,r4,0x0                   [func_04d4e8]
+  0x0004D4F4  cmplw r3,r4                      [func_04d4e8]
+  0x0004D4F8  addi r6,r3,0x0                   [func_04d4e8]
+  0x0004D4FC  li r5,0x0                        [func_04d4e8]
+  0x0004D500  bge 0x0004d518                   [func_04d4e8]
+  0x0004D504  lwz r12,0x0(r6)                  [func_04d4e8]
+  0x0004D508  addi r6,r6,0x4                   [func_04d4e8]
+  0x0004D50C  cmplw r6,r4                      [func_04d4e8]
+  0x0004D510  add r5,r5,r12                    [func_04d4e8]
+  0x0004D514  blt 0x0004d504                   [func_04d4e8]
+  0x0004D518  addi r3,r5,0x0                   [func_04d4e8]
+  0x0004D51C  blr                              [func_04d4e8]
+
+--- Decompiled functions in 0x4D200-0x4D520 ---
+
+=== helper_func_04d284 @ 0x0004D284 ===
+  
+  void helper_func_04d284(undefined4 param_1,undefined4 param_2)
+  
+  {
+    int unaff_r14;
+    undefined4 unaff_r15;
+    
+    ACCCD_func_0fcd90(param_1,param_2,unaff_r15,*(undefined4 *)(unaff_r14 + 0x4e0c),
+                      *(undefined4 *)(unaff_r14 + 0x4e08));
+    return;
+  }
+  
+  
+
+=== func_04d38c @ 0x0004D38C ===
+  
+  /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+  
+  int * func_04d38c(int *param_1,int *param_2)
+  
+  {
+    int iVar1;
+    int iVar2;
+    int iVar3;
+    
+    iVar1 = _LAB_00041bac;
+    if (param_2 < param_1) {
+      param_1 = param_2;
+    }
+    while( true ) {
+      if (param_2 <= param_1) {
+        _LAB_00041bac = iVar1;
+        return (int *)0x0;
+      }
+      iVar3 = *param_1;
+      _LAB_00041bac = iVar1;
+      *param_1 = iVar1;
+      iVar2 = _LAB_00041bb0;
+      if (*param_1 != iVar1) break;
+      *param_1 = _LAB_00041bb0;
+      if (*param_1 != iVar2) {
+        return param_1;
+      }
+      *param_1 = iVar3;
+      param_1 = param_1 + 1;
+      iVar1 = _LAB_00041bac;
+    }
+    return param_1;
+  }
+  
+  
+
+=== func_04d400 @ 0x0004D400 ===
+  
+  /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+  
+  byte * func_04d400(byte *param_1)
+  
+  {
+    byte bVar1;
+    uint uVar2;
+    uint uVar3;
+    
+    uVar2 = _LAB_00041bac;
+    bVar1 = *param_1;
+    *param_1 = (byte)_LAB_00041bac;
+    uVar3 = _LAB_00041bb0;
+    if ((uint)*param_1 != (uVar2 & 0xff)) {
+      return param_1;
+    }
+    *param_1 = (byte)_LAB_00041bb0;
+    if ((uint)*param_1 != (uVar3 & 0xff)) {
+      return param_1;
+    }
+    *param_1 = bVar1;
+    return (byte *)0x0;
+  }
+  
+  
+
+=== func_04d4a0 @ 0x0004D4A0 ===
+  
+  /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+  
+  int * func_04d4a0(int *param_1)
+  
+  {
+    int iVar1;
+    int iVar2;
+    int iVar3;
+    
+    iVar1 = _LAB_00041bac;
+    iVar3 = *param_1;
+    *param_1 = _LAB_00041bac;
+    iVar2 = _LAB_00041bb0;
+    if (*param_1 != iVar1) {
+      return param_1;
+    }
+    *param_1 = _LAB_00041bb0;
+    if (*param_1 != iVar2) {
+      return param_1;
+    }
+    *param_1 = iVar3;
+    return (int *)0x0;
+  }
+  
+  
+
+=== func_04d4e8 @ 0x0004D4E8 ===
+  
+  int func_04d4e8(int *param_1,int *param_2)
+  
+  {
+    int iVar1;
+    
+    if (param_2 < param_1) {
+      param_1 = param_2;
+    }
+    iVar1 = 0;
+    for (; param_1 < param_2; param_1 = param_1 + 1) {
+      iVar1 = iVar1 + *param_1;
+    }
+    return iVar1;
+  }
+  
+  
+
+==============================================================================
+SECTION 5 — DSM_FUN_000006a0 BOOT — CONDITIONAL RAM CLEAR (Item 4)
+==============================================================================
+
+Checking for conditional branches around any RAM-clear loop.
+If RAM is always cleared (no warm-start skip), no conditional exists.
+
+Function: DSM_FUN_000006a0 @ 0x000006A0  size=1428 bytes
+
+--- Conditional branches in function ---
+Total conditional branches: 24
+  0x000006D4  beq 0x00000734                   -> 0x00000734
+  0x00000744  bne 0x00000764                   -> 0x00000764
+  0x0000076C  bne 0x00000784                   -> 0x00000784
+  0x000007BC  bne 0x000007c8                   -> 0x000007C8
+  0x00000810  bne 0x0000082c                   -> 0x0000082C
+  0x00000820  beq 0x0000082c                   -> 0x0000082C
+  0x00000888  beq 0x000008d4                   -> 0x000008D4
+  0x000008B4  bne 0x0000089c                   -> 0x0000089C
+  0x000008C0  bne 0x00000898                   -> 0x00000898
+  0x00000908  bne 0x0000092c                   -> 0x0000092C
+  0x00000914  beq 0x00000920                   -> 0x00000920
+  0x00000928  beq 0x0000090c                   -> 0x0000090C
+  0x00000934  beq 0x00000a50                   -> 0x00000A50
+  0x00000974  bne 0x0000095c                   -> 0x0000095C
+  0x00000998  blt 0x00000980                   -> 0x00000980
+  0x000009C8  bne 0x000009b0                   -> 0x000009B0
+  0x000009EC  blt 0x000009d4                   -> 0x000009D4
+  0x00000A18  bne 0x00000a00                   -> 0x00000A00
+  0x00000A2C  bge 0x00000a74                   -> 0x00000A74
+  0x00000A48  blt 0x00000a30                   -> 0x00000A30
+  0x00000A70  blt 0x00000a58                   -> 0x00000A58
+  0x00000AC8  bne 0x00000ac0                   -> 0x00000AC0
+  0x00000B0C  blt 0x00000b24                   -> 0x00000B24
+  0x00000BC4  beq 0x00000bcc                   -> 0x00000BCC
+
+--- Full decompiled ---
+  
+  /* WARNING: Removing unreachable block (ram,0x0000088c) */
+  /* WARNING: Removing unreachable block (ram,0x00000898) */
+  /* WARNING: Removing unreachable block (ram,0x0000089c) */
+  /* WARNING: Removing unreachable block (ram,0x000008b8) */
+  /* WARNING: Removing unreachable block (ram,0x000008c4) */
+  /* WARNING: Removing unreachable block (ram,0x000008d0) */
+  /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+  
+  void DSM_FUN_000006a0(void)
+  
+  {
+    code *pcVar1;
+    int iVar2;
+    uint uVar3;
+    undefined4 in_LR;
+    uint in_SPRG1;
+    uint in_IMMR;
+    uint local_18;
+    
+    instructionSynchronize();
+    if ((in_IMMR & 0xff000000) == 0x35000000) {
+      if (-1 < _DAT_006fc010) {
+        _DAT_006fc100 = 0x103;
+        instructionSynchronize();
+        _DAT_006fc104 = 0xff800040;
+        instructionSynchronize();
+      }
+      if ((in_IMMR & 0xff0000) == 0) {
+        _DAT_00780000 = _DAT_00780000 | 0x20000000;
+      }
+      _DAT_006fc038 = 0x8000007c;
+      _DAT_006fc03c = 0xa200;
+      _DAT_007fd808 = TBLr;
+      DAT_007fd80c = (_DAT_006fc284 & 0xfff00000) == 0;
+      _DAT_0070501a = _DAT_0070501a & 0x7fff;
+      _DAT_007fd804 = in_LR;
+      DSM_helper_auto_001334(&DAT_00704000);
+      DSM_helper_auto_001334(&DAT_00704400);
+      _DAT_00700004 = 0xffa0;
+      if (((in_SPRG1 & 0xffff) == 10) &&
+         (pcVar1 = (code *)Debounce_auto_000650(4), pcVar1 != (code *)0x0)) {
+        (*pcVar1)();
+      }
+      DSM_helper_auto_001298();
+      _DAT_006fc140 = 0x80000;
+      _DAT_006fc144 = 0x80000;
+      _DAT_006fc300 = 0x55ccaa33;
+      _DAT_006fc380 = 0x55ccaa33;
+      _DAT_006fc384 = 0x55ccaa33;
+      _DAT_006fc388 = 0x55ccaa33;
+      _DAT_006fc30c = 0x55ccaa33;
+      _DAT_006fc280 = 0x82200600;
+      DSM_helper_auto_001298(7);
+      _DAT_006fc02c = _DAT_006fc02c & 0x7fffffff;
+      _DAT_006fc000 = _DAT_006fc000 & 0xfffff3ff | 0x800;
+      pcVar1 = (code *)Debounce_auto_000650(6);
+      while ((_DAT_006fc028 & 0x80000000) == 0) {
+        DSM_helper_auto_001298();
+        if (pcVar1 != (code *)0x0) {
+          (*pcVar1)();
+        }
+      }
+      if (DAT_007fd80c == '\0') {
+        for (uVar3 = 0; uVar3 < 0xe; uVar3 = uVar3 + 1) {
+          Debounce_Def_00000624();
+        }
+      }
+      else {
+        _DAT_006fc280 = _DAT_006fc280 & 0xfffffff8 | 2;
+        Debounce_Def_00000624();
+        _DAT_006fc284 = 0xd04084;
+        do {
+          _DAT_006fc284 = _DAT_006fc284 | 0x28000;
+          Debounce_Def_00000624();
+        } while ((_DAT_006fc284 >> 0xf & 1) != 0);
+        for (uVar3 = 0; uVar3 < 3; uVar3 = uVar3 + 1) {
+          Debounce_Def_00000624();
+        }
+        _DAT_006fc280 = _DAT_006fc280 & 0xfffffff8 | 1;
+        do {
+          _DAT_006fc284 = _DAT_006fc284 | 0x28000;
+          Debounce_Def_00000624();
+        } while ((_DAT_006fc284 >> 0xf & 1) != 0);
+        for (uVar3 = 0; uVar3 < 6; uVar3 = uVar3 + 1) {
+          Debounce_Def_00000624();
+        }
+        _DAT_006fc280 = _DAT_006fc280 & 0xfffffff8;
+        do {
+          _DAT_006fc284 = _DAT_006fc284 | 0x28000;
+          Debounce_Def_00000624();
+        } while ((_DAT_006fc284 >> 0xf & 1) != 0);
+        local_18 = 0;
+        do {
+          Debounce_Def_00000624();
+          local_18 = local_18 + 1;
+        } while (local_18 < 6);
+      }
+      _DAT_006fc280 = _DAT_006fc280 | 0x8000000;
+      instructionSynchronize();
+      iVar2 = 0;
+      do {
+        iVar2 = iVar2 + 1;
+      } while (iVar2 != 0x34);
+      _DAT_006fc02c = (_DAT_006fc02c | 0xc0000000) & 0xbfffffff;
+      _DAT_006fc028 = _DAT_006fc028 & 0x3fffffff | 0x80000000;
+      Debounce_Def_00000624();
+      _DAT_006fc02c = _DAT_006fc02c & 0x3fffffff;
+      _DAT_006fc018 = 0x80000000;
+      if (0x1fffff < (in_IMMR & 0xff0000)) {
+        instructionSynchronize();
+        instructionSynchronize();
+      }
+      _DAT_006fc200 = 3;
+      _DAT_006fc000 = 0x20c08;
+      DSM_helper_auto_001298(0xffffffff);
+      DSM_helper_auto_000f68();
+      _DAT_00707f80 = 0;
+      iVar2 = DSM_helper_auto_000ce8(0x80000c00,0xc00);
+      if (iVar2 != 0x1a) {
+        DSM_helper_auto_000c34();
+      }
+      TBLw = 0;
+      TBUw = 0;
+      DSM_helper_auto_001298(0);
+      _DAT_006fc284 = _DAT_006fc284 | 0x28000;
+      DSM_helper_auto_001298();
+      Debounce_Def_000054f4(0x40);
+      DSM_helper_auto_001298();
+      thunk_func_021744();
+      _DAT_007fefd0 = 0;
+      DSM_helper_auto_000e38(0x1d);
+      return;
+    }
+    iVar2 = (in_IMMR >> 1 & 7) * 0x400000;
+    *(uint *)(&DAT_002fc284 + iVar2) = *(uint *)(&DAT_002fc284 + iVar2) | 0x80;
+    *(undefined2 *)(&DAT_00304002 + iVar2) = 0x55;
+    do {
+                      /* WARNING: Do nothing block with infinite loop */
+    } while( true );
+  }
+  
+  
+
+==============================================================================
+SECTION 6 — TASK TABLE ENTRY FOR FUN_0009AFDC (Item 8)
+==============================================================================
+
+Task table @ 0x43B24. Dumping 32 entries as 4-byte words.
+Looking for FUN_0009AFDC (0x9AFDC).
+
+--- Task table @ 0x43B24 (32 x 4-byte words) ---
+  [ 0] 0x00043B24 = 0x000DF874
+  [ 1] 0x00043B28 = 0x000C94E4
+  [ 2] 0x00043B2C = 0x00056180
+  [ 3] 0x00043B30 = 0x00056B00
+  [ 4] 0x00043B34 = 0x00056E14
+  [ 5] 0x00043B38 = 0x000577B8
+  [ 6] 0x00043B3C = 0x00054804
+  [ 7] 0x00043B40 = 0x000849D0
+  [ 8] 0x00043B44 = 0x000DF0B8
+  [ 9] 0x00043B48 = 0x0007D92C
+  [10] 0x00043B4C = 0x0007E198
+  [11] 0x00043B50 = 0x0007DEEC
+  [12] 0x00043B54 = 0x000DEB38
+  [13] 0x00043B58 = 0x000B3A2C
+  [14] 0x00043B5C = 0x0007D24C
+  [15] 0x00043B60 = 0x0007BC98
+  [16] 0x00043B64 = 0x00078104
+  [17] 0x00043B68 = 0x0007B0C8
+  [18] 0x00043B6C = 0x0007874C
+  [19] 0x00043B70 = 0x000CB024
+  [20] 0x00043B74 = 0x0006931C
+  [21] 0x00043B78 = 0x00079434
+  [22] 0x00043B7C = 0x00078B8C
+  [23] 0x00043B80 = 0x000D584C
+  [24] 0x00043B84 = 0x000D6420
+  [25] 0x00043B88 = 0x000D5FA0
+  [26] 0x00043B8C = 0x000D6ABC
+  [27] 0x00043B90 = 0x000D7DDC
+  [28] 0x00043B94 = 0x000C03C0
+  [29] 0x00043B98 = 0x000C0228
+  [30] 0x00043B9C = 0x0005E6A4
+  [31] 0x00043BA0 = 0x0005DA3C
+
+FUN_0009AFDC NOT in 0x43B24 task table as 4-byte entry.
+Try checking 8-byte or 12-byte structures in Section 6 follow-up.
+
+==============================================================================
+SECTION 7 — WHAT CONSUMES func_04d520 RETURN VALUE (Item 3, DTC)
+==============================================================================
+
+Callers of func_04d520 — these read the check result and decide DTC/limp.
+
+Callers of func_04d520: 1
+  func_0523a4 @ 0x000523A4
+    --- context ---
+    State_Init_0009c6bc(0xd,0xe);
+    DAT_007fa7ec = func_04d520();
+    if ((DAT_007fa7ec & 0x40) == 0x40) {
+    DAT_007fa7e6 = DAT_007fa7e6 | 1;
+    DAT_007fc80d = 0xaa;

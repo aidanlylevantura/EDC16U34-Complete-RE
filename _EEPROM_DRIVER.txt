@@ -1,0 +1,1045 @@
+==============================================================================
+SECTION 1: MPC561/563 QSPI + SIU_GPIO access scan (WHOLE binary)
+==============================================================================
+
+Correct map for MPC561/563 (IMMR=0x006FC000):
+  QSMCM base:     0x6FC300-0x6FC33F
+  QSPI_SPCR:      0x6FC380
+  QSPI_SPSR:      0x6FC384
+  QSPI_DATA:      0x6FC388
+  QSPI_regs:      0x6FC38C-0x6FC3BF
+  SIU_GPDO:       0x6FC100
+  SIU_GPDI:       0x6FC104
+
+--- QSPI register accesses (function -> sites) ---
+  >>> NO LITERAL 0x6FC3xx accesses found in either bootblock or app flash <<<
+  >>> QSPI driver, if it exists, uses IMMR-relative addressing.
+
+--- SIU_GPDO/GPDI register accesses (bit-bang signature) ---
+  (none)
+
+==============================================================================
+SECTION 2: FUN_000212d8 @ 0x212D8 — prime bit-bang candidate
+==============================================================================
+
+--- State_auto_0212d8 @ 0x000212D8  size=308 bytes ---
+
+Disassembly:
+  0x000212D8  stwu r1,-0x10(r1)                
+  0x000212DC  mfspr r0,LR                      
+  0x000212E0  stw r31,0xc(r1)                  
+  0x000212E4  stw r0,0x14(r1)                  
+  0x000212E8  bl 0x000219a4                    -> 000219a4
+  0x000212EC  lis r31,0x70                     
+  0x000212F0  subi r31,r31,0x4000              
+  0x000212F4  lwz r11,0x0(r31)                 
+  0x000212F8  lwz r10,-0x732c(r14)             
+  0x000212FC  rlwinm r3,r11,0x0,0x16,0x13      
+  0x00021300  or r10,r3,r10                    
+  0x00021304  stw r10,0x0(r31)                 
+  0x00021308  lhz r12,0x3c(r31)                
+  0x0002130C  lhz r11,-0x7330(r14)             
+  0x00021310  rlwinm r3,r12,0x0,0x14,0x1f      
+  0x00021314  or r11,r3,r11                    
+  0x00021318  sth r11,0x3c(r31)                
+  0x0002131C  lwz r10,0x38(r31)                
+  0x00021320  lis r11,-0x6401                  
+  0x00021324  oris r10,r10,0x180               
+  0x00021328  stw r10,0x38(r31)                
+  0x0002132C  lwz r12,0x280(r31)               
+  0x00021330  ori r11,r11,0xff                 
+  0x00021334  lwz r10,-0x7334(r14)             
+  0x00021338  and r3,r12,r11                   
+  0x0002133C  or r10,r3,r10                    
+  0x00021340  stw r10,0x280(r31)               
+  0x00021344  lhz r12,-0x7328(r14)             
+  0x00021348  lis r11,0x70                     
+  0x0002134C  sth r12,0x5c26(r11)              
+  0x00021350  lwz r9,-0x7364(r14)              
+  0x00021354  stw r9,0x100(r31)                
+  0x00021358  lwz r10,-0x7360(r14)             
+  0x0002135C  stw r10,0x104(r31)               
+  0x00021360  lwz r11,-0x7358(r14)             
+  0x00021364  stw r11,0x108(r31)               
+  0x00021368  lwz r12,-0x7354(r14)             
+  0x0002136C  stw r12,0x10c(r31)               
+  0x00021370  lwz r9,-0x734c(r14)              
+  0x00021374  stw r9,0x110(r31)                
+  0x00021378  lwz r10,-0x7348(r14)             
+  0x0002137C  stw r10,0x114(r31)               
+  0x00021380  lwz r11,-0x7340(r14)             
+  0x00021384  stw r11,0x118(r31)               
+  0x00021388  lwz r12,-0x733c(r14)             
+  0x0002138C  stw r12,0x11c(r31)               
+  0x00021390  subi r3,r14,0x7ed0               
+  0x00021394  bl 0x00020800                    -> 00020800
+  0x00021398  mfmsr r3                         
+  0x0002139C  lwz r10,-0x7324(r14)             
+  0x000213A0  li r11,-0x901                    
+  0x000213A4  and r3,r3,r11                    
+  0x000213A8  or r31,r10,r3                    
+  0x000213AC  mtmsr r31,0                      
+  0x000213B0  mfspr r3,IC_CSR                  
+  0x000213B4  ori r31,r3,0x20                  
+  0x000213B8  mtspr IC_CSR,r31                 
+  0x000213BC  isync                            
+  0x000213C0  lis r31,0x70                     
+  0x000213C4  addi r31,r31,0x4000              
+  0x000213C8  addi r3,r31,0x0                  
+  0x000213CC  li r4,0xb                        
+  0x000213D0  li r5,0x0                        
+  0x000213D4  bl 0x000211b4                    -> 000211b4
+  0x000213D8  addi r3,r31,0x0                  
+  0x000213DC  li r4,0xc                        
+  0x000213E0  li r5,0x0                        
+  0x000213E4  bl 0x000211b4                    -> 000211b4
+  0x000213E8  addi r3,r31,0x0                  
+  0x000213EC  li r4,0xd                        
+  0x000213F0  li r5,0x0                        
+  0x000213F4  bl 0x000211b4                    -> 000211b4
+  0x000213F8  lwz r31,0xc(r1)                  
+  0x000213FC  lwz r0,0x14(r1)                  
+  0x00021400  mtspr LR,r0                      
+  0x00021404  addi r1,r1,0x10                  
+  0x00021408  b 0x000219a4                     -> 000219a4
+
+Decompiled:
+  
+  /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+  
+  void State_auto_0212d8(void)
+  
+  {
+    int unaff_r14;
+    
+    FUN_000219a4();
+    _DAT_006fc000 = _DAT_006fc000 & 0xfffff3ff | *(uint *)(unaff_r14 + -0x732c);
+    _DAT_006fc03c = _DAT_006fc03c & 0xfff | *(ushort *)(unaff_r14 + -0x7330);
+    _DAT_006fc038 = _DAT_006fc038 | 0x1800000;
+    _DAT_006fc280 = _DAT_006fc280 & 0x9bff00ff | *(uint *)(unaff_r14 + -0x7334);
+    _DAT_00705c26 = *(undefined2 *)(unaff_r14 + -0x7328);
+    _DAT_006fc100 = *(undefined4 *)(unaff_r14 + -0x7364);
+    _DAT_006fc104 = *(undefined4 *)(unaff_r14 + -0x7360);
+    _DAT_006fc108 = *(undefined4 *)(unaff_r14 + -0x7358);
+    _DAT_006fc10c = *(undefined4 *)(unaff_r14 + -0x7354);
+    _DAT_006fc110 = *(undefined4 *)(unaff_r14 + -0x734c);
+    _DAT_006fc114 = *(undefined4 *)(unaff_r14 + -0x7348);
+    _DAT_006fc118 = *(undefined4 *)(unaff_r14 + -0x7340);
+    _DAT_006fc11c = *(undefined4 *)(unaff_r14 + -0x733c);
+    Ramp_auto_020800(unaff_r14 + -0x7ed0);
+    instructionSynchronize();
+    State_Init_000211b4(&DAT_00704000,0xb,0);
+    State_Init_000211b4(&DAT_00704000,0xc,0);
+    State_Init_000211b4(&DAT_00704000,0xd,0);
+    FUN_000219a4();
+    return;
+  }
+  
+  
+
+--- DSM_FUN_000006a0 @ 0x000006A0  size=1428 bytes ---
+
+Disassembly:
+  0x000006A0  stwu r1,-0x20(r1)                
+  0x000006A4  mfspr r0,LR                      
+  0x000006A8  stmw r28,0x10(r1)                
+  0x000006AC  stw r0,0x24(r1)                  
+  0x000006B0  li r3,0x3942                     
+  0x000006B4  mtmsr r3,0                       
+  0x000006B8  li r3,0x1400                     
+  0x000006BC  mtspr IC_CSR,r3                  
+  0x000006C0  isync                            
+  0x000006C4  lis r10,0x3500                   
+  0x000006C8  mfspr r3,IMMR                    
+  0x000006CC  rlwinm r3,r3,0x0,0x0,0x7         
+  0x000006D0  cmplw r3,r10                     
+  0x000006D4  beq 0x00000734                   -> 00000734
+  0x000006D8  mtspr EID,r0                     
+  0x000006DC  lis r3,0x0                       
+  0x000006E0  mtspr DER,r3                     
+  0x000006E4  addi r3,r3,0x1000                
+  0x000006E8  mfmsr r4                         
+  0x000006EC  andc r4,r4,r3                    
+  0x000006F0  mtmsr r4,0                       
+  0x000006F4  mfspr r5,IMMR                    
+  0x000006F8  rlwinm r5,r5,0x1f,0x1d,0x1f      
+  0x000006FC  lis r4,0x40                      
+  0x00000700  mullw r4,r4,r5                   
+  0x00000704  lis r3,0x30                      
+  0x00000708  subi r3,r3,0x3d7c                
+  0x0000070C  add r3,r3,r4                     
+  0x00000710  lwz r5,0x0(r3)                   
+  0x00000714  ori r5,r5,0x80                   
+  0x00000718  stw r5,0x0(r3)                   
+  0x0000071C  lis r3,0x30                      
+  0x00000720  addi r3,r3,0x4002                
+  0x00000724  add r3,r3,r4                     
+  0x00000728  li r4,0x55                       
+  0x0000072C  sth r4,0x0(r3)                   
+  0x00000730  b 0x00000730                     -> 00000730
+  0x00000734  lis r31,0x70                     
+  0x00000738  subi r31,r31,0x4000              
+  0x0000073C  lwz r11,0x10(r31)                
+  0x00000740  rlwinm. r11,r11,0x1,0x1f,0x1f    
+  0x00000744  bne 0x00000764                   -> 00000764
+  0x00000748  li r12,0x103                     
+  0x0000074C  stw r12,0x100(r31)               
+  0x00000750  isync                            
+  0x00000754  lis r11,-0x80                    
+  0x00000758  ori r11,r11,0x40                 
+  0x0000075C  stw r11,0x104(r31)               
+  0x00000760  isync                            
+  0x00000764  mfspr r3,IMMR                    
+  0x00000768  rlwinm. r3,r3,0x0,0x8,0xf        
+  0x0000076C  bne 0x00000784                   -> 00000784
+  0x00000770  lis r29,0x78                     
+  0x00000774  addi r29,r29,0x0                 
+  0x00000778  lwz r11,0x0(r29)                 
+  0x0000077C  oris r11,r11,0x2000              
+  0x00000780  stw r11,0x0(r29)                 
+  0x00000784  lis r12,-0x8000                  
+  0x00000788  lis r11,0x0                      
+  0x0000078C  ori r12,r12,0x7c                 
+  0x00000790  stw r12,0x38(r31)                
+  0x00000794  ori r11,r11,0xa200               
+  0x00000798  sth r11,0x3c(r31)                
+  0x0000079C  li r10,0x0                       
+  0x000007A0  stb r10,-0x27e4(r13)             
+  0x000007A4  mfspr r3,LR                      
+  0x000007A8  stw r3,-0x27ec(r13)              
+  0x000007AC  mftb r3,TBLr                     
+  0x000007B0  stw r3,-0x27e8(r13)              
+  0x000007B4  lwz r9,0x284(r31)                
+  0x000007B8  rlwinm. r9,r9,0x0,0x0,0xb        
+  0x000007BC  bne 0x000007c8                   -> 000007c8
+  0x000007C0  li r12,0x1                       
+  0x000007C4  stb r12,-0x27e4(r13)             
+  0x000007C8  lis r29,0x70                     
+  0x000007CC  addi r29,r29,0x5000              
+  0x000007D0  lhz r11,0x1a(r29)                
+  0x000007D4  lis r3,0x70                      
+  0x000007D8  rlwinm r11,r11,0x0,0x11,0x1f     
+  0x000007DC  sth r11,0x1a(r29)                
+  0x000007E0  addi r3,r3,0x4000                
+  0x000007E4  bl 0x00001334                    -> 00001334
+  0x000007E8  lis r3,0x70                      
+  0x000007EC  addi r3,r3,0x4400                
+  0x000007F0  bl 0x00001334                    -> 00001334
+  0x000007F4  lis r9,0x70                      
+  0x000007F8  lis r11,0x0                      
+  0x000007FC  ori r11,r11,0xffa0               
+  0x00000800  sth r11,0x4(r9)                  
+  0x00000804  mfspr r3,SPRG1                   
+  0x00000808  rlwinm r3,r3,0x0,0x10,0x1f       
+  0x0000080C  cmpwi r3,0xa                     
+  0x00000810  bne 0x0000082c                   -> 0000082c
+  0x00000814  li r3,0x4                        
+  0x00000818  bl 0x00000650                    -> 00000650
+  0x0000081C  or. r29,r3,r3                    
+  0x00000820  beq 0x0000082c                   -> 0000082c
+  0x00000824  mtspr LR,r3                      
+  0x00000828  blrl                             
+  0x0000082C  bl 0x00001298                    -> 00001298
+  0x00000830  lis r29,0x8                      
+  0x00000834  stw r29,0x140(r31)               
+  0x00000838  stw r29,0x144(r31)               
+  0x0000083C  lis r30,0x55cc                   
+  0x00000840  lis r29,0x70                     
+  0x00000844  ori r30,r30,0xaa33               
+  0x00000848  stw r30,-0x3d00(r29)             
+  0x0000084C  stw r30,-0x3c80(r29)             
+  0x00000850  stw r30,-0x3c7c(r29)             
+  0x00000854  stw r30,-0x3c78(r29)             
+  0x00000858  stw r30,-0x3cf4(r29)             
+  0x0000085C  li r3,0x7                        
+  0x00000860  mtspr BAR,r3                     
+  0x00000864  lis r12,-0x7de0                  
+  0x00000868  ori r12,r12,0x600                
+  0x0000086C  stw r12,0x280(r31)               
+  0x00000870  lwz r10,0x280(r31)               
+  0x00000874  lis r30,0x2                      
+  0x00000878  rlwinm. r10,r10,0xd,0x1f,0x1f    
+  0x0000087C  ori r30,r30,0x8000               
+  0x00000880  addi r28,r29,0x0                 
+  0x00000884  addi r29,r30,0x0                 
+  0x00000888  beq 0x000008d4                   -> 000008d4
+  0x0000088C  lwz r12,0x280(r31)               
+  0x00000890  oris r12,r12,0x80                
+  0x00000894  stw r12,0x280(r31)               
+  0x00000898  addi r29,r30,0x0                 
+  0x0000089C  lwz r12,0x284(r31)               
+  0x000008A0  or r12,r12,r30                   
+  0x000008A4  stw r12,0x284(r31)               
+  0x000008A8  bl 0x00000624                    -> 00000624
+  0x000008AC  lwz r11,0x284(r31)               
+  0x000008B0  rlwinm. r11,r11,0xf,0x1f,0x1f    
+  0x000008B4  bne 0x0000089c                   -> 0000089c
+  0x000008B8  lwz r12,0x284(r31)               
+  0x000008BC  rlwinm. r12,r12,0x11,0x1f,0x1f   
+  0x000008C0  bne 0x00000898                   -> 00000898
+  0x000008C4  lwz r12,0x280(r31)               
+  0x000008C8  rlwinm r12,r12,0x0,0x9,0x7       
+  0x000008CC  stw r12,0x280(r31)               
+  0x000008D0  b 0x000008d0                     -> 000008d0
+  0x000008D4  bl 0x00001298                    -> 00001298
+  0x000008D8  lwz r12,0x2c(r31)                
+  0x000008DC  li r3,0x6                        
+  0x000008E0  rlwinm r12,r12,0x0,0x1,0x1f      
+  0x000008E4  stw r12,0x2c(r31)                
+  0x000008E8  lwz r11,0x0(r31)                 
+  0x000008EC  rlwinm r11,r11,0x0,0x16,0x13     
+  0x000008F0  ori r11,r11,0x800                
+  0x000008F4  stw r11,0x0(r31)                 
+  0x000008F8  bl 0x00000650                    -> 00000650
+  0x000008FC  lwz r10,0x28(r31)                
+  0x00000900  addi r28,r3,0x0                  
+  0x00000904  rlwinm. r10,r10,0x0,0x0,0x0      
+  0x00000908  bne 0x0000092c                   -> 0000092c
+  0x0000090C  bl 0x00001298                    -> 00001298
+  0x00000910  cmpwi r28,0x0                    
+  0x00000914  beq 0x00000920                   -> 00000920
+  0x00000918  mtspr LR,r28                     
+  0x0000091C  blrl                             
+  0x00000920  lwz r12,0x28(r31)                
+  0x00000924  rlwinm. r12,r12,0x0,0x0,0x0      
+  0x00000928  beq 0x0000090c                   -> 0000090c
+  0x0000092C  lbz r12,-0x27e4(r13)             
+  0x00000930  cmpwi r12,0x0                    
+  0x00000934  beq 0x00000a50                   -> 00000a50
+  0x00000938  lwz r12,0x280(r31)               
+  0x0000093C  rlwinm r3,r12,0x0,0x0,0x1c       
+  0x00000940  ori r11,r3,0x2                   
+  0x00000944  stw r11,0x280(r31)               
+  0x00000948  bl 0x00000624                    -> 00000624
+  0x0000094C  lis r10,0xd0                     
+  0x00000950  ori r10,r10,0x4084               
+  0x00000954  stw r10,0x284(r31)               
+  0x00000958  addi r28,r30,0x0                 
+  0x0000095C  lwz r12,0x284(r31)               
+  0x00000960  or r12,r12,r28                   
+  0x00000964  stw r12,0x284(r31)               
+  0x00000968  bl 0x00000624                    -> 00000624
+  0x0000096C  lwz r11,0x284(r31)               
+  0x00000970  rlwinm. r11,r11,0x11,0x1f,0x1f   
+  0x00000974  bne 0x0000095c                   -> 0000095c
+  0x00000978  li r28,0x0                       
+  0x0000097C  b 0x0000098c                     -> 0000098c
+  0x00000980  bl 0x00000624                    -> 00000624
+  0x00000984  lwz r12,0x8(r1)                  
+  0x00000988  addi r28,r12,0x1                 
+  0x0000098C  stw r28,0x8(r1)                  
+  0x00000990  lwz r12,0x8(r1)                  
+  0x00000994  cmplwi r12,0x3                   
+  0x00000998  blt 0x00000980                   -> 00000980
+  0x0000099C  lwz r12,0x280(r31)               
+  0x000009A0  addi r28,r30,0x0                 
+  0x000009A4  rlwinm r3,r12,0x0,0x0,0x1c       
+  0x000009A8  ori r11,r3,0x1                   
+  0x000009AC  stw r11,0x280(r31)               
+  0x000009B0  lwz r12,0x284(r31)               
+  0x000009B4  or r12,r12,r30                   
+  0x000009B8  stw r12,0x284(r31)               
+  0x000009BC  bl 0x00000624                    -> 00000624
+
+Decompiled:
+  
+  /* WARNING: Removing unreachable block (ram,0x0000088c) */
+  /* WARNING: Removing unreachable block (ram,0x00000898) */
+  /* WARNING: Removing unreachable block (ram,0x0000089c) */
+  /* WARNING: Removing unreachable block (ram,0x000008b8) */
+  /* WARNING: Removing unreachable block (ram,0x000008c4) */
+  /* WARNING: Removing unreachable block (ram,0x000008d0) */
+  /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+  
+  void DSM_FUN_000006a0(void)
+  
+  {
+    code *pcVar1;
+    int iVar2;
+    uint uVar3;
+    undefined4 in_LR;
+    uint in_SPRG1;
+    uint in_IMMR;
+    uint local_18;
+    
+    instructionSynchronize();
+    if ((in_IMMR & 0xff000000) == 0x35000000) {
+      if (-1 < _DAT_006fc010) {
+        _DAT_006fc100 = 0x103;
+        instructionSynchronize();
+        _DAT_006fc104 = 0xff800040;
+        instructionSynchronize();
+      }
+      if ((in_IMMR & 0xff0000) == 0) {
+        _DAT_00780000 = _DAT_00780000 | 0x20000000;
+      }
+      _DAT_006fc038 = 0x8000007c;
+      _DAT_006fc03c = 0xa200;
+      _DAT_007fd808 = TBLr;
+      DAT_007fd80c = (_DAT_006fc284 & 0xfff00000) == 0;
+      _DAT_0070501a = _DAT_0070501a & 0x7fff;
+      _DAT_007fd804 = in_LR;
+      DSM_helper_auto_001334(&DAT_00704000);
+      DSM_helper_auto_001334(&DAT_00704400);
+      _DAT_00700004 = 0xffa0;
+      if (((in_SPRG1 & 0xffff) == 10) &&
+         (pcVar1 = (code *)Debounce_auto_000650(4), pcVar1 != (code *)0x0)) {
+        (*pcVar1)();
+      }
+      DSM_helper_auto_001298();
+      _DAT_006fc140 = 0x80000;
+      _DAT_006fc144 = 0x80000;
+      _DAT_006fc300 = 0x55ccaa33;
+      _DAT_006fc380 = 0x55ccaa33;
+      _DAT_006fc384 = 0x55ccaa33;
+      _DAT_006fc388 = 0x55ccaa33;
+      _DAT_006fc30c = 0x55ccaa33;
+      _DAT_006fc280 = 0x82200600;
+      DSM_helper_auto_001298(7);
+      _DAT_006fc02c = _DAT_006fc02c & 0x7fffffff;
+      _DAT_006fc000 = _DAT_006fc000 & 0xfffff3ff | 0x800;
+      pcVar1 = (code *)Debounce_auto_000650(6);
+      while ((_DAT_006fc028 & 0x80000000) == 0) {
+        DSM_helper_auto_001298();
+        if (pcVar1 != (code *)0x0) {
+          (*pcVar1)();
+        }
+      }
+      if (DAT_007fd80c == '\0') {
+        for (uVar3 = 0; uVar3 < 0xe; uVar3 = uVar3 + 1) {
+          Debounce_Def_00000624();
+        }
+      }
+      else {
+        _DAT_006fc280 = _DAT_006fc280 & 0xfffffff8 | 2;
+        Debounce_Def_00000624();
+        _DAT_006fc284 = 0xd04084;
+        do {
+          _DAT_006fc284 = _DAT_006fc284 | 0x28000;
+          Debounce_Def_00000624();
+        } while ((_DAT_006fc284 >> 0xf & 1) != 0);
+        for (uVar3 = 0; uVar3 < 3; uVar3 = uVar3 + 1) {
+          Debounce_Def_00000624();
+        }
+        _DAT_006fc280 = _DAT_006fc280 & 0xfffffff8 | 1;
+        do {
+          _DAT_006fc284 = _DAT_006fc284 | 0x28000;
+          Debounce_Def_00000624();
+        } while ((_DAT_006fc284 >> 0xf & 1) != 0);
+        for (uVar3 = 0; uVar3 < 6; uVar3 = uVar3 + 1) {
+          Debounce_Def_00000624();
+        }
+        _DAT_006fc280 = _DAT_006fc280 & 0xfffffff8;
+        do {
+          _DAT_006fc284 = _DAT_006fc284 | 0x28000;
+          Debounce_Def_00000624();
+        } while ((_DAT_006fc284 >> 0xf & 1) != 0);
+        local_18 = 0;
+        do {
+          Debounce_Def_00000624();
+          local_18 = local_18 + 1;
+        } while (local_18 < 6);
+      }
+      _DAT_006fc280 = _DAT_006fc280 | 0x8000000;
+      instructionSynchronize();
+      iVar2 = 0;
+      do {
+        iVar2 = iVar2 + 1;
+      } while (iVar2 != 0x34);
+      _DAT_006fc02c = (_DAT_006fc02c | 0xc0000000) & 0xbfffffff;
+      _DAT_006fc028 = _DAT_006fc028 & 0x3fffffff | 0x80000000;
+      Debounce_Def_00000624();
+      _DAT_006fc02c = _DAT_006fc02c & 0x3fffffff;
+      _DAT_006fc018 = 0x80000000;
+      if (0x1fffff < (in_IMMR & 0xff0000)) {
+        instructionSynchronize();
+        instructionSynchronize();
+      }
+      _DAT_006fc200 = 3;
+      _DAT_006fc000 = 0x20c08;
+      DSM_helper_auto_001298(0xffffffff);
+      DSM_helper_auto_000f68();
+      _DAT_00707f80 = 0;
+      iVar2 = DSM_helper_auto_000ce8(0x80000c00,0xc00);
+      if (iVar2 != 0x1a) {
+
+--- Debounce_Def_000054f4 @ 0x000054F4  size=364 bytes ---
+
+Disassembly:
+  0x000054F4  mfspr r0,LR                      
+  0x000054F8  stwu r1,-0x20(r1)                
+  0x000054FC  stmw r29,0x14(r1)                
+  0x00005500  stw r0,0x24(r1)                  
+  0x00005504  addi r29,r3,0x0                  
+  0x00005508  li r30,0x0                       
+  0x0000550C  bl 0x00000ce8                    -> 00000ce8
+  0x00005510  cmpwi r3,0x1a                    
+  0x00005514  bne 0x00005520                   -> 00005520
+  0x00005518  li r30,0x1                       
+  0x0000551C  bl 0x00000df0                    -> 00000df0
+  0x00005520  cmpwi r29,0x40                   
+  0x00005524  lis r31,0x80                     
+  0x00005528  subi r31,r31,0x10a4              
+  0x0000552C  li r11,0x40                      
+  0x00005530  li r10,0x0                       
+  0x00005534  stb r11,0x0(r31)                 
+  0x00005538  sth r10,0x6(r31)                 
+  0x0000553C  stw r10,0x8(r31)                 
+  0x00005540  stb r10,0x5(r31)                 
+  0x00005544  stb r10,0x4(r31)                 
+  0x00005548  stb r10,0x3(r31)                 
+  0x0000554C  stb r10,0x2(r31)                 
+  0x00005550  stb r10,0x1(r31)                 
+  0x00005554  bne 0x00005564                   -> 00005564
+  0x00005558  addi r3,r30,0x0                  
+  0x0000555C  bl 0x00004cbc                    -> 00004cbc
+  0x00005560  addi r29,r3,0x0                  
+  0x00005564  subi r11,r13,0x24bc              
+  0x00005568  cmpwi r29,0x40                   
+  0x0000556C  li r12,0x566c                    
+  0x00005570  stw r12,-0x253c(r13)             
+  0x00005574  stw r11,-0x24c0(r13)             
+  0x00005578  bne 0x000055d4                   -> 000055d4
+  0x0000557C  lis r10,0x1                      
+  0x00005580  lis r29,0x70                     
+  0x00005584  addi r10,r10,0x128               
+  0x00005588  mtspr LR,r10                     
+  0x0000558C  subi r29,r29,0x4000              
+  0x00005590  lwz r11,0x100(r29)               
+  0x00005594  rlwinm r11,r11,0x0,0x18,0x16     
+  0x00005598  stw r11,0x100(r29)               
+  0x0000559C  blrl                             -> 00010128
+  0x000055A0  bl 0x00000d14                    -> 00000d14
+  0x000055A4  sth r3,-0x24ac(r13)              
+  0x000055A8  lis r12,0x1                      
+  0x000055AC  addi r12,r12,0x100               
+  0x000055B0  mtspr LR,r12                     
+  0x000055B4  lhz r4,-0x24ac(r13)              
+  0x000055B8  subi r5,r13,0x2540               
+  0x000055BC  subi r6,r13,0x253c               
+  0x000055C0  subi r8,r13,0x24c0               
+  0x000055C4  addi r3,r30,0x0                  
+  0x000055C8  addi r7,r31,0x0                  
+  0x000055CC  blrl                             -> 00010100
+  0x000055D0  addi r29,r3,0x0                  
+  0x000055D4  addi r3,r1,0xc                   
+  0x000055D8  addi r4,r1,0x8                   
+  0x000055DC  bl 0x00000534                    -> 00000534
+  0x000055E0  lwz r3,0x8(r1)                   
+  0x000055E4  li r30,0x0                       
+  0x000055E8  cmpwi r3,0x0                     
+  0x000055EC  beq 0x00005624                   -> 00005624
+  0x000055F0  lwz r5,0xc(r1)                   
+  0x000055F4  lbz r11,0x0(r5)                  
+  0x000055F8  cmpwi r11,0xff                   
+  0x000055FC  bne 0x00005624                   -> 00005624
+  0x00005600  addi r30,r30,0x1                 
+  0x00005604  cmplw r30,r3                     
+  0x00005608  addi r4,r5,0x1                   
+  0x0000560C  addi r5,r4,0x0                   
+  0x00005610  bge 0x00005620                   -> 00005620
+  0x00005614  lbz r12,0x0(r4)                  
+  0x00005618  cmpwi r12,0xff                   
+  0x0000561C  beq 0x00005600                   -> 00005600
+  0x00005620  stw r4,0xc(r1)                   
+  0x00005624  cmplw r30,r3                     
+  0x00005628  bne 0x00005638                   -> 00005638
+  0x0000562C  lhz r12,0x6(r31)                 
+  0x00005630  ori r12,r12,0x100                
+  0x00005634  sth r12,0x6(r31)                 
+  0x00005638  addi r3,r29,0x0                  
+  0x0000563C  addi r4,r31,0x0                  
+  0x00005640  bl 0x000040b0                    -> 000040b0
+  0x00005644  lwz r0,0x24(r1)                  
+  0x00005648  mtspr LR,r0                      
+  0x0000564C  li r12,0xe0                      
+  0x00005650  stb r12,0x0(r31)                 
+  0x00005654  lmw r29,0x14(r1)                 
+  0x00005658  addi r1,r1,0x20                  
+  0x0000565C  blr                              
+
+Decompiled:
+  
+  /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+  
+  void Debounce_Def_000054f4(int param_1)
+  
+  {
+    bool bVar1;
+    char cVar2;
+    int iVar3;
+    uint uVar4;
+    uint local_18;
+    char *local_14 [2];
+    
+    iVar3 = DSM_helper_auto_000ce8();
+    bVar1 = iVar3 == 0x1a;
+    if (bVar1) {
+      Debounce_helper_auto_000df0();
+    }
+    DAT_007fef5c = 0x40;
+    _DAT_007fef62 = 0;
+    _DAT_007fef64 = 0;
+    DAT_007fef61 = 0;
+    DAT_007fef60 = 0;
+    DAT_007fef5f = 0;
+    DAT_007fef5e = 0;
+    DAT_007fef5d = 0;
+    if (param_1 == 0x40) {
+      param_1 = DSM_FUN_00004cbc(bVar1);
+    }
+    _DAT_007fdab4 = &DAT_0000566c;
+    _DAT_007fdb30 = 0x7fdb34;
+    if (param_1 == 0x40) {
+      _DAT_006fc100 = _DAT_006fc100 & 0xfffffeff;
+      thunk_helper_auto_021970();
+      _DAT_007fdb44 = DSM_helper_auto_000d14();
+      param_1 = thunk_helper_auto_025c78
+                          (bVar1,_DAT_007fdb44,&DAT_007fdab0,&DAT_007fdab4,&DAT_007fef5c,&DAT_007fdb30
+                          );
+    }
+    Debounce_auto_000534(local_14,&local_18);
+    uVar4 = 0;
+    if (local_18 != 0) {
+      cVar2 = *local_14[0];
+      while (cVar2 == -1) {
+        uVar4 = uVar4 + 1;
+        local_14[0] = local_14[0] + 1;
+        if (local_18 <= uVar4) break;
+        cVar2 = *local_14[0];
+      }
+    }
+    if (uVar4 == local_18) {
+      _DAT_007fef62 = _DAT_007fef62 | 0x100;
+    }
+    State_auto_0040b0(param_1,&DAT_007fef5c);
+    DAT_007fef5c = 0xe0;
+    return;
+  }
+  
+  
+
+--- Shtrp_FUN_00023064 @ 0x00023064  size=324 bytes ---
+
+Disassembly:
+  0x00023064  stwu r1,-0x10(r1)                
+  0x00023068  mfspr r0,LR                      
+  0x0002306C  stw r31,0xc(r1)                  
+  0x00023070  lis r31,0x70                     
+  0x00023074  stw r0,0x14(r1)                  
+  0x00023078  li r3,0x0                        
+  0x0002307C  subi r31,r31,0x4000              
+  0x00023080  stw r3,0x140(r31)                
+  0x00023084  stw r3,0x144(r31)                
+  0x00023088  lhz r10,-0x7330(r14)             
+  0x0002308C  sth r10,0x3c(r31)                
+  0x00023090  bl 0x00013640                    -> 00013640
+  0x00023094  lis r31,0x80                     
+  0x00023098  subi r31,r31,0x102c              
+  0x0002309C  lhz r12,0x0(r31)                 
+  0x000230A0  cmpwi r12,0x1                    
+  0x000230A4  bne 0x000230bc                   -> 000230bc
+  0x000230A8  subi r6,r14,0x7b28               
+  0x000230AC  li r3,0x0                        
+  0x000230B0  li r4,0x32                       
+  0x000230B4  li r5,0x2                        
+  0x000230B8  bl 0x00013534                    -> 00013534
+  0x000230BC  li r12,0x0                       
+  0x000230C0  sth r12,0x0(r31)                 
+  0x000230C4  bl 0x00022070                    -> 00022070
+  0x000230C8  bl 0x0001f378                    -> 0001f378
+  0x000230CC  bl 0x0001ed9c                    -> 0001ed9c
+  0x000230D0  li r3,0x0                        
+  0x000230D4  li r4,0x2                        
+  0x000230D8  bl 0x0001f94c                    -> 0001f94c
+  0x000230DC  li r3,0x1                        
+  0x000230E0  li r4,0x2                        
+  0x000230E4  bl 0x0001f94c                    -> 0001f94c
+  0x000230E8  subi r3,r14,0x7aa8               
+  0x000230EC  bl 0x000162d8                    -> 000162d8
+  0x000230F0  bl 0x00019580                    -> 00019580
+  0x000230F4  subi r3,r14,0x7628               
+  0x000230F8  bl 0x0001ae5c                    -> 0001ae5c
+  0x000230FC  bl 0x0001bcd8                    -> 0001bcd8
+  0x00023100  bl 0x0001ae20                    -> 0001ae20
+  0x00023104  bl 0x0001e6a8                    -> 0001e6a8
+  0x00023108  bl 0x00012900                    -> 00012900
+  0x0002310C  bl 0x000162cc                    -> 000162cc
+  0x00023110  subi r3,r14,0x7a5c               
+  0x00023114  bl 0x00016880                    -> 00016880
+  0x00023118  subi r3,r14,0x7a40               
+  0x0002311C  bl 0x00017ba8                    -> 00017ba8
+  0x00023120  bl 0x00017778                    -> 00017778
+  0x00023124  bl 0x0001ae28                    -> 0001ae28
+  0x00023128  bl 0x00011f2c                    -> 00011f2c
+  0x0002312C  bl 0x00014b88                    -> 00014b88
+  0x00023130  bl 0x000141e8                    -> 000141e8
+  0x00023134  bl 0x00012c50                    -> 00012c50
+  0x00023138  bl 0x00014570                    -> 00014570
+  0x0002313C  bl 0x00012c24                    -> 00012c24
+  0x00023140  bl 0x00021084                    -> 00021084
+  0x00023144  subi r3,r14,0x7ed0               
+  0x00023148  bl 0x0002068c                    -> 0002068c
+  0x0002314C  bl 0x00023424                    -> 00023424
+  0x00023150  bl 0x00014484                    -> 00014484
+  0x00023154  bl 0x00023cd4                    -> 00023cd4
+  0x00023158  bl 0x000250d8                    -> 000250d8
+  0x0002315C  bl 0x000138d4                    -> 000138d4
+  0x00023160  bl 0x0002146c                    -> 0002146c
+  0x00023164  cmpwi cr5,r3,0x1c                
+  0x00023168  mfcr r3                          
+  0x0002316C  rlwinm r3,r3,0x17,0x1f,0x1f      
+  0x00023170  xori r3,r3,0x1                   
+  0x00023174  bl 0x00013c00                    -> 00013c00
+  0x00023178  bl 0x0002532c                    -> 0002532c
+  0x0002317C  cmpwi r3,0x0                     
+  0x00023180  beq 0x00023194                   -> 00023194
+  0x00023184  li r12,0xff                      
+  0x00023188  stb r12,-0x7edc(r13)             
+  0x0002318C  li r11,0x0                       
+  0x00023190  stb r11,-0x7edb(r13)             
+  0x00023194  lwz r31,0xc(r1)                  
+  0x00023198  lwz r0,0x14(r1)                  
+  0x0002319C  mtspr LR,r0                      
+  0x000231A0  addi r1,r1,0x10                  
+  0x000231A4  b 0x00017acc                     -> 00017acc
+
+Decompiled:
+  
+  /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+  
+  void Shtrp_FUN_00023064(void)
+  
+  {
+    int iVar1;
+    int unaff_r14;
+    
+    _DAT_006fc140 = 0;
+    _DAT_006fc144 = 0;
+    _DAT_006fc03c = *(undefined2 *)(unaff_r14 + -0x7330);
+    StSys_FUN_00013640();
+    if (_DAT_007fefd4 == 1) {
+      Debounce_auto_013534(0,0x32,2,unaff_r14 + -0x7b28);
+    }
+    _DAT_007fefd4 = 0;
+    State_Init_00022070();
+    State_auto_01f378();
+    Alt_FUN_0001ed9c();
+    Debounce_Def_0001f94c(0,2);
+    Debounce_Def_0001f94c(1,2);
+    State_auto_0162d8(unaff_r14 + -0x7aa8);
+    Alt_FUN_00019580();
+    State_Init_0001ae5c(unaff_r14 + -0x7628);
+    Debounce_Def_0001bcd8();
+    Alt_FUN_0001ae20();
+    Debounce_Def_0001e6a8();
+    thunk_auto_012900();
+    State_auto_0162cc();
+    State_auto_016880(unaff_r14 + -0x7a5c);
+    State_auto_017ba8(unaff_r14 + -0x7a40);
+    State_Init_00017778();
+    Alt_auto_01ae28();
+    Debounce_auto_011f2c();
+    Debounce_auto_014b88();
+    Ramp_auto_0141e8();
+    StSys_auto_012c50();
+    Ramp_auto_014570();
+    StSys_FUN_00012c24();
+    Debounce_auto_021084();
+    Debounce_Def_0002068c(unaff_r14 + -0x7ed0);
+    Shtrp_helper_auto_023424();
+    DSM_auto_014484();
+    Debounce_auto_023cd4();
+    Shtrp_helper_auto_0250d8();
+    Ramp_auto_0138d4();
+    iVar1 = Debounce_auto_02146c();
+    Debounce_auto_013c00(iVar1 != 0x1c);
+    iVar1 = Ramp_auto_02532c();
+    if (iVar1 != 0) {
+      DAT_007f8114 = 0xff;
+      DAT_007f8115 = 0;
+    }
+    State_auto_017acc();
+    return;
+  }
+  
+  
+
+--- Debounce_auto_03e398 @ 0x0003E398  size=256 bytes ---
+
+Disassembly:
+  0x0003E398  mfspr r0,LR                      
+  0x0003E39C  stwu r1,-0x20(r1)                
+  0x0003E3A0  stw r31,0x1c(r1)                 
+  0x0003E3A4  stw r0,0x24(r1)                  
+  0x0003E3A8  li r12,0x88                      
+  0x0003E3AC  stw r12,0xc(r1)                  
+  0x0003E3B0  lis r11,0x4400                   
+  0x0003E3B4  stw r11,0x10(r1)                 
+  0x0003E3B8  li r10,0xa0                      
+  0x0003E3BC  stw r10,0x14(r1)                 
+  0x0003E3C0  lwz r12,0xc(r1)                  
+  0x0003E3C4  li r31,0x0                       
+  0x0003E3C8  stw r12,0x6308(r31)              
+  0x0003E3CC  b 0x0003e3d8                     -> 0003e3d8
+  0x0003E3D0  lwz r12,0x8(r1)                  
+  0x0003E3D4  addi r31,r12,0x1                 
+  0x0003E3D8  stw r31,0x8(r1)                  
+  0x0003E3DC  lwz r12,0x8(r1)                  
+  0x0003E3E0  cmplwi r12,0xc8                  
+  0x0003E3E4  blt 0x0003e3d0                   -> 0003e3d0
+  0x0003E3E8  lwz r11,0x10(r1)                 
+  0x0003E3EC  li r31,0x0                       
+  0x0003E3F0  stw r11,0x6308(r31)              
+  0x0003E3F4  b 0x0003e400                     -> 0003e400
+  0x0003E3F8  lwz r12,0x8(r1)                  
+  0x0003E3FC  addi r31,r12,0x1                 
+  0x0003E400  stw r31,0x8(r1)                  
+  0x0003E404  lwz r12,0x8(r1)                  
+  0x0003E408  cmplwi r12,0xc8                  
+  0x0003E40C  blt 0x0003e3f8                   -> 0003e3f8
+  0x0003E410  lwz r11,0x14(r1)                 
+  0x0003E414  li r31,0x0                       
+  0x0003E418  stw r11,0x0(r31)                 
+  0x0003E41C  b 0x0003e428                     -> 0003e428
+  0x0003E420  lwz r12,0x8(r1)                  
+  0x0003E424  addi r31,r12,0x1                 
+  0x0003E428  stw r31,0x8(r1)                  
+  0x0003E42C  lwz r12,0x8(r1)                  
+  0x0003E430  cmplwi r12,0xc8                  
+  0x0003E434  blt 0x0003e420                   -> 0003e420
+  0x0003E438  mfspr r3,IC_CSR                  
+  0x0003E43C  rlwinm r31,r3,0x0,0x13,0x11      
+  0x0003E440  mtspr IC_CSR,r31                 
+  0x0003E444  isync                            
+  0x0003E448  lis r31,0x70                     
+  0x0003E44C  subi r31,r31,0x4000              
+  0x0003E450  lwz r11,0x0(r31)                 
+  0x0003E454  ori r11,r11,0x8                  
+  0x0003E458  stw r11,0x0(r31)                 
+  0x0003E45C  lwz r10,0x100(r31)               
+  0x0003E460  ori r10,r10,0x40                 
+  0x0003E464  stw r10,0x100(r31)               
+  0x0003E468  lwz r12,0x100(r31)               
+  0x0003E46C  rlwinm r12,r12,0x0,0x1f,0x1d     
+  0x0003E470  stw r12,0x100(r31)               
+  0x0003E474  lwz r11,0x100(r31)               
+  0x0003E478  ori r11,r11,0x100                
+  0x0003E47C  stw r11,0x100(r31)               
+  0x0003E480  isync                            
+  0x0003E484  lwz r0,0x24(r1)                  
+  0x0003E488  lwz r31,0x1c(r1)                 
+  0x0003E48C  mtspr LR,r0                      
+  0x0003E490  addi r1,r1,0x20                  
+  0x0003E494  blr                              
+
+Decompiled:
+  
+  /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+  
+  void Debounce_auto_03e398(void)
+  
+  {
+    uint uVar1;
+    
+    for (uVar1 = 0; uVar1 < 200; uVar1 = uVar1 + 1) {
+    }
+    uRam00006308 = 0x44000000;
+    for (uVar1 = 0; uVar1 < 200; uVar1 = uVar1 + 1) {
+    }
+    _LAB_00000000 = 0xa0;
+    for (uVar1 = 0; uVar1 < 200; uVar1 = uVar1 + 1) {
+    }
+    instructionSynchronize();
+    _DAT_006fc000 = _DAT_006fc000 | 8;
+    _DAT_006fc100 = _DAT_006fc100 & 0xfffffffd | 0x140;
+    instructionSynchronize();
+    return;
+  }
+  
+  
+
+--- Debounce_Def_00103064 @ 0x00103064  size=276 bytes ---
+
+Disassembly:
+  0x00103064  stwu r1,-0x10(r1)                
+  0x00103068  lbz r4,0x26d6(r14)               
+  0x0010306C  lis r5,0x70                      
+  0x00103070  cmpwi r4,0x0                     
+  0x00103074  stw r31,0xc(r1)                  
+  0x00103078  subi r5,r5,0x4000                
+  0x0010307C  li r10,0x0                       
+  0x00103080  beq 0x00103168                   -> 00103168
+  0x00103084  addi r7,r14,0x26d8               
+  0x00103088  lbz r12,0x0(r7)                  
+  0x0010308C  cmplw r12,r3                     
+  0x00103090  bne 0x0010315c                   -> 0010315c
+  0x00103094  lbz r6,0x1(r7)                   
+  0x00103098  addi r9,r7,0x4                   
+  0x0010309C  rlwinm r31,r6,0x0,0x1c,0x1f      
+  0x001030A0  cmplwi r31,0x4                   
+  0x001030A4  rlwinm r6,r6,0x0,0x18,0x1b       
+  0x001030A8  bgt 0x00103134                   -> 00103134
+  0x001030AC  cmpwi r31,0x4                    
+  0x001030B0  bne 0x001030bc                   -> 001030bc
+  0x001030B4  addi r10,r5,0x140                
+  0x001030B8  b 0x001030c8                     -> 001030c8
+  0x001030BC  rlwinm r12,r31,0x3,0x0,0x1c      
+  0x001030C0  add r12,r5,r12                   
+  0x001030C4  addi r10,r12,0x100               
+  0x001030C8  lwz r8,0x0(r10)                  
+  0x001030CC  cmpwi r6,0x0                     
+  0x001030D0  lwz r31,0x4(r10)                 
+  0x001030D4  beq 0x001030ec                   -> 001030ec
+  0x001030D8  cmpwi r6,0x10                    
+  0x001030DC  beq 0x00103100                   -> 00103100
+  0x001030E0  cmpwi r6,0x20                    
+  0x001030E4  beq 0x00103114                   -> 00103114
+  0x001030E8  b 0x00103124                     -> 00103124
+  0x001030EC  li r12,0x0                       
+  0x001030F0  stw r12,0x0(r10)                 
+  0x001030F4  lwz r8,0x0(r9)                   
+  0x001030F8  lwz r31,0x4(r9)                  
+  0x001030FC  b 0x00103124                     -> 00103124
+  0x00103100  lwz r11,0x4(r9)                  
+  0x00103104  lwz r12,0x0(r9)                  
+  0x00103108  or r31,r31,r11                   
+  0x0010310C  or r8,r8,r12                     
+  0x00103110  b 0x00103124                     -> 00103124
+  0x00103114  lwz r11,0x4(r9)                  
+  0x00103118  lwz r12,0x0(r9)                  
+  0x0010311C  and r31,r31,r11                  
+  0x00103120  and r8,r8,r12                    
+  0x00103124  stw r31,0x4(r10)                 
+  0x00103128  stw r8,0x0(r10)                  
+  0x0010312C  li r10,0x1                       
+  0x00103130  b 0x0010315c                     -> 0010315c
+  0x00103134  cmpwi r31,0x5                    
+  0x00103138  bne 0x0010315c                   -> 0010315c
+  0x0010313C  lwz r12,0x0(r5)                  
+  0x00103140  lwz r11,0x0(r9)                  
+  0x00103144  rlwinm r12,r12,0x0,0x13,0x10     
+  0x00103148  rlwinm r11,r11,0x0,0x11,0x12     
+  0x0010314C  or r12,r12,r11                   
+  0x00103150  stw r12,0x0(r5)                  
+  0x00103154  li r10,0x1                       
+  0x00103158  b 0x00103168                     -> 00103168
+  0x0010315C  subic. r4,r4,0x1                 
+  0x00103160  addi r7,r7,0xc                   
+  0x00103164  bne 0x00103088                   -> 00103088
+  0x00103168  rlwinm r3,r10,0x0,0x18,0x1f      
+  0x0010316C  lwz r31,0xc(r1)                  
+  0x00103170  addi r1,r1,0x10                  
+  0x00103174  blr                              
+
+Decompiled:
+  
+  /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+  
+  undefined4 Debounce_Def_00103064(uint param_1)
+  
+  {
+    byte bVar1;
+    uint uVar2;
+    byte *pbVar3;
+    uint *puVar4;
+    undefined4 uVar5;
+    uint *puVar6;
+    int unaff_r14;
+    uint uVar7;
+    uint uVar8;
+    
+    uVar2 = (uint)*(byte *)(unaff_r14 + 0x26d6);
+    uVar5 = 0;
+    if (uVar2 != 0) {
+      pbVar3 = (byte *)(unaff_r14 + 0x26d8);
+      do {
+        if (*pbVar3 == param_1) {
+          bVar1 = pbVar3[1];
+          puVar4 = (uint *)(pbVar3 + 4);
+          uVar7 = bVar1 & 0xf;
+          if (uVar7 < 5) {
+            if (uVar7 == 4) {
+              puVar6 = (uint *)&DAT_006fc140;
+            }
+            else {
+              puVar6 = (uint *)(&DAT_006fc100 + uVar7 * 8);
+            }
+            uVar7 = *puVar6;
+            uVar8 = puVar6[1];
+            if ((bVar1 & 0xf0) == 0) {
+              *puVar6 = 0;
+              uVar7 = *puVar4;
+              uVar8 = *(uint *)(pbVar3 + 8);
+            }
+            else if ((bVar1 & 0xf0) == 0x10) {
+              uVar8 = uVar8 | *(uint *)(pbVar3 + 8);
+              uVar7 = uVar7 | *puVar4;
+            }
+            else if ((bVar1 & 0xf0) == 0x20) {
+              uVar8 = uVar8 & *(uint *)(pbVar3 + 8);
+              uVar7 = uVar7 & *puVar4;
+            }
+            puVar6[1] = uVar8;
+            *puVar6 = uVar7;
+            uVar5 = 1;
+          }
+          else if (uVar7 == 5) {
+            _DAT_006fc000 = _DAT_006fc000 & 0xffff9fff | *puVar4 & 0x6000;
+            return 1;
+          }
+        }
+        uVar2 = uVar2 - 1;
+        pbVar3 = pbVar3 + 0xc;
+      } while (uVar2 != 0);
+    }
+    return uVar5;
+  }
+  
+  
+
+==============================================================================
+SECTION 3: Callers of FUN_000212d8
+==============================================================================
+
+Total xrefs: 1
+  from 0x00021980  [UNCONDITIONAL_CALL]  in thunk_helper_auto_021970
+
+Decompiling callers (1):
+
+--- thunk_helper_auto_021970 @ 0x00021970 ---
+  
+  void thunk_helper_auto_021970(void)
+  
+  {
+    State_auto_0212d8();
+    return;
+  }
+  
+  
+
+==============================================================================
+SECTION 4: IMMR-relative QSPI pattern scan
+==============================================================================
+
+Searching for patterns like 'lis rX, 0x6fc3' or 'addi rX, rX, 0x80/0x84/0x88'
+(Ghidra may not have resolved these to absolute addresses)
+
+Direct 'lis 0x6fc3' hits: 0
+
+==============================================================================
+SECTION 5: INTERPRETATION
+==============================================================================
+
+If SECTION 1 QSPI = 0 hits AND SECTION 4 'lis 0x6fc3' = 0 hits:
+  EEPROM is bit-banged via SIU_GPDO (see FUN_000212d8 disasm).
+  If FUN_000212d8 has 3+ stw/srw OR 8-iteration loop with rlwinm by 1/2:
+    -> That's the EEPROM driver. CLONE = ~99%.
+
+If FUN_000212d8 = watchdog kicker or GPIO init (no bit loop):
+  EEPROM driver runs from RAM, installed by boot (like thunk_helper_auto_021570).
+  Would need runtime trace to find. CLONE stays 98%.
+
+If QSPI access found in some app-side function:
+  That function + its buffer manager is the EEPROM driver.
+  CLONE = ~99%.

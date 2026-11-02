@@ -1,0 +1,381 @@
+==============================================================================
+SECTION — IPC DISPATCHER ACCCD_auto_02149c (0x0002149C)
+==============================================================================
+
+Function: ACCCD_auto_02149c @ 0x0002149C  size=132 bytes
+
+
+/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+
+void ACCCD_auto_02149c(void)
+
+{
+  undefined4 uVar1;
+  
+  thunk_func_021ae4();
+  uVar1 = TBLr;
+  if ((_DAT_007fefd0 != (undefined4 *)0x0) && ((code *)*_DAT_007fefd0 != (code *)0x0)) {
+    (*(code *)*_DAT_007fefd0)(uVar1);
+  }
+  thunk_func_0219c4();
+  return;
+}
+
+
+
+==============================================================================
+SECTION 2 — _DAT_007fefd0 (boot→app IPC pointer)
+==============================================================================
+
+--- xrefs to _DAT_007fefd0 @ 0x007FEFD0 ---
+  from 0x00000D3C [READ] in DSM_helper_auto_000d14 @ 0x00000D14
+  from 0x00000C14 [WRITE] in DSM_FUN_000006a0 @ 0x000006A0
+  from 0x00001040 [WRITE] in DSM_helper_auto_000f68 @ 0x00000F68
+  from 0x00001200 [READ] in DSM_helper_auto_000f68 @ 0x00000F68
+  from 0x000214EC [READ] in ACCCD_auto_02149c @ 0x0002149C
+  from 0x00021494 [WRITE] in helper_func_021490 @ 0x00021490
+  from 0x00000E30 [WRITE] in (no fn) @ 0x00000000
+
+--- xrefs to _DAT_007fefd4 (valid flag) @ 0x007FEFD4 ---
+  from 0x00000E5C [READ] in DSM_helper_auto_000e38 @ 0x00000E38
+  from 0x00000688 [READ] in Debounce_auto_000650 @ 0x00000650
+  from 0x00000D94 [WRITE] in DSM_func_000d78 @ 0x00000D78
+  from 0x000011E4 [READ] in DSM_helper_auto_000f68 @ 0x00000F68
+  from 0x0002309C [READ] in Shtrp_FUN_00023064 @ 0x00023064
+  from 0x000230C0 [WRITE] in Shtrp_FUN_00023064 @ 0x00023064
+  from 0x000214C0 [READ] in ACCCD_auto_02149c @ 0x0002149C
+  from 0x00021604 [WRITE] in thunk_helper_auto_021570 @ 0x00021570
+  from 0x0002153C [WRITE] in State_func_021520 @ 0x00021520
+  from 0x000FEDFC [READ] in ACCCD_auto_0febc0 @ 0x000FEBC0
+  from 0x000005BC [READ] in Debounce_auto_000578 @ 0x00000578
+  from 0x00102A80 [READ] in Glw_auto_10298c @ 0x0010298C
+  from 0x0002118C [READ] in Debounce_auto_021148 @ 0x00021148
+  from 0x00021440 [DATA] in State_helper_auto_02143c @ 0x0002143C
+  from 0x00021458 [READ] in (no fn) @ 0x00000000
+  from 0x00021464 [WRITE] in (no fn) @ 0x00000000
+  from 0x001019E8 [READ] in State_Init_001019a8 @ 0x001019A8
+  from 0x000E99C0 [WRITE] in Debounce_Def_000e99ac @ 0x000E99AC
+  from 0x00101A84 [READ] in State_Init_00101a44 @ 0x00101A44
+  from 0x0010A134 [READ] in Debounce_Def_0010a0d0 @ 0x0010A0D0
+  from 0x00103340 [WRITE] in (no fn) @ 0x00000000
+  from 0x00103350 [WRITE] in (no fn) @ 0x00000000
+
+
+--- Setter: FUN_00021490 @ 0x21490 ---
+
+/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+
+void helper_func_021490(undefined4 param_1)
+
+{
+  _DAT_007fefd0 = param_1;
+  return;
+}
+
+
+
+==============================================================================
+SECTION — STATE DISPATCHER State_Init_0009c6bc (0x0009C6BC)
+==============================================================================
+
+Function: State_Init_0009c6bc @ 0x0009C6BC  size=68 bytes
+
+
+void State_Init_0009c6bc(int param_1,uint param_2)
+
+{
+  byte bVar1;
+  
+  param_1 = param_1 * 0x18;
+  bVar1 = (&DAT_006f85a0)[param_1];
+  *(undefined4 *)(&DAT_006f8590 + param_1) = 0;
+  (&DAT_006f85a0)[param_1] = (char)(bVar1 + 1);
+  *(uint *)(&DAT_006f8590 + param_1) =
+       (bVar1 + 1) * 0x8000000 | *(uint *)(&DAT_006f8590 + param_1) | 1 << (param_2 & 0x3f);
+  return;
+}
+
+
+
+==============================================================================
+SECTION — STATE ADVANCE State_auto_09c740 (0x0009C740)
+==============================================================================
+
+Function: State_auto_09c740 @ 0x0009C740  size=40 bytes
+
+
+void State_auto_09c740(int param_1,uint param_2)
+
+{
+  *(uint *)(&DAT_006f8590 + param_1 * 0x18) =
+       *(uint *)(&DAT_006f8590 + param_1 * 0x18) | 1 << (param_2 & 0x3f);
+  State_auto_09c700();
+  return;
+}
+
+
+
+==============================================================================
+SECTION — STATE EXIT State_auto_09c768 (0x0009C768)
+==============================================================================
+
+Function: State_auto_09c768 @ 0x0009C768  size=188 bytes
+
+
+void State_auto_09c768(int param_1)
+
+{
+  int iVar1;
+  int iVar2;
+  int unaff_r14;
+  
+  iVar1 = param_1 * 0x18;
+  if ((&DAT_006f85a2)[iVar1] == '\0') {
+    iVar2 = param_1 * 4;
+    *(undefined4 *)(&DAT_006f8590 + iVar1) = *(undefined4 *)(unaff_r14 + -0x1a08 + iVar2);
+    State_auto_09c700(param_1);
+    *(int *)(&DAT_006f8594 + iVar1) =
+         *(int *)(&DAT_006f8594 + iVar1) + *(int *)(unaff_r14 + -0x1a58 + iVar2);
+  }
+  else {
+    *(undefined4 *)(&DAT_006f8590 + iVar1) = *(undefined4 *)(&DAT_006f858c + iVar1);
+    State_auto_09c700(param_1);
+    *(undefined4 *)(&DAT_006f8598 + iVar1) = *(undefined4 *)(&DAT_006f8594 + iVar1);
+    (&DAT_006f85a2)[iVar1] = 0;
+    *(undefined4 *)(&DAT_006f8594 + iVar1) = *(undefined4 *)(unaff_r14 + -0x1a58 + param_1 * 4);
+    (&DAT_006f85a1)[iVar1] = *(undefined1 *)(unaff_r14 + -0x19b8 + param_1);
+  }
+  (&DAT_006f85a0)[iVar1] = 0;
+  *(undefined4 *)(&DAT_006f8590 + iVar1) = 0;
+  return;
+}
+
+
+
+==============================================================================
+SECTION 4 — Dispatch table region 0x43A00–0x43C00 (EngPrt context)
+==============================================================================
+
+EngPrt pointer hit at 0x43A88. The 32-entry task table starts at 0x43B24.
+Dumping the 512 bytes spanning both regions to reveal overlapping tables.
+
+  0x00043A00:  0x0007E3F8  0x00082030  0x000DE3FC  0x0005CAA4
+  0x00043A10:  0x000CF554  0x000CEB5C  0x000CFB70  0x000CF35C
+  0x00043A20:  0x000CD860  0x000D1EDC  0x000CBE14  0x000CBA6C
+  0x00043A30:  0x000CFF24  0x000CE0F4  0x000CC0A0  0x000A55F8
+  0x00043A40:  0x000AE1F4  0x0005AE60  0x001025B0  0x000FFE28
+  0x00043A50:  0x00072BA8  0x000C501C  0x0009A58C  0x000E426C
+  0x00043A60:  0x000E4814  0x000E447C  0x000E4BD0  0x00096458
+  0x00043A70:  0x00093438  0x000F1C40  0x000F20B4  0x00093748
+  0x00043A80:  0x000A2110  0x0007B05C  0x0009AFDC  0x000C4B84  [EngPrt@0x43A88]
+  0x00043A90:  0x0008C474  0x000DDBAC  0x000903B0  0x0009030C
+  0x00043AA0:  0x00090434  0x000904F4  0x000C2E08  0x0009AA20
+  0x00043AB0:  0x000A31A4  0x000A4344  0x00059C80  0x0005A9B0
+  0x00043AC0:  0x0005B238  0x000544E0  0x0006DC98  0x00061224
+  0x00043AD0:  0x000E35D8  0x000F23B0  0x0009C2A4  0x0009C550
+  0x00043AE0:  0x0007C9A0  0x000CA1CC  0x0007BFA4  0x000B2C0C
+  0x00043AF0:  0x000B2AA8  0x0007C108  0x00064410  0x00051918
+  0x00043B00:  0x000784E4  0x000B50D4  0x000B3898  0x000B34F4
+  0x00043B10:  0x000853CC  0x0007886C  0x00062A8C  0x00058D4C
+  0x00043B20:  0x0007610C  0x000DF874  0x000C94E4  0x00056180  [TASK_TABLE_START@0x43B24]
+  0x00043B30:  0x00056B00  0x00056E14  0x000577B8  0x00054804
+  0x00043B40:  0x000849D0  0x000DF0B8  0x0007D92C  0x0007E198
+  0x00043B50:  0x0007DEEC  0x000DEB38  0x000B3A2C  0x0007D24C
+  0x00043B60:  0x0007BC98  0x00078104  0x0007B0C8  0x0007874C
+  0x00043B70:  0x000CB024  0x0006931C  0x00079434  0x00078B8C
+  0x00043B80:  0x000D584C  0x000D6420  0x000D5FA0  0x000D6ABC
+  0x00043B90:  0x000D7DDC  0x000C03C0  0x000C0228  0x0005E6A4
+  0x00043BA0:  0x0005DA3C  0x0005D2C0  0x0005E818  0x000BFB20  [SECOND_ARRAY@0x43BA4]
+  0x00043BB0:  0x000792FC  0x00078D58  0x0007A214  0x0007AB74
+  0x00043BC0:  0x00079744  0x0007A194  0x0008E1F8  0x0005FBB8
+  0x00043BD0:  0x000E9A8C  0x0005CD04  0x0005CF90  0x0006CB94
+  0x00043BE0:  0x0006A668  0x0006AEC0  0x0006AB80  0x0006C458
+  0x00043BF0:  0x00077B5C  0x000B55DC  0x000B6F58  0x000C5098
+
+--- EngPrt table interpretation ---
+EngPrt_FUN_0009afdc pointer at 0x43A88
+
+  0x00043A48  =  0x001025B0  AirCtl_func_1025b0
+  0x00043A4C  =  0x000FFE28  
+  0x00043A50  =  0x00072BA8  IndSys_auto_072ba8
+  0x00043A54  =  0x000C501C  
+  0x00043A58  =  0x0009A58C  APPCD_PedalSensorDriver
+  0x00043A5C  =  0x000E426C  func_0e426c
+  0x00043A60  =  0x000E4814  AOHt_FUN_000e4814
+  0x00043A64  =  0x000E447C  ACCCD_FUN_000e447c
+  0x00043A68  =  0x000E4BD0  func_0e4bd0
+  0x00043A6C  =  0x00096458  PFlt_FUN_00096458
+  0x00043A70  =  0x00093438  AirCtl_FUN_00093438
+  0x00043A74  =  0x000F1C40  State_Init_000f1c40
+  0x00043A78  =  0x000F20B4  Ramp_Inc16_000f20b4
+  0x00043A7C  =  0x00093748  ACCCD_auto_093748
+  0x00043A80  =  0x000A2110  AirCtl_FUN_000a2110
+  0x00043A84  =  0x0007B05C  func_07b05c
+  0x00043A88  =  0x0009AFDC  EngPrt_FUN_0009afdc  <-- ENGPrt_FUN
+  0x00043A8C  =  0x000C4B84  Ramp_Dec16_000c4b84
+  0x00043A90  =  0x0008C474  ACCCD_FUN_0008c474
+  0x00043A94  =  0x000DDBAC  func_0ddbac
+  0x00043A98  =  0x000903B0  ACCCD_FUN_000903b0
+  0x00043A9C  =  0x0009030C  
+  0x00043AA0  =  0x00090434  Debounce_Def_00090434
+  0x00043AA4  =  0x000904F4  Debounce_Def_000904f4
+  0x00043AA8  =  0x000C2E08  CrCtl_FUN_000c2e08
+  0x00043AAC  =  0x0009AA20  ACCCD_FUN_0009aa20
+  0x00043AB0  =  0x000A31A4  State_auto_0a31a4
+  0x00043AB4  =  0x000A4344  ACCtl_FUN_000a4344
+  0x00043AB8  =  0x00059C80  PCR_FUN_00059c80
+  0x00043ABC  =  0x0005A9B0  ACCCD_FUN_0005a9b0
+  0x00043AC0  =  0x0005B238  State_auto_05b238
+  0x00043AC4  =  0x000544E0  State_auto_0544e0
+
+==============================================================================
+SECTION 5 — Is EngPrt part of a larger dispatch table?
+==============================================================================
+
+Scanning 0x43A00–0x43C00 for other function pointers to see the
+table structure — are they task-table entries (existing) or a
+second-level dispatcher?
+
+  0x00043A00  -> 0x0007E3F8  Carb_FUN_0007e3f8
+  0x00043A04  -> 0x00082030  ACCtl_FUN_00082030
+  0x00043A08  -> 0x000DE3FC  ACCtl_auto_0de3fc
+  0x00043A0C  -> 0x0005CAA4  ACCCD_FUN_0005caa4
+  0x00043A10  -> 0x000CF554  Carb_FUN_000cf554
+  0x00043A14  -> 0x000CEB5C  Carb_FUN_000ceb5c
+  0x00043A18  -> 0x000CFB70  func_0cfb70
+  0x00043A1C  -> 0x000CF35C  ACCCD_FUN_000cf35c
+  0x00043A20  -> 0x000CD860  Debounce_Def_000cd860
+  0x00043A24  -> 0x000D1EDC  ACC_FUN_000d1edc
+  0x00043A28  -> 0x000CBE14  CoDT_auto_0cbe14
+  0x00043A2C  -> 0x000CBA6C  State_Init_000cba6c
+  0x00043A30  -> 0x000CFF24  AirCtl_FUN_000cff24
+  0x00043A34  -> 0x000CE0F4  ACCCD_FUN_000ce0f4
+  0x00043A3C  -> 0x000A55F8  FanCtl_FUN_000a55f8
+  0x00043A48  -> 0x001025B0  AirCtl_func_1025b0
+  0x00043A50  -> 0x00072BA8  IndSys_auto_072ba8
+  0x00043A58  -> 0x0009A58C  APPCD_PedalSensorDriver
+  0x00043A5C  -> 0x000E426C  func_0e426c
+  0x00043A60  -> 0x000E4814  AOHt_FUN_000e4814
+  0x00043A64  -> 0x000E447C  ACCCD_FUN_000e447c
+  0x00043A68  -> 0x000E4BD0  func_0e4bd0
+  0x00043A6C  -> 0x00096458  PFlt_FUN_00096458
+  0x00043A70  -> 0x00093438  AirCtl_FUN_00093438
+  0x00043A74  -> 0x000F1C40  State_Init_000f1c40
+  0x00043A78  -> 0x000F20B4  Ramp_Inc16_000f20b4
+  0x00043A7C  -> 0x00093748  ACCCD_auto_093748
+  0x00043A80  -> 0x000A2110  AirCtl_FUN_000a2110
+  0x00043A84  -> 0x0007B05C  func_07b05c
+  0x00043A88  -> 0x0009AFDC  EngPrt_FUN_0009afdc  <-- EngPrt
+  0x00043A8C  -> 0x000C4B84  Ramp_Dec16_000c4b84
+  0x00043A90  -> 0x0008C474  ACCCD_FUN_0008c474
+  0x00043A94  -> 0x000DDBAC  func_0ddbac
+  0x00043A98  -> 0x000903B0  ACCCD_FUN_000903b0
+  0x00043AA0  -> 0x00090434  Debounce_Def_00090434
+  0x00043AA4  -> 0x000904F4  Debounce_Def_000904f4
+  0x00043AA8  -> 0x000C2E08  CrCtl_FUN_000c2e08
+  0x00043AAC  -> 0x0009AA20  ACCCD_FUN_0009aa20
+  0x00043AB0  -> 0x000A31A4  State_auto_0a31a4
+  0x00043AB4  -> 0x000A4344  ACCtl_FUN_000a4344
+  0x00043AB8  -> 0x00059C80  PCR_FUN_00059c80
+  0x00043ABC  -> 0x0005A9B0  ACCCD_FUN_0005a9b0
+  0x00043AC0  -> 0x0005B238  State_auto_05b238
+  0x00043AC4  -> 0x000544E0  State_auto_0544e0
+  0x00043ACC  -> 0x00061224  ACCCD_FUN_00061224
+  0x00043AD0  -> 0x000E35D8  ACCCD_FUN_000e35d8
+  0x00043AD8  -> 0x0009C2A4  func_09c2a4
+  0x00043AE0  -> 0x0007C9A0  InjCrv_FUN_0007c9a0
+  0x00043AE4  -> 0x000CA1CC  AirCtl_FUN_000ca1cc
+  0x00043AEC  -> 0x000B2C0C  Carb_FUN_000b2c0c
+  0x00043AF4  -> 0x0007C108  AirCtl_FUN_0007c108
+  0x00043AF8  -> 0x00064410  AirCtl_FUN_00064410
+  0x00043AFC  -> 0x00051918  func_051918
+  0x00043B00  -> 0x000784E4  AirCtl_FUN_000784e4
+  0x00043B04  -> 0x000B50D4  Gearbx_FUN_000b50d4
+  0x00043B0C  -> 0x000B34F4  ACCCD_FUN_000b34f4
+  0x00043B10  -> 0x000853CC  ACCCD_FUN_000853cc
+  0x00043B14  -> 0x0007886C  Gearbx_auto_07886c
+  0x00043B18  -> 0x00062A8C  ASMod_FUN_00062a8c
+  0x00043B1C  -> 0x00058D4C  ACC_PedalTorqueCalculation
+  0x00043B20  -> 0x0007610C  ACCCD_FUN_0007610c
+  0x00043B24  -> 0x000DF874  ASDdc_FUN_000df874  <-- task table [0]
+  0x00043B28  -> 0x000C94E4  State_auto_0c94e4
+  0x00043B2C  -> 0x00056180  ACC_StateMachine_Main
+  0x00043B30  -> 0x00056B00  PFlt_FUN_00056b00
+  0x00043B34  -> 0x00056E14  Gearbx_FUN_00056e14
+  0x00043B38  -> 0x000577B8  ACCtl_FUN_000577b8
+  0x00043B3C  -> 0x00054804  ACC_TorqueCalculation_Core
+  0x00043B40  -> 0x000849D0  ACCCD_FUN_000849d0
+  0x00043B44  -> 0x000DF0B8  ACCD_FUN_000df0b8
+  0x00043B48  -> 0x0007D92C  func_07d92c
+  0x00043B4C  -> 0x0007E198  func_07e198
+  0x00043B50  -> 0x0007DEEC  Math_func_07deec
+  0x00043B54  -> 0x000DEB38  AccPed_PlausibilityCheck
+  0x00043B58  -> 0x000B3A2C  AirCtl_Coordinator_Main
+  0x00043B5C  -> 0x0007D24C  ACCCD_FUN_0007d24c
+  0x00043B60  -> 0x0007BC98  ACCtl_FUN_0007bc98
+  0x00043B64  -> 0x00078104  ACCCD_FUN_00078104
+  0x00043B68  -> 0x0007B0C8  func_07b0c8
+  0x00043B6C  -> 0x0007874C  Gearbx_FUN_0007874c
+  0x00043B70  -> 0x000CB024  ASDdc_FUN_000cb024
+  0x00043B74  -> 0x0006931C  AirCtl_Model_Observer
+  0x00043B78  -> 0x00079434  Math_func_079434
+  0x00043B7C  -> 0x00078B8C  AccClutch_StateMachine
+  0x00043B80  -> 0x000D584C  LIGov_FUN_000d584c
+  0x00043B84  -> 0x000D6420  PCR_CalculateDesiredBoost
+  0x00043B88  -> 0x000D5FA0  PCR_MainController
+  0x00043B8C  -> 0x000D6ABC  PCR_Governor_PID
+  0x00043B90  -> 0x000D7DDC  PCR_AntiClatterDamping
+  0x00043B94  -> 0x000C03C0  ACCCD_auto_0c03c0
+  0x00043B98  -> 0x000C0228  ACCCD_FUN_000c0228
+  0x00043B9C  -> 0x0005E6A4  ACCCD_FUN_0005e6a4
+  0x00043BA0  -> 0x0005DA3C  EngM_FUN_0005da3c
+  0x00043BA4  -> 0x0005D2C0  EngM_FUN_0005d2c0
+  0x00043BA8  -> 0x0005E818  AirCtl_FUN_0005e818
+  0x00043BAC  -> 0x000BFB20  AirCtl_FUN_000bfb20
+  0x00043BB4  -> 0x00078D58  Debounce_Def_00078d58
+  0x00043BC0  -> 0x00079744  func_079744
+  0x00043BC8  -> 0x0008E1F8  AirCtl_FUN_0008e1f8
+  0x00043BCC  -> 0x0005FBB8  InjCrv_FUN_0005fbb8
+  0x00043BD0  -> 0x000E9A8C  State_auto_0e9a8c
+  0x00043BD4  -> 0x0005CD04  ACCCD_FUN_0005cd04
+  0x00043BD8  -> 0x0005CF90  AirCtl_FUN_0005cf90
+  0x00043BDC  -> 0x0006CB94  ACCCD_FUN_0006cb94
+  0x00043BE4  -> 0x0006AEC0  AFSCD_FUN_0006aec0
+  0x00043BF4  -> 0x000B55DC  CrCtl_FUN_000b55dc
+
+==============================================================================
+SECTION 6 — What calls the state drivers (scheduling source)
+==============================================================================
+
+--- State_Init_0009c6bc @ 0x0009C6BC ---
+  Callers: 8
+    func_052428 @ 0x00052428
+    func_04dc38 @ 0x0004DC38
+    func_051f9c @ 0x00051F9C
+    func_050110 @ 0x00050110
+    func_0523a4 @ 0x000523A4
+    func_050e04 @ 0x00050E04
+    func_0524fc @ 0x000524FC
+    func_051918 @ 0x00051918
+
+--- State_auto_09c740 @ 0x0009C740 ---
+  Callers: 8
+    func_052428 @ 0x00052428
+    func_04dc38 @ 0x0004DC38
+    func_051f9c @ 0x00051F9C
+    func_050110 @ 0x00050110
+    func_0523a4 @ 0x000523A4
+    func_050e04 @ 0x00050E04
+    func_0524fc @ 0x000524FC
+    func_051918 @ 0x00051918
+
+--- State_auto_09c768 @ 0x0009C768 ---
+  Callers: 8
+    func_052428 @ 0x00052428
+    func_04dc38 @ 0x0004DC38
+    func_051f9c @ 0x00051F9C
+    func_050110 @ 0x00050110
+    func_0523a4 @ 0x000523A4
+    func_050e04 @ 0x00050E04
+    func_0524fc @ 0x000524FC
+    func_051918 @ 0x00051918

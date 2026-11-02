@@ -1,0 +1,44 @@
+==============================================================================
+AUTO-NAME PASS  (APPLY=True)
+==============================================================================
+Total: 2435   Named: 863 (35.4%)   Unnamed: 1572
+
+Would rename: 1194 functions
+Sample (first 30):
+  FUN_0000000c -> thunk_auto_00000c
+  FUN_00000180 -> thunk_auto_000180
+  FUN_0000023c -> thunk_auto_00023c
+  FUN_00000534 -> Debounce_auto_000534
+  FUN_00000578 -> Debounce_auto_000578
+  FUN_00000650 -> Debounce_auto_000650
+  FUN_00000c34 -> DSM_helper_auto_000c34
+  FUN_00000ce8 -> DSM_helper_auto_000ce8
+  FUN_00000d14 -> DSM_helper_auto_000d14
+  FUN_00000dc8 -> DSM_helper_auto_000dc8
+  FUN_00000df0 -> Debounce_helper_auto_000df0
+  FUN_00000e38 -> DSM_helper_auto_000e38
+  FUN_00000f68 -> DSM_helper_auto_000f68
+  FUN_00001298 -> DSM_helper_auto_001298
+  FUN_00001334 -> DSM_helper_auto_001334
+  FUN_000014f0 -> State_auto_0014f0
+  FUN_00001538 -> State_auto_001538
+  FUN_000015bc -> State_auto_0015bc
+  FUN_0000160c -> State_auto_00160c
+  FUN_0000166c -> State_auto_00166c
+  FUN_00001690 -> State_auto_001690
+  FUN_00001744 -> State_auto_001744
+  FUN_00001788 -> State_auto_001788
+  FUN_00002144 -> Debounce_auto_002144
+  FUN_00002214 -> Debounce_auto_002214
+  FUN_000023e0 -> Debounce_auto_0023e0
+  FUN_00002400 -> Debounce_auto_002400
+  FUN_0000243c -> Debounce_auto_00243c
+  FUN_000026a4 -> Debounce_auto_0026a4
+  FUN_0000283c -> Ramp_auto_00283c
+  ... and 1164 more
+
+Applied 1194 renames.
+
+AFTER:
+  Named:   2057 (84.5%)
+  Unnamed: 378

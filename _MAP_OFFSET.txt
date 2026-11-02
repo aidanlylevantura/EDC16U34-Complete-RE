@@ -1,0 +1,236 @@
+Maps loaded: 482
+
+Instructions scanned: 400998
+Distinct lower16 immediates indexed: 10215
+Total indexed sites: 42605
+
+==============================================================================
+MAPS WITH ANY MATCH
+==============================================================================
+
+Maps with hits: 173 / 482 (35.9%)
+
+HIGH confidence (engine function consumer): 131 maps
+LOW confidence (helper/unknown consumer): 42 maps
+
+=== CRITICAL MAPS FOUND (InjCrv/PCR/FlMng/EngPrt/ACTrqC/AirCtl) ===
+  67 critical maps have identified consumers
+  0x001C312A  ACTrqC_trqConvp_MAP
+  0x001C31BE  ACTrqC_trqConvt_MAP
+  0x001C3FD0  AirCtl_facATCor_MAP
+  0x001C66B4  AirCtl_facMaxDevCor_MAP
+  0x001C68B4  AirCtl_facMinDevCor_MAP
+  0x001C405C  AirCtl_facNQAPCor_MAP
+  0x001C4E2A  AirCtl_mDesRgn1a_MAP
+  0x001C5226  AirCtl_mDesRgn2b_MAP
+  0x001C537A  AirCtl_mDesRgn3a_MAP
+  0x001C6AB4  AirCtl_mMaxDev_MAP
+  0x001C6C92  AirCtl_mMinDev_MAP
+  0x001C4304  AirCtl_rCtlBase_MAP
+  0x001C46A8  AirCtl_rCtlRgn2a_MAP
+  0x001C48A4  AirCtl_rCtlRgn3b_MAP
+  0x001C5B56  AirCtl_rEGR2_MAP
+  0x001C5C2A  AirCtl_rEGR_MAP
+  0x001C6168  AirCtl_rRgn1EGROpnLp_MAP
+  0x001C617C  AirCtl_rRgn1EGR_MAP
+  0x001C6244  AirCtl_rRgn1TVA_MAP
+  0x001C6324  AirCtl_rRgn2EGROpnLp_MAP
+  0x001C63B0  AirCtl_rRgn2EGR_MAP
+  0x001C6478  AirCtl_rRgn2TVA_MAP
+  0x001C4992  AirCtl_rTEngCor_MAP
+  0x001C6544  AirCtl_rTVA_MAP
+  0x001D19AE  EngPrt_facAirOvhtPrv_MAP
+  0x001D1AA8  EngPrt_facAPCorr_MAP
+  0x001D1590  EngPrt_facBoost1_MAP
+  0x001D15A4  EngPrt_facBoost2_MAP
+  0x001D1BF8  EngPrt_facCTOvhtPrv_MAP
+  0x001D1CAC  EngPrt_facFlTempLim_MAP
+
+=== TOP HIGH-CONFIDENCE CONSUMERS ===
+
+  Carb_FUN_0009e910                        15 maps
+  AirCtl_FUN_00067850                      14 maps
+  ACCCD_FUN_000d4800                       13 maps
+  AirCtl_FUN_0005e818                      13 maps
+  InjCrv_FUN_0005fbb8                      13 maps
+  AirCtl_FUN_00069ad4                      12 maps
+  PFlt_FUN_000e75ac                        11 maps
+  AirCtl_FUN_000ae38c                      10 maps
+  AirCtl_FUN_0009e2f8                      10 maps
+  PCR_FUN_000971dc                         10 maps
+  FlMng_FUN_000c2520                       10 maps
+  AirCtl_FUN_000db954                      9 maps
+  Carb_FUN_000e9c9c                        9 maps
+  AirCtl_FUN_0006a200                      9 maps
+  ACCCD_helper_auto_0f55d4                 8 maps
+  Gearbx_auto_078908                       8 maps
+  PCR_Governor_PID                         8 maps
+  AirCtl_FUN_000e50a0                      7 maps
+  CrCtl_FUN_0008d05c                       7 maps
+  ACCtl_FUN_000e6154                       6 maps
+
+=== SAMPLE HIGH-CONFIDENCE DETAIL (first 40) ===
+
+  0x001C2A52  AccPed_trqEng5_MAP
+    [OFS] ACCCD_FUN_0007610c               @ 0x00076A0C  lbz r9,-0x2a52(r13)
+    [OFS] ACCCD_helper_auto_0f55d4         @ 0x000F5B54  stb r12,-0x2a52(r13)
+    [OFS] ACCCD_helper_auto_0f55d4         @ 0x000F5D6C  stb r10,-0x2a52(r13)
+
+  0x001C2BA8  AccPed_trqEng6_MAP
+    [IMM] AirCtl_FUN_000f2400              @ 0x000F2508  subi r9,r13,0x2ba8
+    [OFS] AirCtl_FUN_000f2400              @ 0x000F2520  stw r4,-0x2ba8(r13)
+
+  0x001C312A  ACTrqC_trqConvp_MAP
+    [OFS] PFlt_FUN_000e75ac                @ 0x000E7754  lbz r12,-0x312a(r13)
+    [OFS] PFlt_FUN_000e75ac                @ 0x000E775C  stb r29,-0x312a(r13)
+    [OFS] PFlt_FUN_000e75ac                @ 0x000E7790  stb r24,-0x312a(r13)
+
+  0x001C31BE  ACTrqC_trqConvt_MAP
+    [IMM] ACCCD_FUN_000e4e9c               @ 0x000E4EF4  subi r7,r13,0x31be
+    [OFS] AirCtl_FUN_000e50a0              @ 0x000E566C  lhz r28,-0x31be(r13)
+    [IMM] AirCtl_FUN_000e50a0              @ 0x000E56A4  subi r3,r13,0x31be
+
+  0x001C3434  AFSCD_dmPlsCor_MAP
+    [IMM] ACCCD_FUN_000db20c               @ 0x000DB3D4  subi r12,r13,0x3434
+    [OFS] ACCCD_FUN_000db20c               @ 0x000DB620  lbz r0,-0x3434(r13)
+    [OFS] ACCCD_FUN_000db20c               @ 0x000DB628  stb r0,-0x3434(r13)
+
+  0x001C3708  AFSCD_facCorrVal_MAP
+    [IMM] ACCCD_FUN_000d4800               @ 0x000D484C  subi r5,r13,0x3708
+    [OFS] ACCCD_FUN_000d4800               @ 0x000D4858  lbz r29,-0x3708(r13)
+
+  0x001C3FD0  AirCtl_facATCor_MAP
+    [IMM] AirCtl_FUN_000ae38c              @ 0x000B027C  subi r6,r13,0x3fd0
+    [IMM] AirCtl_FUN_000ae38c              @ 0x000B02D0  subi r6,r13,0x3fd0
+
+  0x001C66B4  AirCtl_facMaxDevCor_MAP
+    [OFS] InjCrv_FUN_0009ca9c              @ 0x0009CFF0  lha r30,-0x66b4(r13)
+    [OFS] ACCCD_FUN_0009e80c               @ 0x0009E8DC  sth r11,-0x66b4(r13)
+    [OFS] Carb_FUN_0009e910                @ 0x0009F560  lha r30,-0x66b4(r13)
+
+  0x001C68B4  AirCtl_facMinDevCor_MAP
+    [OFS] AirCtl_FUN_00067850              @ 0x00067DC0  lha r3,-0x68b4(r13)
+    [OFS] AirCtl_FUN_00069ad4              @ 0x00069F30  lha r3,-0x68b4(r13)
+    [OFS] Gearbx_auto_078908               @ 0x000789A0  lha r11,-0x68b4(r13)
+
+  0x001C405C  AirCtl_facNQAPCor_MAP
+    [IMM] ACCCD_FUN_000aa6cc               @ 0x000AADA0  subi r8,r13,0x405c
+
+  0x001C4E2A  AirCtl_mDesRgn1a_MAP
+    [OFS] ACCCD_FUN_00070060               @ 0x000700E4  lbz r12,-0x4e2a(r13)
+    [OFS] ACCCD_FUN_00070060               @ 0x00070138  lbz r12,-0x4e2a(r13)
+    [OFS] ACCCD_FUN_00070060               @ 0x000706D0  stb r11,-0x4e2a(r13)
+
+  0x001C5226  AirCtl_mDesRgn2b_MAP
+    [OFS] Carb_auto_06259c                 @ 0x000625D0  sth r9,-0x5226(r13)
+    [IMM] Carb_FUN_00062678                @ 0x00062890  subi r10,r13,0x5226
+
+  0x001C537A  AirCtl_mDesRgn3a_MAP
+    [OFS] ACCCD_auto_0febc0                @ 0x000FEE10  lbz r12,-0x537a(r13)
+    [OFS] ACCCD_auto_0febc0                @ 0x000FEE20  stb r12,-0x537a(r13)
+
+  0x001C6AB4  AirCtl_mMaxDev_MAP
+    [OFS] ACCCD_FUN_000b1a60               @ 0x000B1DD0  lbz r31,-0x6ab4(r13)
+    [OFS] ACCtl_FUN_000e6154               @ 0x000E64A0  lbz r11,-0x6ab4(r13)
+    [OFS] ACCtl_FUN_000e6154               @ 0x000E64A8  stb r11,-0x6ab4(r13)
+
+  0x001C6C92  AirCtl_mMinDev_MAP
+    [OFS] ACCCD_helper_auto_0f6cdc         @ 0x000F6D20  lbz r5,-0x6c92(r13)
+
+  0x001C4304  AirCtl_rCtlBase_MAP
+    [OFS] ACCCD_FUN_000a0208               @ 0x000A025C  lbz r12,-0x4304(r13)
+    [OFS] ACCtl_FUN_000a0304               @ 0x000A039C  lbz r30,-0x4304(r13)
+    [OFS] AirCtl_FUN_000a0a04              @ 0x000A0A4C  lbz r11,-0x4304(r13)
+
+  0x001C46A8  AirCtl_rCtlRgn2a_MAP
+    [OFS] CrCtl_FUN_0008d05c               @ 0x0008D328  sth r31,-0x46a8(r13)
+    [OFS] CrCtl_FUN_0008d05c               @ 0x0008DAA4  sth r3,-0x46a8(r13)
+    [OFS] CrCtl_FUN_0008d05c               @ 0x0008DB50  lha r3,-0x46a8(r13)
+
+  0x001C48A4  AirCtl_rCtlRgn3b_MAP
+    [OFS] ACCCD_FUN_0008860c               @ 0x00088624  lwz r10,-0x48a4(r13)
+    [OFS] ACCCD_FUN_0008860c               @ 0x00088638  stw r12,-0x48a4(r13)
+    [OFS] ACCCD_FUN_0008860c               @ 0x00088654  lwz r28,-0x48a4(r13)
+
+  0x001C5B56  AirCtl_rEGR2_MAP
+    [IMM] ACCCD_FUN_000de8d0               @ 0x000DE984  subi r12,r13,0x5b56
+
+  0x001C5C2A  AirCtl_rEGR_MAP
+    [OFS] AirCtl_Model_Observer            @ 0x000694F0  sth r31,-0x5c2a(r13)
+    [OFS] AirCtl_Model_Observer            @ 0x00069560  lhz r31,-0x5c2a(r13)
+    [OFS] AirCtl_Model_Observer            @ 0x000695AC  sth r12,-0x5c2a(r13)
+
+  0x001C6168  AirCtl_rRgn1EGROpnLp_MAP
+    [OFS] AirCtl_FUN_000ca1cc              @ 0x000CA990  lwz r26,-0x6168(r13)
+    [OFS] AirCtl_FUN_000ca1cc              @ 0x000CAB78  lwz r27,-0x6168(r13)
+    [OFS] ASDdc_FUN_000e0b78               @ 0x000E0BBC  lwz r22,-0x6168(r13)
+
+  0x001C617C  AirCtl_rRgn1EGR_MAP
+    [OFS] Gearbx_FUN_0007a810              @ 0x0007A834  lwz r30,-0x617c(r13)
+    [OFS] Gearbx_FUN_0007a810              @ 0x0007AAB4  lwz r11,-0x617c(r13)
+    [OFS] AccPed_PlausibilityCheck         @ 0x000DED7C  lwz r28,-0x617c(r13)
+
+  0x001C6244  AirCtl_rRgn1TVA_MAP
+    [OFS] ACCCD_FUN_0007d24c               @ 0x0007D69C  lwz r6,-0x6244(r13)
+
+  0x001C6324  AirCtl_rRgn2EGROpnLp_MAP
+    [OFS] AirCtl_FUN_000ae38c              @ 0x000AEB84  lwz r12,-0x6324(r13)
+
+  0x001C63B0  AirCtl_rRgn2EGR_MAP
+    [OFS] ACCtl_FUN_000e6154               @ 0x000E6370  lha r3,-0x63b0(r13)
+
+  0x001C6478  AirCtl_rRgn2TVA_MAP
+    [OFS] ACCtl_FUN_0006b7f8               @ 0x0006B894  lfs f17,-0x6478(r14)
+    [OFS] AirCtl_FUN_00081424              @ 0x000814BC  lha r27,-0x6478(r13)
+    [OFS] AirCtl_FUN_0008218c              @ 0x00082208  lha r3,-0x6478(r13)
+
+  0x001C4992  AirCtl_rTEngCor_MAP
+    [OFS] ACCCD_FUN_000812ec               @ 0x00081300  stb r11,-0x4992(r13)
+
+  0x001C6544  AirCtl_rTVA_MAP
+    [OFS] AirCtl_FUN_0005e818              @ 0x0005F634  lfs f11,-0x6544(r14)
+
+  0x001C74BC  Alt_pwrAltLoadVar3_MAP
+    [OFS] Alt_FUN_0001ed9c                 @ 0x0001EEA0  lbz r12,-0x74bc(r14)
+
+  0x001C7A98  APSCD_pCor_MAP
+    [OFS] EngM_FUN_00019edc                @ 0x00019F9C  stw r9,-0x7a98(r13)
+
+  0x001C7D4C  ASDdc_NGvnrRstINeg_MAP
+    [OFS] Carb_FUN_000e9c9c                @ 0x000E9D4C  lbz r12,-0x7d4c(r12)
+
+  0x001C7E40  ASDdc_NGvnrRstIPos1_MAP
+    [OFS] PCR_FUN_000971dc                 @ 0x00097608  lbz r12,-0x7e40(r12)
+    [OFS] PCR_FUN_000971dc                 @ 0x000976F4  lbz r12,-0x7e40(r12)
+    [OFS] PCR_FUN_000971dc                 @ 0x00097950  lbz r12,-0x7e40(r12)
+
+  0x001C15AA  CrCtl_vCtlPKp_MAP
+    [OFS] AirCtl_FUN_0008218c              @ 0x0008253C  sth r30,-0x15aa(r12)
+
+  0x001C16F2  CrCtl_vSetPointSlopePos_MAP
+    [OFS] ACCtl_FUN_00077cb0               @ 0x00078028  stb r9,-0x16f2(r10)
+
+  0x001D01B6  EGPp_pPstPFlt_MAP
+    [IMM] Carb_FUN_00057e5c                @ 0x00057FFC  subi r3,r13,0x1b6
+    [IMM] Carb_FUN_00057e5c                @ 0x00058098  subi r3,r13,0x1b6
+    [OFS] ACCCD_FUN_000e35d8               @ 0x000E36D8  lbz r11,0x1b6(r30)
+
+  0x001D02F0  EGRCD_rCnv_MAP
+    [OFS] AirCtl_FUN_00069ad4              @ 0x00069B24  lha r12,0x2f0(r28)
+    [OFS] ACCCD_FUN_000961e0               @ 0x000961EC  lwz r29,0x2f0(r15)
+    [OFS] ASDdc_FUN_000d83e0               @ 0x000D92F8  stw r19,-0x2f0(r11)
+
+  0x001D0B2A  EGSys_cpEG_MAP
+    [OFS] AirCtl_FUN_00093c10              @ 0x00093F28  stb r12,-0xb2a(r9)
+    [OFS] Carb_FUN_0009e910                @ 0x0009ED4C  lhz r12,0xb2a(r31)
+
+  0x001D083C  EGSys_dmExhGas_MAP
+    [OFS] ACCCD_FUN_000a8470               @ 0x000A8824  stw r3,-0x83c(r11)
+
+  0x001D073E  EGSys_pExhGas_MAP
+    [OFS] Gearbx_FUN_000b50d4              @ 0x000B52A0  stb r6,-0x73e(r12)
+
+  0x001D0D22  EGSys_phiStrtDlv_MAP
+    [IMM] FlMng_FUN_000c2520               @ 0x000C2834  addi r5,r31,0xd22
+
+Wrote C:\Users\user\Documents\Complete ECU Disassembly\MAP_CONSUMERS_OFFSET.csv

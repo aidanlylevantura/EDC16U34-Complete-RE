@@ -1,0 +1,418 @@
+==============================================================================
+FUN_00050110 - RequestDownload setup
+==============================================================================
+Function: FUN_00050110 @ 00050110  size=3032 bytes
+
+  
+  /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+  
+  void FUN_00050110(void)
+  
+  {
+    uint uVar1;
+    ushort in_r12;
+    int iVar2;
+    int unaff_r15;
+    ushort *unaff_r16;
+    byte bVar3;
+    char *unaff_r18;
+    undefined1 *unaff_r19;
+    ushort *unaff_r22;
+    byte *unaff_r23;
+    byte bVar4;
+    char *pcVar5;
+    ushort uVar6;
+    byte unaff_r31;
+    char cVar7;
+    byte in_cr0;
+    undefined2 uStack00000008;
+    undefined2 uStack0000000c;
+    
+    if ((bool)(in_cr0 >> 1 & 1)) {
+      uVar6 = in_r12 | 0x100;
+    }
+    else {
+      uVar6 = in_r12 & 0xfeff;
+    }
+    *unaff_r22 = uVar6;
+    DAT_007fc948 = ~unaff_r31;
+    State_auto_09c740(0x10,0x11);
+    State_auto_09c768(0x10);
+    if ((10 >> ((int)_DAT_007fa7ec & 0x3fU) & 1U) != 0) {
+      State_Init_0009c6bc(0x11,0x12);
+      if ((_DAT_007fc94a != (ushort)~_DAT_007fa862) || (_DAT_007fc94c != (ushort)~_DAT_007fa864)) {
+        DAT_007fa7e6 = DAT_007fa7e6 | 1;
+        DAT_007fc80d = 0xaa;
+      }
+      DAT_007fa7f0 = 0;
+      DAT_007fa7f7 = 0;
+      if (((DAT_007f943e & 0x3f) != 0) || ((DAT_006f827e & 1) == 0)) {
+        DAT_007fa7f7 = 1;
+      }
+      if (((((DAT_007f943d & 0x3f) != 0) || ((DAT_007f943c & 0x3f) != 0)) || ((DAT_006f827c & 1) == 0)
+          ) || (((DAT_006f827d & 1) == 0 || ((_DAT_007f998e >> 4 & 1) != 0)))) {
+        DAT_007fa7f0 = 1;
+      }
+      if (DAT_007f946d != '\x02') {
+        DAT_007fa7f7 = DAT_007fa7f7 | 4;
+      }
+      if ((_DAT_007f998e & 0x20) == 0) {
+        DAT_007fa7f0 = DAT_007fa7f0 | 4;
+      }
+      if (_DAT_007f99f6 <= _DAT_007fa06e) {
+        DAT_007fa7f0 = DAT_007fa7f0 | 8;
+        DAT_007fa7f7 = DAT_007fa7f7 | 8;
+      }
+      if (_DAT_007f995e == 0) {
+        DAT_007fa7f0 = DAT_007fa7f0 | 0x10;
+      }
+      pcVar5 = *(char **)(unaff_r15 + 0x38);
+      if (*pcVar5 == '\0') {
+        DAT_007fa7f0 = DAT_007fa7f0 | 0x40;
+        DAT_007fa7f7 = DAT_007fa7f7 | 0x40;
+      }
+      DAT_009ffbb8 = DAT_007fa7f0;
+      DAT_009ffbb9 = DAT_007fa7f7;
+      if ((((DAT_007fa7f0 & 1) == 0) && ((DAT_007fa7f0 & 4) == 0)) && ((DAT_007fa7f0 & 0x10) == 0)) {
+        DAT_007fa7f3 = false;
+      }
+      else {
+        DAT_007fa7f3 = true;
+      }
+      if ((bool)DAT_007fa7f3) {
+        _DAT_007fa862 = _DAT_007fa862 + 2;
+        if (*(ushort *)(pcVar5 + 2) < _DAT_007fa862) {
+          DAT_007fa7f2 = '\x01';
+        }
+        else {
+          DAT_007fa7f2 = '\0';
+        }
+      }
+      else {
+        _DAT_007fa862 = 0;
+        DAT_007fa7f2 = '\0';
+      }
+      _DAT_007fc94a = ~_DAT_007fa862;
+      if (((DAT_007fa7f2 == '\0') && ((DAT_007fa7f0 & 8) == 0)) && ((DAT_007fa7f0 & 0x40) == 0)) {
+        uVar6 = *unaff_r22 & 0xfdff;
+      }
+      else {
+        uVar6 = *unaff_r22 | 0x200;
+      }
+      if (((DAT_007fa7f7 & 1) == 0) && ((DAT_007fa7f7 & 4) == 0)) {
+        DAT_007fa7f5 = false;
+      }
+      else {
+        DAT_007fa7f5 = true;
+      }
+      if ((bool)DAT_007fa7f5) {
+        _DAT_007fa864 = _DAT_007fa864 + 2;
+        if (*(ushort *)(pcVar5 + 4) < _DAT_007fa864) {
+          DAT_007fa7f4 = 1;
+        }
+        else {
+          DAT_007fa7f4 = 0;
+        }
+      }
+      else {
+        _DAT_007fa864 = 0;
+        DAT_007fa7f4 = 0;
+      }
+      _DAT_007fc94c = ~_DAT_007fa864;
+      if (((DAT_007fa7f4 == 0) && ((DAT_007fa7f7 & 8) == 0)) && ((DAT_007fa7f7 & 0x40) == 0)) {
+        uVar6 = uVar6 & 0xf7ff;
+      }
+      else {
+        uVar6 = uVar6 | 0x800;
+      }
+      *unaff_r22 = uVar6;
+      State_auto_09c740(0x11,0x12);
+      State_auto_09c768(0x11);
+    }
+    if ((5 >> ((int)_DAT_007fa7ec & 0x3fU) & 1U) != 0) {
+      State_Init_0009c6bc(0x12,0x13);
+      if ((_DAT_007fc94e != (ushort)~_DAT_007fa866) && ((ushort)~_DAT_007fa868 != _DAT_007fc950)) {
+        DAT_007fa7e6 = DAT_007fa7e6 | 1;
+        DAT_007fc80d = 0xaa;
+      }
+      DAT_007fa7f4 = 0;
+      if (((ACC_stCrCtl_Out_mp != '\x01') && (AccPed_stPlausError_mp == '\x01')) &&
+         (ACC_stCrCtl_mp == '\x01')) {
+        DAT_007fa7f4 = 1;
+      }
+      if (_ACC_trqDes_mp <= _DAT_007fa114) {
+        DAT_007fa7f4 = DAT_007fa7f4 | 4;
+      }
+      bVar3 = *unaff_r23;
+      if ((bVar3 & 8) == 0) {
+        if ((DAT_007f9316 != 0) || (DAT_007fa7ef != '\0')) {
+          bVar4 = 8;
+  LAB_000505b8:
+          DAT_007fa7f4 = DAT_007fa7f4 | bVar4;
+        }
+      }
+      else if ((DAT_007f9316 != 0) || (DAT_007fa7ef != '\0')) {
+        if ((DAT_007f93f1 >> 2 & 1) != 0) {
+          DAT_007fa7f4 = DAT_007fa7f4 | 8;
+        }
+        if ((0 < _DAT_007f9986) && ((ACC_stMainSwitch_mp >> 5 & 1) != 0)) {
+          bVar4 = 0x20;
+          goto LAB_000505b8;
+        }
+      }
+      if (((DAT_007fa7f6 != '\0') || (DAT_007fa7f1 != '\0')) && (unaff_r18[9] != '\0')) {
+        DAT_007fa7f4 = DAT_007fa7f4 | 0x10;
+      }
+      if (AccPed_stPlausError_mp == '\0') {
+        DAT_007fa7f4 = DAT_007fa7f4 | 2;
+      }
+      if (((ACC_stShutOff_mp & 0x18) != 0) || ((DAT_006f8277 & 1) == 0)) {
+        DAT_007fa7f4 = DAT_007fa7f4 | 0x40;
+      }
+      DAT_007fa7f5 = 0;
+      if ((DAT_007f935d == '\x02') || (DAT_007f935d == '\x05')) {
+        if ((_DAT_007f97ea & 1) == 0) goto LAB_00050678;
+      }
+      else if (((_DAT_007f9990 & 1) == 0) || (DAT_007f935b == '\0')) {
+  LAB_00050678:
+        DAT_007fa7f5 = 1;
+      }
+      if ((AccPed_stPlausError_mp == '\0') || (ACC_stCrCtl_mp == '\0')) {
+        DAT_007fa7f5 = DAT_007fa7f5 | 2;
+      }
+      if ((DAT_006f827a & 1) == 0) {
+        DAT_007fa7f5 = DAT_007fa7f5 | 4;
+      }
+      if ((DAT_006f8279 & 1) == 0) {
+        DAT_007fa7f5 = DAT_007fa7f5 | 8;
+      }
+      if ((((DAT_007f9316 & *(byte *)(*(int *)(unaff_r15 + 0x1c) + 0x2a)) != 0) ||
+          ((DAT_007f93fb & 0x20) != 0)) || ((DAT_007f94f9 & **(byte **)(unaff_r15 + 0x30)) != 0)) {
+        DAT_007fa7f5 = DAT_007fa7f5 | 0x10;
+      }
+      if ((DAT_007f92c2 == '\x01') && (_ACC_trqDes_mp <= _DAT_007fa114)) {
+        DAT_007fa7f5 = DAT_007fa7f5 | 0x20;
+      }
+      if ((DAT_006f8278 & 1) == 0) {
+        DAT_007fa7f5 = DAT_007fa7f5 | 0x40;
+      }
+      if ((((ACC_stMainSwitch_mp & 3) == 0) || ((ACC_stMainSwitch_mp & 3) == 2)) ||
+         (((ACC_stMainSwitch_mp & 3) == 3 || ((ACC_stMainSwitch_mp & 0x20) == 0)))) {
+        DAT_007fa7f5 = DAT_007fa7f5 | 0x80;
+      }
+      if (DAT_007fa7f5 == 0) {
+        _DAT_007fa868 = 0;
+      }
+      else {
+        _DAT_007fa868 = _DAT_007fa868 + 2;
+        if (*(ushort *)(*(int *)(unaff_r15 + 0x30) + 4) < _DAT_007fa868) {
+          DAT_007fa7f4 = DAT_007fa7f4 | 0x80;
+        }
+      }
+      if (((((DAT_007fa7f4 & 1) == 0) && ((DAT_007fa7f4 & 0x10) == 0)) && ((DAT_007fa7f4 & 0x20) == 0)
+          ) && (((DAT_007fa7f4 & 8) == 0 && ((DAT_007fa7f4 & 0x40) == 0)))) {
+        DAT_007fa7f3 = false;
+      }
+      else {
+        DAT_007fa7f3 = true;
+      }
+      if ((bool)DAT_007fa7f3) {
+        _DAT_007fa866 = _DAT_007fa866 + 2;
+        if (*(ushort *)(*(int *)(unaff_r15 + 0x30) + 2) < _DAT_007fa866) {
+          DAT_007fa7f2 = '\x01';
+        }
+        else {
+          DAT_007fa7f2 = '\0';
+
+Flash-write sites (store followed by sync/eieio within 8 insns):
+  (none in this function)
+
+==============================================================================
+FUN_0000391c - TransferData / flash write
+==============================================================================
+Function: FUN_0000391c @ 0000391c  size=108 bytes
+
+  
+  undefined4 FUN_0000391c(int param_1)
+  
+  {
+    uint in_r12;
+    uint unaff_r30;
+    uint unaff_r31;
+    uint uVar1;
+    
+    uVar1 = unaff_r31 + (in_r12 | unaff_r31 << 4) + (unaff_r31 >> 2 & 0x3f | (unaff_r31 & 3) << 6);
+    if (param_1 != 0x30) {
+      if ((param_1 != 0x35) && (param_1 != 0x36)) {
+        return 0;
+      }
+      uVar1 = uVar1 ^ 1;
+    }
+    if ((uVar1 & 0xff) != unaff_r30) {
+      return 0;
+    }
+    return 1;
+  }
+  
+  
+
+Flash-write sites (store followed by sync/eieio within 8 insns):
+  (none in this function)
+
+==============================================================================
+DSM_FUN_000006a0 - 0x34 dispatcher / boot init
+==============================================================================
+Function: DSM_FUN_000006a0 @ 000006a0  size=1428 bytes
+
+  
+  /* WARNING: Removing unreachable block (ram,0x0000088c) */
+  /* WARNING: Removing unreachable block (ram,0x00000898) */
+  /* WARNING: Removing unreachable block (ram,0x0000089c) */
+  /* WARNING: Removing unreachable block (ram,0x000008b8) */
+  /* WARNING: Removing unreachable block (ram,0x000008c4) */
+  /* WARNING: Removing unreachable block (ram,0x000008d0) */
+  /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+  
+  void DSM_FUN_000006a0(void)
+  
+  {
+    code *pcVar1;
+    int iVar2;
+    uint uVar3;
+    undefined4 in_LR;
+    uint in_SPRG1;
+    uint in_IMMR;
+    uint local_18;
+    
+    instructionSynchronize();
+    if ((in_IMMR & 0xff000000) == 0x35000000) {
+      if (-1 < _DAT_006fc010) {
+        _DAT_006fc100 = 0x103;
+        instructionSynchronize();
+        _DAT_006fc104 = 0xff800040;
+        instructionSynchronize();
+      }
+      if ((in_IMMR & 0xff0000) == 0) {
+        _DAT_00780000 = _DAT_00780000 | 0x20000000;
+      }
+      _DAT_006fc038 = 0x8000007c;
+      _DAT_006fc03c = 0xa200;
+      _DAT_007fd808 = TBLr;
+      DAT_007fd80c = (_DAT_006fc284 & 0xfff00000) == 0;
+      _DAT_0070501a = _DAT_0070501a & 0x7fff;
+      _DAT_007fd804 = in_LR;
+      DSM_helper_auto_001334(&DAT_00704000);
+      DSM_helper_auto_001334(&DAT_00704400);
+      _DAT_00700004 = 0xffa0;
+      if (((in_SPRG1 & 0xffff) == 10) &&
+         (pcVar1 = (code *)Debounce_auto_000650(4), pcVar1 != (code *)0x0)) {
+        (*pcVar1)();
+      }
+      DSM_helper_auto_001298();
+      _DAT_006fc140 = 0x80000;
+      _DAT_006fc144 = 0x80000;
+      _DAT_006fc300 = 0x55ccaa33;
+      _DAT_006fc380 = 0x55ccaa33;
+      _DAT_006fc384 = 0x55ccaa33;
+      _DAT_006fc388 = 0x55ccaa33;
+      _DAT_006fc30c = 0x55ccaa33;
+      _DAT_006fc280 = 0x82200600;
+      DSM_helper_auto_001298(7);
+      _DAT_006fc02c = _DAT_006fc02c & 0x7fffffff;
+      _DAT_006fc000 = _DAT_006fc000 & 0xfffff3ff | 0x800;
+      pcVar1 = (code *)Debounce_auto_000650(6);
+      while ((_DAT_006fc028 & 0x80000000) == 0) {
+        DSM_helper_auto_001298();
+        if (pcVar1 != (code *)0x0) {
+          (*pcVar1)();
+        }
+      }
+      if (DAT_007fd80c == '\0') {
+        for (uVar3 = 0; uVar3 < 0xe; uVar3 = uVar3 + 1) {
+          Debounce_Def_00000624();
+        }
+      }
+      else {
+        _DAT_006fc280 = _DAT_006fc280 & 0xfffffff8 | 2;
+        Debounce_Def_00000624();
+        _DAT_006fc284 = 0xd04084;
+        do {
+          _DAT_006fc284 = _DAT_006fc284 | 0x28000;
+          Debounce_Def_00000624();
+        } while ((_DAT_006fc284 >> 0xf & 1) != 0);
+        for (uVar3 = 0; uVar3 < 3; uVar3 = uVar3 + 1) {
+          Debounce_Def_00000624();
+        }
+        _DAT_006fc280 = _DAT_006fc280 & 0xfffffff8 | 1;
+        do {
+          _DAT_006fc284 = _DAT_006fc284 | 0x28000;
+          Debounce_Def_00000624();
+        } while ((_DAT_006fc284 >> 0xf & 1) != 0);
+        for (uVar3 = 0; uVar3 < 6; uVar3 = uVar3 + 1) {
+          Debounce_Def_00000624();
+        }
+        _DAT_006fc280 = _DAT_006fc280 & 0xfffffff8;
+        do {
+          _DAT_006fc284 = _DAT_006fc284 | 0x28000;
+          Debounce_Def_00000624();
+        } while ((_DAT_006fc284 >> 0xf & 1) != 0);
+        local_18 = 0;
+        do {
+          Debounce_Def_00000624();
+          local_18 = local_18 + 1;
+        } while (local_18 < 6);
+      }
+      _DAT_006fc280 = _DAT_006fc280 | 0x8000000;
+      instructionSynchronize();
+      iVar2 = 0;
+      do {
+        iVar2 = iVar2 + 1;
+      } while (iVar2 != 0x34);
+      _DAT_006fc02c = (_DAT_006fc02c | 0xc0000000) & 0xbfffffff;
+      _DAT_006fc028 = _DAT_006fc028 & 0x3fffffff | 0x80000000;
+      Debounce_Def_00000624();
+      _DAT_006fc02c = _DAT_006fc02c & 0x3fffffff;
+      _DAT_006fc018 = 0x80000000;
+      if (0x1fffff < (in_IMMR & 0xff0000)) {
+        instructionSynchronize();
+        instructionSynchronize();
+      }
+      _DAT_006fc200 = 3;
+      _DAT_006fc000 = 0x20c08;
+      DSM_helper_auto_001298(0xffffffff);
+      DSM_helper_auto_000f68();
+      _DAT_00707f80 = 0;
+      iVar2 = DSM_helper_auto_000ce8(0x80000c00,0xc00);
+      if (iVar2 != 0x1a) {
+        DSM_helper_auto_000c34();
+      }
+      TBLw = 0;
+      TBUw = 0;
+      DSM_helper_auto_001298(0);
+      _DAT_006fc284 = _DAT_006fc284 | 0x28000;
+      DSM_helper_auto_001298();
+      Debounce_Def_000054f4(0x40);
+      DSM_helper_auto_001298();
+      thunk_FUN_00021744();
+      _DAT_007fefd0 = 0;
+      DSM_helper_auto_000e38(0x1d);
+      return;
+    }
+    iVar2 = (in_IMMR >> 1 & 7) * 0x400000;
+    *(uint *)(&DAT_002fc284 + iVar2) = *(uint *)(&DAT_002fc284 + iVar2) | 0x80;
+    *(undefined2 *)(&DAT_00304002 + iVar2) = 0x55;
+    do {
+                      /* WARNING: Do nothing block with infinite loop */
+    } while( true );
+  }
+  
+  
+
+Flash-write sites (store followed by sync/eieio within 8 insns):
+  0x000006a0  stwu r1,-0x20(r1)                ... isync
+  0x000006ac  stw r0,0x24(r1)                  ... isync
+  0x0000074c  stw r12,0x100(r31)               ... isync
+  0x0000075c  stw r11,0x104(r31)               ... isync
+  0x00000a80  stw r12,0x280(r31)               ... isync
+  0x00000a90  stw r11,0x2c(r31)                ... isync
+  0x00000a9c  stw r12,0x28(r31)                ... isync

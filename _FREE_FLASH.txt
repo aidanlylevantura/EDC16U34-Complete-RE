@@ -1,0 +1,47 @@
+==============================================================================
+Erased flash regions (0xFF x 256+ consecutive bytes)
+==============================================================================
+
+Scanning from 0x1E0000 to 0x1FDFFF (last valid byte).
+
+Erased runs found: 1
+
+  0x001EA800 - 0x001FDF00  (79616 bytes, 77.8 KB)
+
+==============================================================================
+Last non-FF byte scan (confirm where real data ends)
+==============================================================================
+
+Last non-FF byte: 0x001FDFFF
+
+Total erased space after last map: 0x00000000 bytes (0 KB)
+
+==============================================================================
+Candidate B-set regions
+==============================================================================
+
+  0x1EB000  FREE (2048 bytes)
+  0x1EC000  FREE (2048 bytes)
+  0x1ED000  FREE (2048 bytes)
+  0x1EE000  FREE (2048 bytes)
+  0x1EF000  FREE (2048 bytes)
+  0x1F0000  FREE (2048 bytes)
+  0x1F1000  FREE (2048 bytes)
+  0x1F2000  FREE (2048 bytes)
+  0x1F3000  FREE (2048 bytes)
+  0x1F4000  FREE (2048 bytes)
+  0x1F5000  FREE (2048 bytes)
+  0x1F6000  FREE (2048 bytes)
+  0x1F7000  FREE (2048 bytes)
+  0x1F8000  FREE (2048 bytes)
+
+==============================================================================
+A-set maps in 0x1D1400-0x1D1900 (candidates for duplication)
+==============================================================================
+
+Showing content boundary at 0x100-byte intervals:
+  0x001D1400    (data: 0x07)
+  0x001D1500    (data: 0xFE)
+  0x001D1600    (data: 0x12)
+  0x001D1700    (data: 0x03)
+  0x001D1800    (data: 0x01)

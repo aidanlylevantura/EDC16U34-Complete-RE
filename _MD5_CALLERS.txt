@@ -1,0 +1,202 @@
+==============================================================================
+MD5 @ 0x601c - Debounce_auto_00601c  (size=2588 bytes)
+==============================================================================
+
+Callers:
+  State_Init_00006a38 @ 00006a38   (call site 0x00006a98)
+  State_Init_00006a38 @ 00006a38   (call site 0x00006ad8)
+  State_auto_006b1c @ 00006b1c   (call site 0x00006bac)
+  State_auto_006b1c @ 00006b1c   (call site 0x00006bcc)
+
+Decompiled callers (first 3 unique):
+------------------------------------------------------------------------------
+State_Init_00006a38 @ 00006a38
+------------------------------------------------------------------------------
+  
+  void State_Init_00006a38(undefined4 param_1,int param_2)
+  
+  {
+    uint uVar1;
+    int iVar2;
+    int iVar3;
+    
+    uVar1 = *(uint *)(param_2 + 0x10) >> 3 & 0x3f;
+    iVar3 = param_2 + uVar1;
+    iVar2 = -uVar1;
+    *(undefined1 *)(iVar3 + 0x18) = 0x80;
+    iVar3 = iVar3 + 0x19;
+    if (iVar2 + 0x3fU < 8) {
+      State_helper_auto_006c70(iVar3,0);
+      State_helper_auto_006cb0(param_2 + 0x18,0x10);
+      Debounce_auto_00601c(param_2,param_2 + 0x18);
+      iVar3 = param_2 + 0x18;
+      iVar2 = 0x38;
+    }
+    else {
+      iVar2 = iVar2 + 0x37;
+    }
+    State_helper_auto_006c70(iVar3,0,iVar2);
+    State_helper_auto_006cb0(param_2 + 0x18,0xe);
+    *(undefined4 *)(param_2 + 0x50) = *(undefined4 *)(param_2 + 0x10);
+    *(undefined4 *)(param_2 + 0x54) = *(undefined4 *)(param_2 + 0x14);
+    Debounce_auto_00601c(param_2,param_2 + 0x18);
+    State_helper_auto_006cb0(param_2,4);
+    State_helper_auto_006c8c(param_1,param_2,0x10);
+    State_helper_auto_006c70(param_2,0,4);
+    return;
+  }
+  
+  
+
+------------------------------------------------------------------------------
+State_auto_006b1c @ 00006b1c
+------------------------------------------------------------------------------
+  
+  void State_auto_006b1c(int param_1,int param_2,uint param_3)
+  
+  {
+    uint uVar1;
+    int iVar2;
+    uint uVar3;
+    
+    uVar1 = *(uint *)(param_1 + 0x10);
+    uVar3 = uVar1 + param_3 * 8;
+    *(uint *)(param_1 + 0x10) = uVar3;
+    if (uVar3 < uVar1) {
+      *(int *)(param_1 + 0x14) = *(int *)(param_1 + 0x14) + 1;
+    }
+    uVar1 = uVar1 >> 3 & 0x3f;
+    *(uint *)(param_1 + 0x14) = *(int *)(param_1 + 0x14) + (param_3 >> 0x1d);
+    if (uVar1 != 0) {
+      uVar3 = 0x40 - uVar1;
+      iVar2 = param_1 + uVar1 + 0x18;
+      if (param_3 < uVar3) {
+        State_helper_auto_006c8c(iVar2);
+        return;
+      }
+      State_helper_auto_006c8c(iVar2,param_2,uVar3);
+      State_helper_auto_006cb0(param_1 + 0x18,0x10);
+      Debounce_auto_00601c(param_1,param_1 + 0x18);
+      param_2 = param_2 + uVar3;
+      param_3 = param_3 - uVar3;
+    }
+    for (; 0x3f < param_3; param_3 = param_3 - 0x40) {
+      FUN_00006cec(param_1 + 0x18,param_2,0x10);
+      Debounce_auto_00601c(param_1,param_1 + 0x18);
+      param_2 = param_2 + 0x40;
+    }
+    State_helper_auto_006c8c(param_1 + 0x18,param_2,param_3);
+    return;
+  }
+  
+  
+
+==============================================================================
+MD5 @ 0x26768 - State_helper_auto_026768  (size=2592 bytes)
+==============================================================================
+
+Callers:
+  State_auto_0272f8 @ 000272f8   (call site 0x0002739c)
+  State_auto_0272f8 @ 000272f8   (call site 0x000273c4)
+  State_Init_0002723c @ 0002723c   (call site 0x0002728c)
+  State_auto_0271c4 @ 000271c4   (call site 0x000271fc)
+
+Decompiled callers (first 3 unique):
+------------------------------------------------------------------------------
+State_auto_0272f8 @ 000272f8
+------------------------------------------------------------------------------
+  
+  /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+  
+  void State_auto_0272f8(int param_1,uint param_2)
+  
+  {
+    bool bVar1;
+    uint uVar2;
+    uint uVar3;
+    
+    uVar2 = _DAT_007f8ee4 + param_2 * 8;
+    if (uVar2 < _DAT_007f8ee4) {
+      _DAT_007f8ee8 = _DAT_007f8ee8 + 1;
+    }
+    uVar3 = _DAT_007f8ee4 >> 3 & 0x3f;
+    _DAT_007f8ee8 = _DAT_007f8ee8 + (param_2 >> 0x1d);
+    _DAT_007f8ee4 = uVar2;
+    if (uVar3 != 0) {
+      uVar2 = 0x40 - uVar3;
+      bVar1 = param_2 < uVar2;
+      if (bVar1) {
+        FUN_00026704(uVar3 + 0x7f8eec,param_1,param_2);
+      }
+      FUN_00026704(uVar3 + 0x7f8eec,param_1,uVar2);
+      State_auto_027188(0x7f8eec,0x10);
+      State_helper_auto_026768(&DAT_007f8ed4,0x7f8eec);
+      param_1 = param_1 + uVar2;
+      param_2 = param_2 - uVar2;
+      if (bVar1) {
+        return;
+      }
+    }
+    for (; 0x3f < param_2; param_2 = param_2 - 0x40) {
+      State_auto_0272b8(0x7f8eec,param_1,0x10);
+      State_helper_auto_026768(&DAT_007f8ed4,0x7f8eec);
+      param_1 = param_1 + 0x40;
+    }
+    FUN_00026704(0x7f8eec,param_1,param_2);
+    return;
+  }
+  
+  
+
+------------------------------------------------------------------------------
+State_auto_0271c4 @ 000271c4
+------------------------------------------------------------------------------
+  
+  /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+  
+  void State_auto_0271c4(undefined4 param_1)
+  
+  {
+    State_auto_027188(0x7f8eec,0xe);
+    _DAT_007f8f24 = _DAT_007f8ee4;
+    _DAT_007f8f28 = _DAT_007f8ee8;
+    State_helper_auto_026768(&DAT_007f8ed4,0x7f8eec);
+    State_auto_027188(&DAT_007f8ed4,4);
+    FUN_00026704(param_1,&DAT_007f8ed4,0x10);
+    State_helper_auto_0266e8(&DAT_007f8ed4,0,0x58);
+    return;
+  }
+  
+  
+
+------------------------------------------------------------------------------
+State_Init_0002723c @ 0002723c
+------------------------------------------------------------------------------
+  
+  /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+  
+  void State_Init_0002723c(void)
+  
+  {
+    int iVar1;
+    uint uVar2;
+    int iVar3;
+    
+    uVar2 = _DAT_007f8ee4 >> 3 & 0x3f;
+    *(undefined1 *)(uVar2 + 0x7f8eec) = 0x80;
+    iVar1 = uVar2 + 0x7f8eed;
+    if (-uVar2 + 0x3f < 8) {
+      State_helper_auto_0266e8(iVar1,0);
+      State_auto_027188(0x7f8eec,0x10);
+      State_helper_auto_026768(&DAT_007f8ed4,0x7f8eec);
+      iVar1 = 0x7f8eec;
+      iVar3 = 0x38;
+    }
+    else {
+      iVar3 = -uVar2 + 0x37;
+    }
+    State_helper_auto_0266e8(iVar1,0,iVar3);
+    return;
+  }
+  
+  

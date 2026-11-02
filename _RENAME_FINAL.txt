@@ -1,0 +1,65 @@
+==============================================================================
+FINAL NAMING PASS
+==============================================================================
+
+Start: total=2435 named=2057 (84.5%) unnamed=378
+
+Applying heuristics...
+
+Rename plan: 378 entries
+
+  FUN_0000032c             -> func_00032c                       [fallback]
+  FUN_00000d78             -> DSM_func_000d78                   [H3:neighbor]
+  FUN_00000e98             -> DSM_func_000e98                   [H3:neighbor]
+  FUN_00000f24             -> DSM_func_000f24                   [H3:neighbor]
+  FUN_000012b8             -> DSM_func_0012b8                   [H3:neighbor]
+  FUN_0000137c             -> DSM_func_00137c                   [H3:neighbor]
+  FUN_0000139c             -> DSM_func_00139c                   [H3:neighbor]
+  FUN_000013c0             -> DSM_func_0013c0                   [H3:neighbor]
+  FUN_000013d4             -> DSM_func_0013d4                   [H3:neighbor]
+  FUN_0000141c             -> DSM_func_00141c                   [H3:neighbor]
+  FUN_00001ba8             -> func_001ba8                       [fallback]
+  FUN_00001ffc             -> func_001ffc                       [fallback]
+  FUN_00003628             -> func_003628                       [fallback]
+  FUN_000036f8             -> Ramp_func_0036f8                  [H2:callee(conf=2)]
+  FUN_000038f8             -> func_0038f8                       [fallback]
+  FUN_0000391c             -> func_00391c                       [fallback]
+  FUN_00003988             -> Debounce_func_003988              [H2:callee(conf=2)]
+  FUN_00003d50             -> func_003d50                       [fallback]
+  FUN_00006cec             -> State_func_006cec                 [H3:neighbor]
+  FUN_00006ddc             -> State_func_006ddc                 [H3:neighbor]
+  FUN_00006f04             -> func_006f04                       [fallback]
+  FUN_00007828             -> func_007828                       [fallback]
+  FUN_00007944             -> func_007944                       [fallback]
+  FUN_00007998             -> func_007998                       [fallback]
+  FUN_00007afc             -> func_007afc                       [fallback]
+  FUN_00008682             -> func_008682                       [fallback]
+  FUN_00010480             -> func_010480                       [fallback]
+  FUN_00010588             -> func_010588                       [fallback]
+  FUN_0001062c             -> func_01062c                       [fallback]
+  FUN_000106d4             -> func_0106d4                       [fallback]
+  FUN_000107c8             -> func_0107c8                       [fallback]
+  FUN_000109f4             -> func_0109f4                       [fallback]
+  FUN_00010b08             -> func_010b08                       [fallback]
+  FUN_000126f8             -> func_0126f8                       [fallback]
+  FUN_00017028             -> State_func_017028                 [H3:neighbor]
+  FUN_00017150             -> State_func_017150                 [H3:neighbor]
+  FUN_000172d8             -> State_func_0172d8                 [H3:neighbor]
+  FUN_00017318             -> State_func_017318                 [H3:neighbor]
+  FUN_00018a78             -> func_018a78                       [fallback]
+  FUN_00019c14             -> func_019c14                       [fallback]
+  ... and 338 more
+
+Applying renames...
+
+Applied: 378    Failed: 0
+
+FINAL: total=2435 named=2435 (100.0%) unnamed=0
+
+By heuristic:
+  H1           2 renames
+  H2           25 renames
+  H3           102 renames
+  H4           36 renames
+  H5           8 renames
+  fallback     205 renames

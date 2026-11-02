@@ -1,0 +1,110 @@
+==============================================================================
+PERIPHERAL ACCESS GREP — EDC16U34_FINAL_Annotated.c
+==============================================================================
+Correct IMMR base: 0x006FC000 (from DSM_FUN_000006a0)
+
+Total functions in .c: 2388
+Total peripheral references: 1949
+
+--- Peripherals by function ---
+
+[RAM_global]  1 functions  7 total accesses
+    FUN_00004cbc                                       7 hits   0x007f7ffc 0x007f7ffc 0x007f7ffc
+
+[RAM_global_high]  1682 functions  43320 total accesses
+    FUN_0004dc38                                     1121 hits   0x007fa7f6 0x007f934a 0x007f9447
+    FUN_000bc96c                                     1117 hits   0x007f94a3 0x007f949e 0x007f949f
+    FUN_000971dc                                     618 hits   0x007f98e6 0x007fbb94 0x007f98e6
+    FUN_000db954                                     573 hits   0x007f93a7 0x007f9bfe 0x007f9ebe
+    FUN_00067850                                     551 hits   0x007f9ce0 0x007f9ce0 0x007f98e6
+    FUN_000b76a4                                     537 hits   0x007f948d 0x007f9a04 0x007f9f92
+    FUN_000ae38c                                     509 hits   0x007f9e60 0x007fa0a8 0x007f97da
+    FUN_000941d0                                     421 hits   0x007fbb0c 0x007fbb0c 0x007fbb40
+    FUN_00054804                                     402 hits   0x007f92c2 0x007f9412 0x007ffda0
+    FUN_000f55d4                                     397 hits   0x007fd5a5 0x007fd5a2 0x007fd5c4
+    ... and 1672 more
+
+[SIU_GPDO]  6 functions  20 total accesses
+    FUN_000212d8                                       8 hits   0x006fc100 0x006fc104 0x006fc108
+    FUN_000006a0                                       4 hits   0x006fc100 0x006fc104 0x006fc140
+    FUN_000054f4                                       2 hits   0x006fc100 0x006fc100
+    FUN_00023064                                       2 hits   0x006fc140 0x006fc144
+    FUN_0003e398                                       2 hits   0x006fc100 0x006fc100
+    FUN_00103064                                       2 hits   0x006fc140 0x006fc100
+
+[SIU_MCR]  5 functions  31 total accesses
+    FUN_000006a0                                      22 hits   0x006fc284 0x006fc280 0x006fc280
+    FUN_00000f68                                       3 hits   0x006fc288 0x006fc288 0x006fc288
+    FUN_000212d8                                       2 hits   0x006fc280 0x006fc280
+    FUN_00023294                                       2 hits   0x006fc280 0x006fc280
+    FUN_00103188                                       2 hits   0x006fc280 0x006fc280
+
+[SIU_SYCRA]  1 functions  2 total accesses
+    FUN_000006a0                                       2 hits   0x006fc300 0x006fc30c
+
+[SIU_SYCRB]  1 functions  3 total accesses
+    FUN_000006a0                                       3 hits   0x006fc380 0x006fc384 0x006fc388
+
+[SIU_base]  34 functions  105 total accesses
+    FUN_000006a0                                      16 hits   0x006fc010 0x006fc038 0x006fc03c
+    FUN_000a3714                                      12 hits   0x006fc014 0x006fc014 0x006fc014
+    FUN_000212d8                                       6 hits   0x006fc000 0x006fc000 0x006fc03c
+    FUN_00054110                                       6 hits   0x006fc014 0x006fc010 0x006fc014
+    FUN_00021bc8                                       5 hits   0x006fc014 0x006fc048 0x006fc04c
+    FUN_00053a94                                       5 hits   0x006fc014 0x006fc014 0x006fc014
+    FUN_0008a538                                       5 hits   0x006fc014 0x006fc014 0x006fc014
+    FUN_00000e98                                       4 hits   0x006fc02c 0x006fc02c 0x006fc000
+    FUN_00000f24                                       3 hits   0x006fc010 0x006fc010 0x006fc010
+    FUN_000040b0                                       3 hits   0x006fc03c 0x006fc03c 0x006fc03c
+    ... and 24 more
+
+[eDMA]  16 functions  34 total accesses
+    FUN_000534a0                                       6 hits   0x006fc200 0x006fc200 0x006fc200
+    FUN_00052be0                                       4 hits   0x006fc244 0x006fc200 0x006fc240
+    FUN_0005408c                                       3 hits   0x006fc200 0x006fc200 0x006fc204
+    FUN_0000032c                                       2 hits   0x006fc240 0x006fc240
+    FUN_00023294                                       2 hits   0x006fc244 0x006fc240
+    FUN_00023338                                       2 hits   0x006fc240 0x006fc240
+    FUN_000528ec                                       2 hits   0x006fc240 0x006fc240
+    FUN_00052d7c                                       2 hits   0x006fc240 0x006fc240
+    FUN_00053898                                       2 hits   0x006fc200 0x006fc200
+    FUN_000542e8                                       2 hits   0x006fc240 0x006fc240
+    ... and 6 more
+
+[eMIOS]  1 functions  1 total accesses
+    FUN_000d262c                                       1 hits   0x006f8800
+
+[eQADC_or_misc]  202 functions  760 total accesses
+    FUN_000ae38c                                      36 hits   0x006f81df 0x006f820d 0x006f81e7
+    FUN_0007610c                                      28 hits   0x006f8182 0x006f818b 0x006f8183
+    FUN_00087a90                                      21 hits   0x006f8486 0x006f8488 0x006f848a
+    FUN_000db954                                      19 hits   0x006f8285 0x006f8284 0x006f8284
+    FUN_00086c94                                      18 hits   0x006f8001 0x006f8000 0x006f8001
+    FUN_0004dc38                                      16 hits   0x006f8157 0x006f8157 0x006f8157
+    FUN_000971dc                                      13 hits   0x006f81c0 0x006f81be 0x006f81c0
+    FUN_0009c768                                      13 hits   0x006f85a2 0x006f8590 0x006f8594
+    FUN_000848bc                                      12 hits   0x006f8000 0x006f8000 0x006f8039
+    FUN_0008690c                                      12 hits   0x006f8000 0x006f8000 0x006f8000
+    ... and 192 more
+
+==============================================================================
+TOP CANDIDATES BY PERIPHERAL
+==============================================================================
+
+--- EEPROM driver (DSPI_A/B or eSCI bit-bang) ---
+
+--- CAN driver (FlexCAN_A/B/C/D) ---
+
+--- HAL (eQADC/eMIOS/eTPU) ---
+  FUN_000ae38c                                      36 hits
+  FUN_0007610c                                      28 hits
+  FUN_00087a90                                      21 hits
+  FUN_000db954                                      19 hits
+  FUN_00086c94                                      18 hits
+
+--- SIU GPIO (potential bit-bang EEPROM) ---
+  FUN_000212d8                                       8 hits
+  FUN_000006a0                                       4 hits
+  FUN_000054f4                                       2 hits
+  FUN_00023064                                       2 hits
+  FUN_0003e398                                       2 hits

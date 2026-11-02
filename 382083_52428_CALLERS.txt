@@ -1,0 +1,20 @@
+==============================================================================
+FUN_00052428 RECURSIVE CALLER TRACE
+==============================================================================
+
+Target: FUN_00052428 @ 00052428
+Size: 172 bytes
+
+
+--- Depth 0 ---
+  FUN_00052428 @ 00052428 -> NO CALLERS (terminal)
+
+==============================================================================
+INTERPRETATION
+==============================================================================
+If chain reaches ** BOOT ** (< 0x4000):
+  -> Enforcement at every key-on -> patched image FAILS
+If chain terminates with NO CALLERS in APP CODE:
+  -> Called via pointer table (scheduled task)
+If chain terminates in BOOT/OS region:
+  -> Ambiguous - boot helper called from app

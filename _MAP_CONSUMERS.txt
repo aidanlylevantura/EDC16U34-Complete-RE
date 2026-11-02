@@ -1,0 +1,19 @@
+==============================================================================
+MAP -> CONSUMER CROSS-REFERENCE
+==============================================================================
+
+Header: ['Map Name', 'IdName', 'Address', 'Dimensions', 'Data (Row by Row)']
+Using addr col=2 name col=1
+
+Loaded 0 maps
+
+Wrote C:\Users\user\Documents\Complete ECU Disassembly\MAP_CONSUMERS.csv
+
+Summary:
+  Total maps:      0
+  With readers:    0
+  No reader found: 0
+
+Top 20 consumers by map count:
+
+Sample consumer->maps (first 5 functions):

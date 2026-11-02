@@ -1,0 +1,30 @@
+# @category ECU
+# @runtime PyGhidra
+# @description Dump the torque limiter and pedal torque calculation functions.
+
+from ghidra.app.decompiler import DecompInterface
+from ghidra.util.task import ConsoleTaskMonitor
+
+TARGET_FUNCS = ["FUN_000f8948", "FUN_00058694"]
+
+def run():
+    prog = currentProgram
+    decomp = DecompInterface()
+    decomp.openProgram(prog)
+    func_mgr = prog.getFunctionManager()
+    
+    for target in TARGET_FUNCS:
+        for func in func_mgr.getFunctions(True):
+            if func.getName() == target:
+                print("\n\n==================================================")
+                print("=== Decompiled C-Code for %s ===" % func.getName())
+                print("==================================================")
+                res = decomp.decompileFunction(func, 15, ConsoleTaskMonitor())
+                if res.decompileCompleted():
+                    print(res.getDecompiledFunction().getC())
+                else:
+                    print("Decompilation failed.")
+                break
+
+if __name__ == '__main__':
+    run()

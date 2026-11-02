@@ -1,0 +1,158 @@
+==============================================================================
+RAM ACCESS v3 — 16-bit masked search for 0x7F95xx variables
+==============================================================================
+
+Search plan:
+  007F95C4 (collaborator target)
+    addi immediate form: 0x95C4 (as unsigned) or -27196 (as signed)
+    direct low-16 form: 0x95C4
+  007F95C2 (neighbor)
+    addi immediate form: 0x95C2 (as unsigned) or -27198 (as signed)
+    direct low-16 form: 0x95C2
+  007F95C6 (neighbor)
+    addi immediate form: 0x95C6 (as unsigned) or -27194 (as signed)
+    direct low-16 form: 0x95C6
+  007F95D4 (pedal sensor 1 past state)
+    addi immediate form: 0x95D4 (as unsigned) or -27180 (as signed)
+    direct low-16 form: 0x95D4
+  007F95D6 (pedal sensor 2 past state)
+    addi immediate form: 0x95D6 (as unsigned) or -27178 (as signed)
+    direct low-16 form: 0x95D6
+  007F95E0 (pedal sensor 1 in/out)
+    addi immediate form: 0x95E0 (as unsigned) or -27168 (as signed)
+    direct low-16 form: 0x95E0
+  007F95E2 (pedal sensor 2 in/out)
+    addi immediate form: 0x95E2 (as unsigned) or -27166 (as signed)
+    direct low-16 form: 0x95E2
+  007F95D8 (reportedly consumed by intercepted map)
+    addi immediate form: 0x95D8 (as unsigned) or -27176 (as signed)
+    direct low-16 form: 0x95D8
+
+==============================================================================
+INSTRUCTION SCAN RESULTS
+==============================================================================
+
+--- 0x007F95C4 — collaborator target (2 hit(s)) ---
+  Function: FUN_0005bcf0  (1 use(s))
+    0005c0a8: sth r3,-0x6a3c(r13)
+  Function: FUN_0005c0f4  (1 use(s))
+    0005c110: lha r3,-0x6a3c(r13)
+
+--- 0x007F95C2 — neighbor (3 hit(s)) ---
+  Function: FUN_0005bcf0  (2 use(s))
+    0005c078: sth r31,-0x6a3e(r13)
+    0005c098: lha r4,-0x6a3e(r13)
+  Function: FUN_0005c0f4  (1 use(s))
+    0005c0fc: lha r4,-0x6a3e(r13)
+
+--- 0x007F95C6 — neighbor (3 hit(s)) ---
+  Function: FUN_0005bcf0  (2 use(s))
+    0005bf10: sth r3,-0x6a3a(r13)
+    0005bf50: lha r10,-0x6a3a(r13)
+  Function: FUN_000bff28  (1 use(s))
+    000c009c: lha r3,-0x6a3a(r13)
+
+--- 0x007F95D4 — pedal sensor 1 past state (27 hit(s)) ---
+  Function: FUN_00058d4c  (10 use(s))
+    00058fcc: lha r4,-0x6a2c(r13)
+    00059004: lha r11,-0x6a2c(r13)
+    000592c4: lha r4,-0x6a2c(r13)
+    00059300: lha r4,-0x6a2c(r13)
+    00059444: lha r4,-0x6a2c(r13)
+    ... and 5 more
+  Function: FUN_000ae38c  (4 use(s))
+    000ae500: lha r12,-0x6a2c(r13)
+    000af3d0: lha r12,-0x6a2c(r13)
+    000af624: lha r26,-0x6a2c(r13)
+    000afe00: lha r3,-0x6a2c(r13)
+  Function: FUN_00062a8c  (3 use(s))
+    00062b8c: lha r11,-0x6a2c(r13)
+    00062ff8: lha r11,-0x6a2c(r13)
+    00063114: lha r25,-0x6a2c(r13)
+  Function: FUN_00064410  (2 use(s))
+    00064428: lha r10,-0x6a2c(r13)
+    00064790: sth r9,-0x6a2c(r13)
+  Function: FUN_000cb024  (2 use(s))
+    000cb094: lha r12,-0x6a2c(r13)
+    000cb22c: lha r11,-0x6a2c(r13)
+  Function: ?  (1 use(s))
+    000589b8: lha r3,-0x6a2c(r13)
+  Function: FUN_00059c80  (1 use(s))
+    00059ca4: lha r3,-0x6a2c(r13)
+  Function: FUN_00067850  (1 use(s))
+    00068054: lha r3,-0x6a2c(r13)
+  Function: FUN_0006a200  (1 use(s))
+    0006a210: lha r3,-0x6a2c(r13)
+  Function: FUN_0008e1f8  (1 use(s))
+    0008e3ac: lha r9,-0x6a2c(r13)
+
+--- 0x007F95D6 — pedal sensor 2 past state (4 hit(s)) ---
+  Function: FUN_00064410  (2 use(s))
+    00064434: lha r9,-0x6a2a(r13)
+    00064798: sth r12,-0x6a2a(r13)
+  Function: FUN_0006d068  (1 use(s))
+    0006d2f8: lha r8,-0x6a2a(r13)
+  Function: FUN_000e0b78  (1 use(s))
+    000e0e34: lha r12,-0x6a2a(r13)
+
+--- 0x007F95E0 — pedal sensor 1 in/out (8 hit(s)) ---
+  Function: FUN_00064410  (6 use(s))
+    00064440: lha r27,-0x6a20(r13)
+    0006479c: sth r27,-0x6a20(r13)
+    000649a4: lha r10,-0x6a20(r13)
+    00064a44: lha r12,-0x6a20(r13)
+    00064a70: lha r11,-0x6a20(r13)
+    ... and 1 more
+  Function: FUN_00064d58  (1 use(s))
+    00064f84: lha r12,-0x6a20(r13)
+  Function: FUN_00073018  (1 use(s))
+    0007304c: lha r11,-0x6a20(r13)
+
+--- 0x007F95E2 — pedal sensor 2 in/out (5 hit(s)) ---
+  Function: FUN_00064410  (3 use(s))
+    00064444: lha r30,-0x6a1e(r13)
+    000647a0: sth r30,-0x6a1e(r13)
+    00064c24: lha r11,-0x6a1e(r13)
+  Function: FUN_00064d58  (1 use(s))
+    00064f98: lha r10,-0x6a1e(r13)
+  Function: FUN_00073018  (1 use(s))
+    0007305c: lha r12,-0x6a1e(r13)
+
+--- 0x007F95D8 — reportedly consumed by intercepted map (23 hit(s)) ---
+  Function: FUN_00062a8c  (9 use(s))
+    00062f64: lha r26,-0x6a28(r13)
+    00062fb8: lha r29,-0x6a28(r13)
+    00063434: lha r4,-0x6a28(r13)
+    00063460: lha r11,-0x6a28(r13)
+    00063474: lha r30,-0x6a28(r13)
+    ... and 4 more
+  Function: FUN_0004dc38  (4 use(s))
+    0004ea3c: lha r11,-0x6a28(r13)
+    0004ea74: lha r10,-0x6a28(r13)
+    0004eef0: lha r9,-0x6a28(r13)
+    0004fee0: lha r12,-0x6a28(r13)
+  Function: FUN_000636f0  (4 use(s))
+    00064140: sth r12,-0x6a28(r13)
+    00064154: lha r19,-0x6a28(r13)
+    000641fc: sth r12,-0x6a28(r13)
+    00064224: sth r3,-0x6a28(r13)
+  Function: FUN_00064410  (2 use(s))
+    000647e0: lha r12,-0x6a28(r13)
+    0006497c: lha r12,-0x6a28(r13)
+  Function: FUN_0009acfc  (1 use(s))
+    0009aee8: lha r5,-0x6a28(r13)
+  Function: FUN_0009afdc  (1 use(s))
+    0009aff0: lha r3,-0x6a28(r13)
+  Function: FUN_000ae38c  (1 use(s))
+    000af608: lha r22,-0x6a28(r13)
+  Function: FUN_000df874  (1 use(s))
+    000dfb18: lha r12,-0x6a28(r13)
+
+==============================================================================
+LIS/ADDI PAIR SCAN (for 0x7F95C4)
+==============================================================================
+
+Searching for lis rX, 0x7F95 followed by addi/ori rX, ..., 0xC4
+(This catches the pattern where code loads the full 32-bit address)
+
+  No lis/addi pair found for 0x7F95C4

@@ -1,0 +1,1047 @@
+==============================================================================
+BOOTBLOCK PUBLIC API — functions in 0x0-0x8000 called from app (>=0x8000)
+==============================================================================
+
+Bootblock functions called from app: 20
+
+==============================================================================
+BOOT API ENTRY @ 0x0000283C — Ramp_auto_00283c
+  Called from 2 distinct app function(s), 2 total call sites
+==============================================================================
+
+  Callers:
+    (no fn)                                          @ 0x00041A26  [DATA]
+    FUN_00106d58                                     @ 0x00106E8C  [DATA]
+
+  --- DECOMPILED (boot entry) ---
+    
+    /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+    
+    undefined4 Ramp_auto_00283c(int param_1,int param_2)
+    
+    {
+      char cVar1;
+      byte *pbVar2;
+      int iVar3;
+      undefined4 uVar4;
+      
+      uVar4 = 0x10;
+      Debounce_Hyst_00002344();
+      iVar3 = param_1 + (uint)*(byte *)(param_1 + 1);
+      pbVar2 = (byte *)(iVar3 + 0x16);
+      if (((((_DAT_007fef62 & 0x20) == 0x20) && (*(char *)(param_1 + 2) == '\x03')) && (*pbVar2 - 1 < 2)
+          ) && ((*(byte *)(iVar3 + 0x17) < 0x3c &&
+                ((uint)*(byte *)(iVar3 + 0x17) + (uint)*(byte *)(iVar3 + 0x18) < 0x3d)))) {
+        *(byte *)(param_2 + 2) = *(char *)(param_2 + 1) + *(byte *)(iVar3 + 0x18);
+        *pbVar2 = *pbVar2 - 1;
+        *(undefined1 *)(param_1 + 1) = *(undefined1 *)(iVar3 + 0x17);
+        cVar1 = *(char *)(iVar3 + 0x18);
+        *(char *)(param_1 + 2) = cVar1;
+        while (cVar1 != '\0') {
+          *(undefined1 *)(param_2 + (uint)*(byte *)(param_2 + 1) + 0x16) =
+               *(undefined1 *)((uint)*pbVar2 * 0x3c + 0x7fdab8 + (uint)*(byte *)(param_1 + 1));
+          *(char *)(param_1 + 2) = *(char *)(param_1 + 2) + -1;
+          *(char *)(param_1 + 1) = *(char *)(param_1 + 1) + '\x01';
+          *(char *)(param_2 + 1) = *(char *)(param_2 + 1) + '\x01';
+          cVar1 = *(char *)(param_1 + 2);
+        }
+        uVar4 = 1;
+      }
+      Debounce_Hyst_00002344();
+      return uVar4;
+    }
+    
+    
+
+==============================================================================
+BOOT API ENTRY @ 0x00000008 — thunk_auto_000180
+  Called from 1 distinct app function(s), 4 total call sites
+==============================================================================
+
+  Callers:
+    (no fn)                                          @ 0x0004339E  [CONDITIONAL_CALL]
+    (no fn)                                          @ 0x00042F76  [READ]
+    (no fn)                                          @ 0x00045876  [READ]
+    (no fn)                                          @ 0x00045768  [READ]
+
+  --- DECOMPILED (boot entry) ---
+    
+    void thunk_auto_000180(void)
+    
+    {
+      thunk_auto_000180();
+      return;
+    }
+    
+    
+
+==============================================================================
+BOOT API ENTRY @ 0x0000000C — thunk_auto_00000c
+  Called from 1 distinct app function(s), 12 total call sites
+==============================================================================
+
+  Callers:
+    (no fn)                                          @ 0x00041D46  [UNCONDITIONAL_CALL]
+    (no fn)                                          @ 0x00043062  [CONDITIONAL_JUMP]
+    (no fn)                                          @ 0x00043A5E  [CONDITIONAL_JUMP]
+    (no fn)                                          @ 0x00040196  [UNCONDITIONAL_CALL]
+    (no fn)                                          @ 0x00042F7E  [UNCONDITIONAL_CALL]
+    (no fn)                                          @ 0x00043AE2  [READ]
+    (no fn)                                          @ 0x00045652  [READ]
+    (no fn)                                          @ 0x00045676  [READ]
+    (no fn)                                          @ 0x0004569A  [READ]
+    (no fn)                                          @ 0x0004BAEE  [UNCONDITIONAL_CALL]
+    (no fn)                                          @ 0x00045876  [READ]
+    (no fn)                                          @ 0x00045768  [READ]
+
+  --- DECOMPILED (boot entry) ---
+    
+    /* WARNING: Control flow encountered bad instruction data */
+    
+    void thunk_auto_00000c(void)
+    
+    {
+                        /* WARNING: Bad instruction - Truncating control flow here */
+      halt_baddata();
+    }
+    
+    
+
+==============================================================================
+BOOT API ENTRY @ 0x00000100 — thunk_auto_000180
+  Called from 1 distinct app function(s), 1 total call sites
+==============================================================================
+
+  Callers:
+    (no fn)                                          @ 0x00010008  [UNCONDITIONAL_CALL]
+
+  --- DECOMPILED (boot entry) ---
+    
+    /* WARNING: This function may have set the stack pointer */
+    /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+    
+    void thunk_auto_000180(void)
+    
+    {
+      _DAT_007fffc0 = 0;
+      DSM_FUN_000006a0(0x7f7f7f7f,0x7f7f7f7f,0x7f7f7f7f,0x7f7f7f7f,0x7f7f7f7f,0x7f7f7f7f,0x7f7f7f7f,
+                       0x7f7f7f7f);
+      return;
+    }
+    
+    
+
+==============================================================================
+BOOT API ENTRY @ 0x00000650 — Debounce_auto_000650
+  Called from 1 distinct app function(s), 1 total call sites
+==============================================================================
+
+  Callers:
+    AirCtl_FUN_00067850                              @ 0x00068AFC  [DATA]
+
+  --- DECOMPILED (boot entry) ---
+    
+    /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+    
+    int Debounce_auto_000650(int param_1)
+    
+    {
+      int iVar1;
+      
+      iVar1 = *(int *)(PTR_PTR_00010130 + param_1 * 4);
+      if (((iVar1 != -1) && (*(int *)(PTR_PTR_00010130 + param_1 * 4 + 4) + -0x21524111 == iVar1)) &&
+         (_DAT_007fefd4 != 0)) {
+        return iVar1;
+      }
+      return 0;
+    }
+    
+    
+
+==============================================================================
+BOOT API ENTRY @ 0x000006A0 — DSM_FUN_000006a0
+  Called from 1 distinct app function(s), 1 total call sites
+==============================================================================
+
+  Callers:
+    AirCtl_FUN_0005e818                              @ 0x0005F0D4  [DATA]
+
+  --- DECOMPILED (boot entry) ---
+    
+    /* WARNING: Removing unreachable block (ram,0x0000088c) */
+    /* WARNING: Removing unreachable block (ram,0x00000898) */
+    /* WARNING: Removing unreachable block (ram,0x0000089c) */
+    /* WARNING: Removing unreachable block (ram,0x000008b8) */
+    /* WARNING: Removing unreachable block (ram,0x000008c4) */
+    /* WARNING: Removing unreachable block (ram,0x000008d0) */
+    /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+    
+    void DSM_FUN_000006a0(void)
+    
+    {
+      code *pcVar1;
+      int iVar2;
+      uint uVar3;
+      undefined4 in_LR;
+      uint in_SPRG1;
+      uint in_IMMR;
+      uint local_18;
+      
+      instructionSynchronize();
+      if ((in_IMMR & 0xff000000) == 0x35000000) {
+        if (-1 < _DAT_006fc010) {
+          _DAT_006fc100 = 0x103;
+          instructionSynchronize();
+          _DAT_006fc104 = 0xff800040;
+          instructionSynchronize();
+        }
+        if ((in_IMMR & 0xff0000) == 0) {
+          _DAT_00780000 = _DAT_00780000 | 0x20000000;
+        }
+        _DAT_006fc038 = 0x8000007c;
+        _DAT_006fc03c = 0xa200;
+        _DAT_007fd808 = TBLr;
+        DAT_007fd80c = (_DAT_006fc284 & 0xfff00000) == 0;
+        _DAT_0070501a = _DAT_0070501a & 0x7fff;
+        _DAT_007fd804 = in_LR;
+        DSM_helper_auto_001334(&DAT_00704000);
+        DSM_helper_auto_001334(&DAT_00704400);
+        _DAT_00700004 = 0xffa0;
+        if (((in_SPRG1 & 0xffff) == 10) &&
+           (pcVar1 = (code *)Debounce_auto_000650(4), pcVar1 != (code *)0x0)) {
+          (*pcVar1)();
+        }
+        DSM_helper_auto_001298();
+        _DAT_006fc140 = 0x80000;
+        _DAT_006fc144 = 0x80000;
+        _DAT_006fc300 = 0x55ccaa33;
+        _DAT_006fc380 = 0x55ccaa33;
+        _DAT_006fc384 = 0x55ccaa33;
+        _DAT_006fc388 = 0x55ccaa33;
+        _DAT_006fc30c = 0x55ccaa33;
+        _DAT_006fc280 = 0x82200600;
+        DSM_helper_auto_001298(7);
+        _DAT_006fc02c = _DAT_006fc02c & 0x7fffffff;
+        _DAT_006fc000 = _DAT_006fc000 & 0xfffff3ff | 0x800;
+        pcVar1 = (code *)Debounce_auto_000650(6);
+        while ((_DAT_006fc028 & 0x80000000) == 0) {
+          DSM_helper_auto_001298();
+          if (pcVar1 != (code *)0x0) {
+            (*pcVar1)();
+          }
+        }
+        if (DAT_007fd80c == '\0') {
+          for (uVar3 = 0; uVar3 < 0xe; uVar3 = uVar3 + 1) {
+            Debounce_Def_00000624();
+          }
+        }
+        else {
+          _DAT_006fc280 = _DAT_006fc280 & 0xfffffff8 | 2;
+          Debounce_Def_00000624();
+          _DAT_006fc284 = 0xd04084;
+          do {
+            _DAT_006fc284 = _DAT_006fc284 | 0x28000;
+            Debounce_Def_00000624();
+          } while ((_DAT_006fc284 >> 0xf & 1) != 0);
+          for (uVar3 = 0; uVar3 < 3; uVar3 = uVar3 + 1) {
+            Debounce_Def_00000624();
+          }
+          _DAT_006fc280 = _DAT_006fc280 & 0xfffffff8 | 1;
+          do {
+            _DAT_006fc284 = _DAT_006fc284 | 0x28000;
+            Debounce_Def_00000624();
+          } while ((_DAT_006fc284 >> 0xf & 1) != 0);
+          for (uVar3 = 0; uVar3 < 6; uVar3 = uVar3 + 1) {
+            Debounce_Def_00000624();
+          }
+          _DAT_006fc280 = _DAT_006fc280 & 0xfffffff8;
+          do {
+            _DAT_006fc284 = _DAT_006fc284 | 0x28000;
+            Debounce_Def_00000624();
+          } while ((_DAT_006fc284 >> 0xf & 1) != 0);
+          local_18 = 0;
+          do {
+            Debounce_Def_00000624();
+            local_18 = local_18 + 1;
+          } while (local_18 < 6);
+        }
+        _DAT_006fc280 = _DAT_006fc280 | 0x8000000;
+        instructionSynchronize();
+        iVar2 = 0;
+        do {
+          iVar2 = iVar2 + 1;
+        } while (iVar2 != 0x34);
+        _DAT_006fc02c = (_DAT_006fc02c | 0xc0000000) & 0xbfffffff;
+        _DAT_006fc028 = _DAT_006fc028 & 0x3fffffff | 0x80000000;
+        Debounce_Def_00000624();
+        _DAT_006fc02c = _DAT_006fc02c & 0x3fffffff;
+        _DAT_006fc018 = 0x80000000;
+        if (0x1fffff < (in_IMMR & 0xff0000)) {
+          instructionSynchronize();
+          instructionSynchronize();
+        }
+        _DAT_006fc200 = 3;
+        _DAT_006fc000 = 0x20c08;
+        DSM_helper_auto_001298(0xffffffff);
+        DSM_helper_auto_000f68();
+        _DAT_00707f80 = 0;
+        iVar2 = DSM_helper_auto_000ce8(0x80000c00,0xc00);
+        if (iVar2 != 0x1a) {
+
+==============================================================================
+BOOT API ENTRY @ 0x00001FFC — FUN_00001ffc
+  Called from 1 distinct app function(s), 2 total call sites
+==============================================================================
+
+  Callers:
+    (no fn)                                          @ 0x0004A84A  [CONDITIONAL_CALL]
+    (no fn)                                          @ 0x0004A86A  [CONDITIONAL_CALL]
+
+  --- DECOMPILED (boot entry) ---
+    
+    /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+    
+    void FUN_00001ffc(void)
+    
+    {
+      int in_r12;
+      
+      if (in_r12 == 0) {
+        DAT_007fd87d = 0;
+        _DAT_007fd814 = 3;
+      }
+      else {
+        _DAT_007fd810 = 0;
+      }
+      return;
+    }
+    
+    
+
+==============================================================================
+BOOT API ENTRY @ 0x00002144 — Debounce_auto_002144
+  Called from 1 distinct app function(s), 1 total call sites
+==============================================================================
+
+  Callers:
+    (no fn)                                          @ 0x00027606  [CONDITIONAL_CALL]
+
+  --- DECOMPILED (boot entry) ---
+    
+    /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+    
+    void Debounce_auto_002144(void)
+    
+    {
+      int iVar1;
+      uint uVar2;
+      
+      iVar1 = FUN_000013d4();
+      if (iVar1 == 0) {
+        iVar1 = FUN_0000141c();
+        while (iVar1 != 0) {
+          if (DAT_007fd87d == DAT_007fd87e) {
+            if (DAT_007fd880 == DAT_007fd82c) {
+              _DAT_007fd814 = 6;
+              if (DAT_007fd87f == -0x80) {
+                if ((DAT_007fd87e == 0) || (DAT_007fd892 != '\0')) {
+                  DAT_007fd87c = DAT_007fd87c | 2;
+                }
+                else {
+                  DSM_FUN_000017a4();
+                }
+              }
+              else {
+                DSM_FUN_000017a4();
+              }
+            }
+            else {
+              _DAT_007fd814 = 0;
+            }
+          }
+          else {
+            DAT_007fd880 = DAT_007fd880 + DAT_007fd82c;
+            uVar2 = (uint)DAT_007fd87d;
+            DAT_007fd87d = DAT_007fd87d + 1;
+            (&DAT_007fd892)[uVar2] = DAT_007fd82c;
+          }
+          iVar1 = FUN_0000141c();
+        }
+      }
+      else {
+        _DAT_007fd814 = 0;
+      }
+      return;
+    }
+    
+    
+
+==============================================================================
+BOOT API ENTRY @ 0x000026A4 — Debounce_auto_0026a4
+  Called from 1 distinct app function(s), 1 total call sites
+==============================================================================
+
+  Callers:
+    DSM_FUN_00103c5c                                 @ 0x00103DBC  [DATA]
+
+  --- DECOMPILED (boot entry) ---
+    
+    /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+    
+    undefined4 Debounce_auto_0026a4(int param_1)
+    
+    {
+      undefined4 *puVar1;
+      uint uVar2;
+      byte *pbVar3;
+      undefined4 uVar4;
+      int iVar5;
+      uint uVar6;
+      
+      uVar4 = 0x10;
+      Debounce_Hyst_00002344();
+      uVar2 = (uint)*(byte *)(param_1 + 2);
+      param_1 = param_1 + (uint)*(byte *)(param_1 + 1);
+      pbVar3 = (byte *)(param_1 + 0x16);
+      if (uVar2 == 0) {
+        _DAT_007fd800 = &DAT_007fd7fc;
+      }
+      else {
+        if ((((&DAT_007fd7fc < _DAT_007fd800) || (_DAT_007fd800 < &DAT_007f9800)) ||
+            ((_DAT_007fd878 = _DAT_007fd800, _DAT_007fd800 == &DAT_007fd7fc &&
+             (_DAT_007fd878 = &DAT_007f9800, uVar2 < 8)))) || (&DAT_007fd7f8 < _DAT_007fd878 + uVar2))
+        goto LAB_0000281c;
+        if (_DAT_007fd800 == &DAT_007fd7fc) {
+          iVar5 = 0xffa;
+          _DAT_007f9800 = 0xffffffff;
+          _DAT_007f9804 = 0xffffffff;
+          puVar1 = (undefined4 *)&DAT_007f980c;
+          do {
+            puVar1 = puVar1 + 1;
+            *puVar1 = 0xffffffff;
+            iVar5 = iVar5 + -1;
+          } while (iVar5 != 0);
+          _DAT_007fd7f8 =
+               (uint)*pbVar3 << 0x18 | (uint)*(byte *)(param_1 + 0x17) << 0x10 |
+               (uint)*(byte *)(param_1 + 0x18) << 8 | (uint)*(byte *)(param_1 + 0x19);
+          _DAT_007fd7fc =
+               (uint)*(byte *)(param_1 + 0x1a) << 0x18 | (uint)*(byte *)(param_1 + 0x1b) << 0x10 |
+               (uint)*(byte *)(param_1 + 0x1c) << 8 | (uint)*(byte *)(param_1 + 0x1d);
+          pbVar3 = (byte *)(param_1 + 0x1e);
+          uVar2 = uVar2 - 8;
+          _DAT_007fd800 = &DAT_007f9800;
+        }
+        if (0 < (int)uVar2) {
+          pbVar3 = pbVar3 + -1;
+          uVar6 = uVar2;
+          do {
+            pbVar3 = pbVar3 + 1;
+            *_DAT_007fd878 = *pbVar3;
+            _DAT_007fd878 = _DAT_007fd878 + 1;
+            uVar6 = uVar6 - 1;
+          } while (uVar6 != 0);
+        }
+        _DAT_007fd800 = _DAT_007fd800 + uVar2;
+      }
+      uVar4 = 1;
+    LAB_0000281c:
+      Debounce_Hyst_00002344();
+      return uVar4;
+    }
+    
+    
+
+==============================================================================
+BOOT API ENTRY @ 0x00003628 — FUN_00003628
+  Called from 1 distinct app function(s), 1 total call sites
+==============================================================================
+
+  Callers:
+    (no fn)                                          @ 0x0003DC80  [CONDITIONAL_CALL]
+
+  --- DECOMPILED (boot entry) ---
+    
+    /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+    
+    void FUN_00003628(undefined4 param_1)
+    
+    {
+      uint in_r8;
+      int *unaff_r30;
+      uint unaff_r31;
+      byte in_cr0;
+      
+      while( true ) {
+        if (((bool)(in_cr0 >> 1 & 1)) && (_DAT_007fd84c == 0)) {
+          _DAT_007fd84c = *unaff_r30;
+          DAT_007fd850 = *(undefined1 *)(unaff_r30 + 1);
+          DAT_007fd851 = *(undefined1 *)((int)unaff_r30 + 5);
+          _DAT_007fd852 = *(ushort *)((int)unaff_r30 + 6);
+          _DAT_007fd854 = *(undefined2 *)(unaff_r30 + 2);
+          _DAT_007fd856 = *(undefined2 *)((int)unaff_r30 + 10);
+          _DAT_007fd858 = *(undefined2 *)(unaff_r30 + 3);
+          _DAT_007fd85a = *(undefined2 *)((int)unaff_r30 + 0xe);
+        }
+        if ((_DAT_007fd862 == unaff_r31) && (_DAT_007fd85c == 0)) {
+          _DAT_007fd85c = *unaff_r30;
+          DAT_007fd860 = *(undefined1 *)(unaff_r30 + 1);
+          DAT_007fd861 = *(undefined1 *)((int)unaff_r30 + 5);
+          _DAT_007fd862 = *(ushort *)((int)unaff_r30 + 6);
+          _DAT_007fd864 = *(undefined2 *)(unaff_r30 + 2);
+          _DAT_007fd866 = *(undefined2 *)((int)unaff_r30 + 10);
+          _DAT_007fd868 = *(undefined2 *)(unaff_r30 + 3);
+          _DAT_007fd86a = *(undefined2 *)((int)unaff_r30 + 0xe);
+        }
+        in_r8 = in_r8 + 1;
+        if (_DAT_007fd86c <= in_r8) break;
+        unaff_r31 = (uint)*(ushort *)((int)unaff_r30 + 0x16);
+        in_cr0 = (_DAT_007fd852 == unaff_r31) << 1;
+        unaff_r30 = unaff_r30 + 4;
+      }
+      _DAT_007fd86c = param_1;
+      return;
+    }
+    
+    
+
+==============================================================================
+BOOT API ENTRY @ 0x0000391C — FUN_0000391c
+  Called from 1 distinct app function(s), 2 total call sites
+==============================================================================
+
+  Callers:
+    (no fn)                                          @ 0x0004BBCE  [CONDITIONAL_CALL]
+    (no fn)                                          @ 0x0004BBF0  [CONDITIONAL_CALL]
+
+  --- DECOMPILED (boot entry) ---
+    
+    undefined4 FUN_0000391c(int param_1)
+    
+    {
+      uint in_r12;
+      uint unaff_r30;
+      uint unaff_r31;
+      uint uVar1;
+      
+      uVar1 = unaff_r31 + (in_r12 | unaff_r31 << 4) + (unaff_r31 >> 2 & 0x3f | (unaff_r31 & 3) << 6);
+      if (param_1 != 0x30) {
+        if ((param_1 != 0x35) && (param_1 != 0x36)) {
+          return 0;
+        }
+        uVar1 = uVar1 ^ 1;
+      }
+      if ((uVar1 & 0xff) != unaff_r30) {
+        return 0;
+      }
+      return 1;
+    }
+    
+    
+
+==============================================================================
+BOOT API ENTRY @ 0x00004030 — State_Init_00004030
+  Called from 1 distinct app function(s), 1 total call sites
+==============================================================================
+
+  Callers:
+    (no fn)                                          @ 0x00045F98  [CONDITIONAL_CALL]
+
+  --- DECOMPILED (boot entry) ---
+    
+    /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+    
+    void State_Init_00004030(void)
+    
+    {
+      undefined1 in_r12;
+      
+      DAT_007fd87c = DAT_007fd87c & 0xfd;
+      DAT_007fd996 = DAT_007fd996 | 6;
+      _DAT_007fd844 = 4;
+      DAT_007fd998 = in_r12;
+      Debounce_Hyst_00002344();
+      return;
+    }
+    
+    
+
+==============================================================================
+BOOT API ENTRY @ 0x000044D4 — DSM_auto_0044d4
+  Called from 1 distinct app function(s), 1 total call sites
+==============================================================================
+
+  Callers:
+    (no fn)                                          @ 0x000496C4  [DATA]
+
+  --- DECOMPILED (boot entry) ---
+    
+    void DSM_auto_0044d4(void)
+    
+    {
+      undefined4 *puVar1;
+      undefined4 *puVar2;
+      int iVar3;
+      undefined4 uStack_94;
+      undefined1 local_90 [144];
+      
+      iVar3 = 0x23;
+      puVar1 = &uStack_94;
+      puVar2 = (undefined4 *)0x4454;
+      do {
+        puVar2 = puVar2 + 1;
+        puVar1 = puVar1 + 1;
+        *puVar1 = *puVar2;
+        iVar3 = iVar3 + -1;
+      } while (iVar3 != 0);
+      (*(code *)local_90)();
+      return;
+    }
+    
+    
+
+==============================================================================
+BOOT API ENTRY @ 0x00004520 — Ramp_Dec16_00004520
+  Called from 1 distinct app function(s), 1 total call sites
+==============================================================================
+
+  Callers:
+    (no fn)                                          @ 0x000496C4  [DATA]
+
+  --- DECOMPILED (boot entry) ---
+    
+    uint * Ramp_Dec16_00004520(uint *param_1,int param_2)
+    
+    {
+      undefined1 *puVar1;
+      uint uVar2;
+      uint *puVar3;
+      uint *puVar4;
+      uint *puVar5;
+      undefined1 *puVar6;
+      
+      puVar3 = param_1 + param_2;
+      puVar1 = &LAB_00010200_3;
+      uVar2 = 3;
+      puVar4 = puVar3;
+      puVar6 = puVar1;
+      puVar5 = param_1;
+      while (puVar5 < puVar3) {
+        uVar2 = uVar2 + 1;
+        *puVar5 = (uint)puVar6;
+        *puVar4 = ~(uint)puVar6;
+        puVar5 = puVar5 + 1;
+        puVar4 = puVar4 + 1;
+        if (uVar2 == 0xff) {
+          uVar2 = 0;
+        }
+        puVar6 = (undefined1 *)(uVar2 | (int)puVar6 << 8);
+      }
+      uVar2 = 3;
+      puVar4 = puVar3;
+      puVar6 = puVar1;
+      puVar5 = param_1;
+      while( true ) {
+        if (puVar3 <= puVar5) {
+          uVar2 = 3;
+          puVar4 = puVar3;
+          while( true ) {
+            if (puVar3 <= param_1) {
+              return (uint *)0x0;
+            }
+            if (*param_1 != ~(uint)puVar1) break;
+            if ((undefined1 *)*puVar4 != puVar1) {
+              return puVar4;
+            }
+            uVar2 = uVar2 + 1;
+            *param_1 = 0;
+            *puVar4 = 0;
+            param_1 = param_1 + 1;
+            puVar4 = puVar4 + 1;
+            if (uVar2 == 0xff) {
+              uVar2 = 0;
+            }
+            puVar1 = (undefined1 *)(uVar2 | (int)puVar1 << 8);
+          }
+          return param_1;
+        }
+        if ((undefined1 *)*puVar5 != puVar6) {
+          return puVar5;
+        }
+        if (*puVar4 != ~(uint)puVar6) break;
+        uVar2 = uVar2 + 1;
+        *puVar5 = ~(uint)puVar6;
+        *puVar4 = (uint)puVar6;
+        puVar5 = puVar5 + 1;
+        puVar4 = puVar4 + 1;
+        if (uVar2 == 0xff) {
+          uVar2 = 0;
+        }
+        puVar6 = (undefined1 *)(uVar2 | (int)puVar6 << 8);
+      }
+      return puVar4;
+    }
+    
+    
+
+==============================================================================
+BOOT API ENTRY @ 0x00004640 — DSM_auto_004640
+  Called from 1 distinct app function(s), 1 total call sites
+==============================================================================
+
+  Callers:
+    (no fn)                                          @ 0x00046E78  [CONDITIONAL_CALL]
+
+  --- DECOMPILED (boot entry) ---
+    
+    uint * DSM_auto_004640(uint param_1,uint param_2,uint *param_3,undefined4 param_4,uint param_5,
+                          uint *param_6,uint *param_7)
+    
+    {
+      byte in_cr0;
+      
+      while( true ) {
+        *param_7 = param_1;
+        param_6 = param_6 + 1;
+        param_7 = param_7 + 1;
+        if ((bool)(in_cr0 >> 1 & 1)) {
+          param_5 = param_1;
+        }
+        param_2 = param_5 | param_2 << 8;
+        if (param_3 <= param_6) {
+          return (uint *)0x0;
+        }
+        if (*param_6 != ~param_2) {
+          return param_6;
+        }
+        if (*param_7 != param_2) break;
+        param_5 = param_5 + 1;
+        in_cr0 = (param_5 == 0xff) << 1;
+        param_1 = 0;
+        *param_6 = 0;
+      }
+      return param_7;
+    }
+    
+    
+
+==============================================================================
+BOOT API ENTRY @ 0x00004820 — DSM_auto_004820
+  Called from 1 distinct app function(s), 1 total call sites
+==============================================================================
+
+  Callers:
+    (no fn)                                          @ 0x00049860  [DATA]
+
+  --- DECOMPILED (boot entry) ---
+    
+    undefined4 DSM_auto_004820(int param_1,int param_2,int param_3)
+    
+    {
+      char *pcVar1;
+      char *pcVar2;
+      
+      if (((param_1 != 0) || (param_2 != 0)) && (param_3 != 0)) {
+        pcVar1 = (char *)(param_1 + -1);
+        pcVar2 = (char *)(param_2 + -1);
+        do {
+          pcVar1 = pcVar1 + 1;
+          pcVar2 = pcVar2 + 1;
+          if (*pcVar1 != *pcVar2) {
+            return 0;
+          }
+          param_3 = param_3 + -1;
+        } while (param_3 != 0);
+      }
+      return 1;
+    }
+    
+    
+
+==============================================================================
+BOOT API ENTRY @ 0x0000486C — DSM_auto_00486c
+  Called from 1 distinct app function(s), 1 total call sites
+==============================================================================
+
+  Callers:
+    (no fn)                                          @ 0x00049860  [DATA]
+
+  --- DECOMPILED (boot entry) ---
+    
+    /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+    
+    undefined4 DSM_auto_00486c(int *param_1,int param_2)
+    
+    {
+      int iVar1;
+      code *pcVar2;
+      undefined *puVar3;
+      undefined4 uVar4;
+      undefined *puVar5;
+      uint uVar6;
+      int *piVar7;
+      
+      _DAT_007fef64 = 0;
+      if ((int *)(&DAT_00010140 + param_2) == param_1) {
+        piVar7 = (int *)(param_2 + 0x10000);
+        goto LAB_0000493c;
+      }
+      piVar7 = param_1;
+      if (param_2 != 0) goto LAB_0000493c;
+      puVar5 = &DAT_00010140;
+      if ((int *)PTR_DAT_0001014c == param_1) {
+    LAB_000048f0:
+        if ((*(int *)(puVar5 + 0xc) != 0) && (*(int *)(puVar5 + 0xc) != -1)) {
+          _DAT_007fef64 = *(int *)(puVar5 + 0x24);
+        }
+      }
+      else if (PTR_DAT_0001014c != (undefined *)0x0) {
+        do {
+          puVar3 = *(undefined **)(puVar5 + 0xc);
+          if ((puVar3 == (undefined *)0xffffffff) ||
+             (puVar5 = puVar3, *(int **)(puVar3 + 0xc) == param_1)) break;
+        } while (*(int **)(puVar3 + 0xc) != (int *)0x0);
+        goto LAB_000048f0;
+      }
+      iVar1 = thunk_auto_004448(param_1,(undefined *)((int)param_1 + 0x2b),0xffffffff);
+      if (iVar1 == 1) {
+        _DAT_007fef62 = _DAT_007fef62 | 0x90;
+        return 0x40;
+      }
+    LAB_0000493c:
+      pcVar2 = pcRam000056e0;
+      DAT_007fef5d = 0;
+      iVar1 = (int)piVar7 - param_2;
+      DAT_007fef5f = (undefined1)((uint)iVar1 >> 0x10);
+      DAT_007fef60 = (undefined1)((uint)iVar1 >> 8);
+      DAT_007fef5e = (undefined1)((uint)iVar1 >> 0x18);
+      DAT_007fef61 = (undefined1)iVar1;
+      if (*(short *)((int)param_1 + 0x22) == -1) {
+        uVar4 = 0x1e;
+    LAB_00004ae0:
+        _DAT_007fef62 = _DAT_007fef62 | 0x50;
+        return uVar4;
+      }
+      iVar1 = (*pcRam000056e0)(uRam000056d0,piVar7,(undefined *)((int)param_1 + 0x2b));
+      if (iVar1 == iRam000056d4) {
+        if ((*(short *)((int)param_1 + 0x22) != 0) &&
+           (iVar1 = (*pcVar2)(uRam000056d0,piVar7,(undefined *)((int)param_1 + *param_1 + -1)),
+           iVar1 != iRam000056d4)) {
+          _DAT_007fef62 = _DAT_007fef62 | 0x50;
+          return 0x1a;
+        }
+        uVar6 = 0;
+        if (*(short *)((int)param_1 + 0x22) != 0) {
+          do {
+            pcVar2 = (code *)param_1[uVar6 * 10 + 0x13];
+            if (((*(char *)((int)param_1 + uVar6 * 0x28 + 0x2e) == '\x01') && (pcVar2 != (code *)0x0))
+               && ((*(char *)((int)param_1 + uVar6 * 0x28 + 0x2d) == '\0' ||
+                   (iVar1 = thunk_auto_004448(param_2 + param_1[uVar6 * 10 + 0xd],
+                                              param_2 + param_1[uVar6 * 10 + 0xe],0xffffffff),
+                   iVar1 == 0)))) {
+              iVar1 = (*pcVar2)(param_1[uVar6 * 10 + 0xf],param_2 + param_1[uVar6 * 10 + 0xd],
+                                param_2 + param_1[uVar6 * 10 + 0xe]);
+              if (iVar1 != param_1[uVar6 * 10 + 0x10]) {
+                DAT_007fef5d = *(undefined1 *)(param_1 + uVar6 * 10 + 0xb);
+                uVar4 = 0x1f;
+                _DAT_007fef64 = param_1[uVar6 * 10 + 0x14];
+                goto LAB_00004a88;
+              }
+              if (((param_1[uVar6 * 10 + 0x11] != 0) && (param_1[uVar6 * 10 + 0x12] != 0)) &&
+                 (iVar1 = DSM_auto_004820(param_1[uVar6 * 10 + 0x11],
+                                          param_2 + param_1[uVar6 * 10 + 0x12],param_1[uVar6 * 10 + 0xc]
+                                         ), iVar1 == 0)) {
+                DAT_007fef5d = *(undefined1 *)(param_1 + uVar6 * 10 + 0xb);
+                uVar4 = 0x50;
+                _DAT_007fef64 = param_1[uVar6 * 10 + 0x14];
+                goto LAB_00004ae0;
+              }
+            }
+            uVar6 = uVar6 + 1 & 0xffff;
+          } while (uVar6 < *(ushort *)((int)param_1 + 0x22));
+        }
+        _DAT_007fef64 = 0;
+        DAT_007fef61 = 0;
+        DAT_007fef60 = 0;
+        DAT_007fef5f = 0;
+        DAT_007fef5e = 0;
+        DAT_007fef5d = 0;
+        return 0x40;
+      }
+      uVar4 = 0x1a;
+    LAB_00004a88:
+      _DAT_007fef62 = _DAT_007fef62 | 0x50;
+      return uVar4;
+    }
+    
+    
+
+==============================================================================
+BOOT API ENTRY @ 0x00005340 — Debounce_auto_005340
+  Called from 1 distinct app function(s), 1 total call sites
+==============================================================================
+
+  Callers:
+    (no fn)                                          @ 0x0003DC78  [CONDITIONAL_CALL]
+
+  --- DECOMPILED (boot entry) ---
+    
+    /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+    
+    undefined1 Debounce_auto_005340(void)
+    
+    {
+      int iVar1;
+      int iVar2;
+      undefined1 uVar3;
+      undefined2 unaff_r29;
+      uint unaff_r30;
+      uint uVar4;
+      uint uVar5;
+      int unaff_r31;
+      byte in_cr0;
+      
+      while (!(bool)(in_cr0 >> 1 & 1)) {
+        unaff_r30 = unaff_r30 + 1;
+        *(undefined2 *)(unaff_r31 + 0x816) = unaff_r29;
+        if (100 < unaff_r30) goto LAB_0000534c;
+        in_cr0 = (*(short *)(unaff_r31 + 0x816) == 0xf) << 1;
+      }
+      if (unaff_r30 < 100) {
+        uVar4 = 0;
+        *(ushort *)(unaff_r31 + 0x806) = *(ushort *)(unaff_r31 + 0x806) | 0x1000;
+        if (*(short *)(unaff_r31 + 0x816) == 0xf) {
+          do {
+            uVar4 = uVar4 + 1;
+            if (100 < uVar4) {
+              DAT_007fef5d = 4;
+              return 0x80;
+            }
+          } while (*(short *)(unaff_r31 + 0x816) == 0xf);
+          if (99 < uVar4) {
+            DAT_007fef5d = 4;
+            return 0x80;
+          }
+        }
+        if ((_DAT_007fdb44 & 0x10) != 0) {
+          uVar4 = (uint)bRam0000056d;
+          uVar5 = 0;
+          if (uVar4 != 0) {
+            do {
+              iVar1 = DSM_auto_0046a8(uVar5 & 0xff);
+              if (iVar1 != 0x40) {
+                return (char)iVar1;
+              }
+              uVar5 = uVar5 + 1;
+            } while (uVar5 < uVar4);
+          }
+        }
+        if ((_DAT_007fdb44 & 1) != 0) {
+          _DAT_007fd838 = (code *)0x0;
+          iVar1 = DSM_auto_00486c(&DAT_00010140);
+          if (iVar1 != 0x40) {
+            _DAT_007fd838 = (code *)0x40000;
+            iVar2 = DSM_auto_00486c(0x50140);
+            if (iVar2 == 0x40) {
+              _DAT_007fef64 = FUN_00050110;
+            }
+            else {
+              _DAT_007fd838 = FUN_001b0000;
+              iVar2 = DSM_auto_00486c(&DAT_001c0140);
+              if (iVar2 != 0x40) {
+                _DAT_007fef62 = _DAT_007fef62 | 0x50;
+                _DAT_007fef64 = (code *)0x0;
+                return (char)iVar1;
+              }
+              _DAT_007fef64 = (code *)&DAT_001c0110;
+            }
+          }
+          if (_DAT_007fd838 != (code *)0x0) {
+            _DAT_007fef62 = _DAT_007fef62 | 0x58;
+            return 0x1c;
+          }
+        }
+        uVar3 = 0x40;
+        _DAT_007fef62 = _DAT_007fef62 | 4;
+      }
+      else {
+    LAB_0000534c:
+        DAT_007fef5d = 3;
+        uVar3 = 0x80;
+      }
+      return uVar3;
+    }
+    
+    
+
+==============================================================================
+BOOT API ENTRY @ 0x00005F4C — Debounce_Def_00005f4c
+  Called from 1 distinct app function(s), 1 total call sites
+==============================================================================
+
+  Callers:
+    (no fn)                                          @ 0x0003DC9E  [CONDITIONAL_CALL]
+
+  --- DECOMPILED (boot entry) ---
+    
+    ushort Debounce_Def_00005f4c
+                     (uint *param_1,uint param_2,uint param_3,uint param_4,uint param_5,ushort param_6)
+    
+    {
+      uint *puVar1;
+      uint *puVar2;
+      
+      do {
+        param_6 = param_6 | 1;
+        puVar2 = param_1;
+        do {
+          if ((((param_5 == 0xffffffff) && (puVar2[1] == 0xffffffff)) ||
+              (param_6 = param_6 & 0xfffd, param_5 != 0)) || (puVar2[1] != 0)) {
+            param_6 = param_6 & 0xfffb;
+          }
+          param_3 = param_3 + 2;
+          param_1 = puVar2 + 2;
+          if (param_2 <= param_3) {
+            return param_6;
+          }
+          param_5 = *param_1;
+        } while ((param_5 == param_4) && (puVar1 = puVar2 + 3, puVar2 = param_1, *puVar1 == ~param_4));
+      } while( true );
+    }
+    
+    
+
+==============================================================================
+BOOT API ENTRY @ 0x00007360 — Debounce_Def_00007360
+  Called from 1 distinct app function(s), 1 total call sites
+==============================================================================
+
+  Callers:
+    (no fn)                                          @ 0x000245BC  [CONDITIONAL_CALL]
+
+  --- DECOMPILED (boot entry) ---
+    
+    int Debounce_Def_00007360(int param_1,int param_2)
+    
+    {
+      bool bVar1;
+      int *piVar2;
+      int iVar3;
+      int iVar4;
+      
+      if (param_2 == 0) {
+        return 0;
+      }
+      piVar2 = (int *)(param_1 + (param_2 + -1) * 4 + 4);
+      iVar3 = param_2 + -1;
+      do {
+        piVar2 = piVar2 + -1;
+        iVar4 = iVar3;
+        if (*piVar2 != 0) break;
+        iVar4 = iVar3 + -1;
+        bVar1 = iVar3 != 0;
+        iVar3 = iVar4;
+      } while (bVar1);
+      return iVar4 + 1;
+    }
+    
+    

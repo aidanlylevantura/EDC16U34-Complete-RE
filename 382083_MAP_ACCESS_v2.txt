@@ -1,0 +1,23 @@
+==============================================================================
+MAP ACCESS v2 — EngPrt_trqLimPBoost_MAP at 0x1D16EE
+==============================================================================
+
+PART 1: lis/addi pair scan for 0x1D16 + 0x16EE or 0x16F6
+==============================================================================
+
+  No lis/addi pair found — map is not accessed by direct address load
+
+PART 2: ROM pointer table search (4-byte big-endian pointers)
+==============================================================================
+
+Searching ROM for pointer 001D16EE (Map header address (full 32-bit))
+  Byte pattern: 00 1D 16 EE
+  Not found as 4-byte pointer anywhere in ROM
+
+Searching ROM for pointer 001D16F6 (Map data address (full 32-bit))
+  Byte pattern: 00 1D 16 F6
+  Not found as 4-byte pointer anywhere in ROM
+
+Searching ROM for pointer 001D172A (Next map header (EngPrt_trqLimP_MAP))
+  Byte pattern: 00 1D 17 2A
+  Not found as 4-byte pointer anywhere in ROM

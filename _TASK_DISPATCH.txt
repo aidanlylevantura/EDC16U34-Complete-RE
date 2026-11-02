@@ -1,0 +1,780 @@
+==============================================================================
+SECTION 1: Task table @ 0x43B24 (32 words)
+==============================================================================
+
+  [ 0] 0x000DF874  ASDdc_FUN_000df874
+  [ 1] 0x000C94E4  State_auto_0c94e4
+  [ 2] 0x00056180  ACC_StateMachine_Main
+  [ 3] 0x00056B00  PFlt_FUN_00056b00
+  [ 4] 0x00056E14  Gearbx_FUN_00056e14
+  [ 5] 0x000577B8  ACCtl_FUN_000577b8
+  [ 6] 0x00054804  ACC_TorqueCalculation_Core
+  [ 7] 0x000849D0  ACCCD_FUN_000849d0
+  [ 8] 0x000DF0B8  ACCD_FUN_000df0b8
+  [ 9] 0x0007D92C  FUN_0007d92c
+  [10] 0x0007E198  FUN_0007e198
+  [11] 0x0007DEEC  FUN_0007deec
+  [12] 0x000DEB38  AccPed_PlausibilityCheck
+  [13] 0x000B3A2C  (no fn)
+  [14] 0x0007D24C  ACCCD_FUN_0007d24c
+  [15] 0x0007BC98  ACCtl_FUN_0007bc98
+  [16] 0x00078104  ACCCD_FUN_00078104
+  [17] 0x0007B0C8  FUN_0007b0c8
+  [18] 0x0007874C  Gearbx_FUN_0007874c
+  [19] 0x000CB024  ASDdc_FUN_000cb024
+  [20] 0x0006931C  (no fn)
+  [21] 0x00079434  FUN_00079434
+  [22] 0x00078B8C  (no fn)
+  [23] 0x000D584C  LIGov_FUN_000d584c
+  [24] 0x000D6420  PCR_CalculateDesiredBoost
+  [25] 0x000D5FA0  PCR_MainController
+  [26] 0x000D6ABC  PCR_Governor_PID
+  [27] 0x000D7DDC  PCR_AntiClatterDamping
+  [28] 0x000C03C0  ACCCD_auto_0c03c0
+  [29] 0x000C0228  ACCCD_FUN_000c0228
+  [30] 0x0005E6A4  ACCCD_FUN_0005e6a4
+  [31] 0x0005DA3C  EngM_FUN_0005da3c
+
+==============================================================================
+SECTION 2: Task table dispatcher search
+==============================================================================
+
+Looking for: (a) literal or base+offset to 0x43B24
+            (b) mtspr CTR + bctrl loops (indirect dispatch)
+--- (a) literals to 0x43B24 / 0x3B24 ---
+  Debounce_Def_000c7b50                    2 sites
+    0x000C7BC0  stb r4,-0x3b24(r13)
+    0x000C7C00  lbz r9,-0x3b24(r13)
+  Debounce_Def_000bb2cc                    1 sites
+    0x000BB528  stb r8,-0x3b24(r13)
+
+--- (b) indirect dispatch loops (mtspr CTR + bctrl/blrl) ---
+  DSM_helper_auto_000f68                   @ 0x00000F68
+  Debounce_auto_0026a4                     @ 0x000026A4
+  Ramp_Inc16_00002960                      @ 0x00002960
+  Debounce_Def_00003040                    @ 0x00003040
+  FUN_000036f8                             @ 0x000036F8
+  DSM_auto_0044d4                          @ 0x000044D4
+  DSM_FUN_00004cbc                         @ 0x00004CBC
+  Ramp_auto_007098                         @ 0x00007098
+  StSys_auto_012c5c                        @ 0x00012C5C
+  Debounce_auto_014b88                     @ 0x00014B88
+  Debounce_Def_000151d0                    @ 0x000151D0
+  State_auto_017acc                        @ 0x00017ACC
+  State_auto_019998                        @ 0x00019998
+  State_Init_0001ae5c                      @ 0x0001AE5C
+  Debounce_auto_01bc78                     @ 0x0001BC78
+  Debounce_auto_01bca8                     @ 0x0001BCA8
+  State_auto_01e280                        @ 0x0001E280
+  Ramp_Inc16_00020364                      @ 0x00020364
+  Debounce_Def_0002068c                    @ 0x0002068C
+  Ramp_auto_020800                         @ 0x00020800
+  Debounce_auto_021084                     @ 0x00021084
+  Debounce_auto_021104                     @ 0x00021104
+  thunk_auto_021c58                        @ 0x00021C58
+  DSM_FUN_000228b0                         @ 0x000228B0
+  FUN_0002343c                             @ 0x0002343C
+  Debounce_auto_0246e0                     @ 0x000246E0
+  Debounce_auto_024704                     @ 0x00024704
+  FUN_00025108                             @ 0x00025108
+  ACCCD_FUN_000618bc                       @ 0x000618BC
+  State_Init_0006e454                      @ 0x0006E454
+  FUN_00079da8                             @ 0x00079DA8
+  Math_auto_07ffe8                         @ 0x0007FFE8
+  Ramp_auto_082748                         @ 0x00082748
+  Ramp_Inc16_000833e4                      @ 0x000833E4
+  FUN_00083c38                             @ 0x00083C38
+  ACCCD_auto_084404                        @ 0x00084404
+  ACCCD_auto_0844a4                        @ 0x000844A4
+  Debounce_Def_0008471c                    @ 0x0008471C
+  Ramp_Inc16_000847ec                      @ 0x000847EC
+  ACCCD_auto_085300                        @ 0x00085300
+  Debounce_Def_00085640                    @ 0x00085640
+  State_helper_auto_0858c0                 @ 0x000858C0
+  State_auto_08690c                        @ 0x0008690C
+  Ramp_Inc16_00086c94                      @ 0x00086C94
+  Math_helper_auto_0875f4                  @ 0x000875F4
+  Debounce_Def_00087d40                    @ 0x00087D40
+  State_auto_08a538                        @ 0x0008A538
+  EngPrt_auto_08bc80                       @ 0x0008BC80
+  Math_auto_09561c                         @ 0x0009561C
+  ACCtl_FUN_000a0304                       @ 0x000A0304
+  Carb_FUN_000a32c8                        @ 0x000A32C8
+  PCR_FUN_000a3588                         @ 0x000A3588
+  CrSCD_FUN_000a3714                       @ 0x000A3714
+  State_auto_0e99f0                        @ 0x000E99F0
+  Debounce_auto_0f39e4                     @ 0x000F39E4
+  ACCtl_helper_auto_0f9e1c                 @ 0x000F9E1C
+  ACCtl_helper_auto_0f9e70                 @ 0x000F9E70
+  FUN_000fcd90                             @ 0x000FCD90
+  Ramp_auto_0fdb5c                         @ 0x000FDB5C
+  Ramp_auto_0fdb90                         @ 0x000FDB90
+  FUN_000ff688                             @ 0x000FF688
+  Glw_FUN_0010007c                         @ 0x0010007C
+  Debounce_Def_00101670                    @ 0x00101670
+  Debounce_helper_auto_102b38              @ 0x00102B38
+  Debounce_helper_auto_102c84              @ 0x00102C84
+  DSM_auto_104988                          @ 0x00104988
+  FUN_00106d58                             @ 0x00106D58
+  DSM_auto_107454                          @ 0x00107454
+  Ramp_auto_108f84                         @ 0x00108F84
+  Ramp_Inc16_0010a1ac                      @ 0x0010A1AC
+  Ramp_auto_10a2dc                         @ 0x0010A2DC
+  FUN_0010a828                             @ 0x0010A828
+  thunk_auto_10b35c                        @ 0x0010B35C
+  Moving_auto_10f438                       @ 0x0010F438
+  Debounce_auto_1107dc                     @ 0x001107DC
+  Debounce_auto_1109c4                     @ 0x001109C4
+  Debounce_auto_110ba0                     @ 0x00110BA0
+  Debounce_auto_110f74                     @ 0x00110F74
+  Debounce_auto_111034                     @ 0x00111034
+  Ramp_auto_1117f0                         @ 0x001117F0
+  Glw_FUN_00113034                         @ 0x00113034
+  State_auto_113610                        @ 0x00113610
+  State_Init_001136f0                      @ 0x001136F0
+  Debounce_Def_001146b8                    @ 0x001146B8
+
+==============================================================================
+SECTION 3: Decompiled task entries
+==============================================================================
+
+--- [ 0] 0x000DF874 ASDdc_FUN_000df874 ---
+  
+  /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+  
+  void ASDdc_FUN_000df874(void)
+  
+  {
+    short sVar1;
+    bool bVar2;
+    undefined2 extraout_var;
+    int iVar3;
+    char cVar4;
+    short sVar5;
+    ushort uVar6;
+    int unaff_r15;
+    undefined1 uVar7;
+    int iVar8;
+    undefined2 local_20 [2];
+    undefined1 local_1c [3];
+    bool bStack_19;
+    undefined1 local_18;
+
+--- [ 1] 0x000C94E4 State_auto_0c94e4 ---
+  
+  /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+  
+  void State_auto_0c94e4(void)
+  
+  {
+    undefined4 uVar1;
+    undefined4 uVar2;
+    int unaff_r15;
+    int iVar3;
+    undefined1 auStack_30 [4];
+    undefined4 local_2c;
+    undefined1 local_28;
+    undefined1 local_27;
+    short local_26;
+    undefined2 local_24;
+    byte local_22;
+    undefined4 local_20;
+    short local_1c;
+    
+
+--- [ 2] 0x00056180 ACC_StateMachine_Main ---
+  
+  /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+  
+  void ACC_StateMachine_Main(void)
+  
+  {
+    bool bVar1;
+    bool bVar2;
+    byte bVar3;
+    byte bVar4;
+    undefined2 extraout_var;
+    undefined2 extraout_var_00;
+    char cVar5;
+    byte bVar6;
+    ushort uVar7;
+    int unaff_r15;
+    int iVar8;
+    undefined1 uVar9;
+    int iVar10;
+    undefined2 local_40 [2];
+
+--- [ 3] 0x00056B00 PFlt_FUN_00056b00 ---
+  
+  /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+  
+  void PFlt_FUN_00056b00(void)
+  
+  {
+    short sVar5;
+    int iVar1;
+    short sVar6;
+    short sVar7;
+    short sVar8;
+    undefined4 uVar2;
+    short sVar9;
+    short sVar10;
+    short sVar11;
+    short sVar12;
+    int iVar3;
+    undefined4 uVar4;
+    int unaff_r15;
+    int iVar13;
+
+--- [ 4] 0x00056E14 Gearbx_FUN_00056e14 ---
+  
+  /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+  
+  void Gearbx_FUN_00056e14(void)
+  
+  {
+    undefined2 extraout_var;
+    short sVar4;
+    short sVar5;
+    int iVar1;
+    int iVar2;
+    undefined4 uVar3;
+    int unaff_r15;
+    undefined4 uVar6;
+    undefined4 uVar7;
+    undefined4 uVar8;
+    char cVar9;
+    short sVar10;
+    int iVar11;
+    undefined1 uVar12;
+
+--- [ 5] 0x000577B8 ACCtl_FUN_000577b8 ---
+  
+  /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+  
+  void ACCtl_FUN_000577b8(void)
+  
+  {
+    undefined4 uVar1;
+    int iVar2;
+    int iVar3;
+    undefined4 uVar4;
+    int iVar5;
+    int iVar6;
+    undefined4 uVar7;
+    char cVar10;
+    int iVar8;
+    int iVar9;
+    int iVar11;
+    int unaff_r15;
+    undefined1 uVar12;
+    int iVar13;
+
+--- [ 6] 0x00054804 ACC_TorqueCalculation_Core ---
+  
+  /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+  
+  void ACC_TorqueCalculation_Core(void)
+  
+  {
+    short sVar1;
+    bool bVar2;
+    bool bVar3;
+    bool bVar4;
+    bool bVar5;
+    bool bVar6;
+    bool bVar7;
+    undefined2 extraout_var;
+    undefined2 extraout_var_00;
+    int iVar8;
+    uint uVar9;
+    undefined2 uVar11;
+    undefined4 uVar10;
+    short sVar12;
+
+--- [ 7] 0x000849D0 ACCCD_FUN_000849d0 ---
+  
+  /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+  
+  void ACCCD_FUN_000849d0(void)
+  
+  {
+    bool bVar1;
+    undefined2 extraout_var;
+    undefined4 uVar2;
+    int unaff_r15;
+    int iVar3;
+    int iVar4;
+    undefined2 local_10 [2];
+    undefined1 local_c [3];
+    bool bStack_9;
+    undefined1 local_8;
+    undefined1 local_7;
+    
+    ACCCD_auto_086394(0x65);
+    local_7 = 0;
+
+--- [ 8] 0x000DF0B8 ACCD_FUN_000df0b8 ---
+  
+  /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+  
+  void ACCD_FUN_000df0b8(void)
+  
+  {
+    char cVar1;
+    undefined4 uVar2;
+    int iVar3;
+    int iVar4;
+    undefined4 uVar5;
+    short sVar7;
+    int iVar6;
+    int unaff_r15;
+    undefined4 uVar8;
+    int iVar9;
+    short sVar11;
+    int iVar10;
+    undefined1 auStack_30 [4];
+    undefined1 auStack_2c [4];
+
+--- [ 9] 0x0007D92C FUN_0007d92c ---
+  
+  /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+  
+  void FUN_0007d92c(void)
+  
+  {
+    int unaff_r14;
+    int unaff_r15;
+    byte bVar1;
+    ushort uVar3;
+    ushort *puVar2;
+    ushort uVar4;
+    undefined2 local_28 [2];
+    undefined4 local_24;
+    undefined1 local_20;
+    undefined1 local_1f;
+    undefined4 local_1c;
+    undefined1 local_18;
+    undefined1 local_17;
+    
+
+--- [10] 0x0007E198 FUN_0007e198 ---
+  
+  /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+  
+  void FUN_0007e198(void)
+  
+  {
+    short sVar1;
+    int unaff_r15;
+    ushort uVar2;
+    ushort uVar3;
+    int iVar4;
+    
+    uVar3 = _DAT_007f97c2;
+    uVar2 = _DAT_007f97be;
+    if ((DAT_007fb5d6 == '\x01') || (DAT_007fb5d6 == '\x03')) {
+      if ((DAT_007f9341 & 1) == 0) {
+        if ((DAT_007f9341 & 2) == 0) {
+          _DAT_007fb5c8 = 0x7fff0;
+        }
+        else {
+
+--- [11] 0x0007DEEC FUN_0007deec ---
+  
+  /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+  
+  void FUN_0007deec(void)
+  
+  {
+    char cVar1;
+    int iVar2;
+    int iVar3;
+    undefined4 uVar4;
+    ushort uVar5;
+    int unaff_r15;
+    int iVar6;
+    int iVar7;
+    
+    if ((AccPed_stPlausError_mp == '\0') ||
+       (((_DAT_007f9e78 = _DAT_007f9dd0, _DAT_007f9e80 = _DAT_007f9dd4, cVar1 = DAT_007f936c,
+         ACC_stCrCtl_mp != '\0' &&
+         (_DAT_007f9e78 = _ACC_trqDes_mp, _DAT_007f9e80 = _ACC_trqLead_mp, cVar1 = ACC_stOvrRun_Out_mp
+         , ACC_stCrCtl_mp != '\x01')) || (cVar1 != '\0')))) {
+
+--- [12] 0x000DEB38 AccPed_PlausibilityCheck ---
+  
+  /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+  
+  void AccPed_PlausibilityCheck(void)
+  
+  {
+    bool bVar1;
+    bool bVar2;
+    bool bVar3;
+    short sVar8;
+    int iVar4;
+    short sVar9;
+    short sVar10;
+    short sVar11;
+    undefined4 uVar5;
+    short sVar12;
+    short sVar13;
+    undefined4 uVar6;
+    short sVar14;
+    int iVar7;
+
+  [13] 0x000B3A2C — no function
+--- [14] 0x0007D24C ACCCD_FUN_0007d24c ---
+  
+  /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+  
+  void ACCCD_FUN_0007d24c(void)
+  
+  {
+    byte bVar1;
+    int iVar2;
+    int iVar3;
+    undefined1 uVar4;
+    ushort uVar5;
+    int unaff_r15;
+    bool bVar6;
+    int iVar7;
+    bool bVar8;
+    byte bVar9;
+    undefined1 auStack_20 [4];
+    undefined1 auStack_1c [8];
+    
+    iVar7 = *(int *)(unaff_r15 + 0x1e4);
+
+--- [15] 0x0007BC98 ACCtl_FUN_0007bc98 ---
+  
+  /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+  
+  void ACCtl_FUN_0007bc98(void)
+  
+  {
+    bool bVar1;
+    byte bVar2;
+    short sVar5;
+    undefined4 uVar3;
+    undefined4 uVar4;
+    short sVar6;
+    short sVar7;
+    undefined1 uVar9;
+    undefined2 uVar8;
+    ushort uVar10;
+    int unaff_r15;
+    int iVar11;
+    char cVar12;
+    int iVar13;
+
+--- [16] 0x00078104 ACCCD_FUN_00078104 ---
+  
+  /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+  
+  void ACCCD_FUN_00078104(void)
+  
+  {
+    undefined4 uVar1;
+    short sVar2;
+    short sVar3;
+    ushort uVar4;
+    int unaff_r15;
+    int iVar5;
+    int iVar6;
+    int iVar7;
+    int iVar8;
+    undefined4 *puVar9;
+    undefined4 uVar10;
+    short sVar11;
+    undefined4 local_28;
+    undefined4 local_24;
+
+--- [17] 0x0007B0C8 FUN_0007b0c8 ---
+  
+  /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+  
+  void FUN_0007b0c8(void)
+  
+  {
+    short sVar1;
+    short sVar2;
+    
+    _DAT_009fe958 = AirCtl_auto_0f89b4((int)_DAT_007f975a,-(int)_DAT_007f97b0);
+    sVar1 = _DAT_009fe958;
+    if (_DAT_009fe958 < 1) {
+      sVar1 = 0;
+    }
+    _DAT_007f9782 = _DAT_007f9c84;
+    if (_DAT_007f9c84 < sVar1) {
+      _DAT_007f9782 = sVar1;
+    }
+    sVar1 = AirCtl_auto_0f89b4((int)_DAT_007f974c,-(int)_DAT_007f97b0);
+    _DAT_009fe95a = _DAT_007f9782;
+
+--- [18] 0x0007874C Gearbx_FUN_0007874c ---
+  
+  /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+  
+  void Gearbx_FUN_0007874c(void)
+  
+  {
+    undefined4 uVar1;
+    short sVar4;
+    int iVar2;
+    int iVar3;
+    int iVar5;
+    int iVar6;
+    
+    iVar6 = _DAT_007f9da4;
+    if (_DAT_007f9da4 < _DAT_007f9e70) {
+      iVar6 = _DAT_007f9e70;
+    }
+    if (_DAT_007f9da0 <= iVar6) {
+      iVar6 = _DAT_007f9da0;
+    }
+
+--- [19] 0x000CB024 ASDdc_FUN_000cb024 ---
+  
+  /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+  
+  void ASDdc_FUN_000cb024(void)
+  
+  {
+    ushort uVar1;
+    undefined4 uVar2;
+    int iVar3;
+    short sVar4;
+    undefined2 uVar5;
+    undefined2 uVar6;
+    undefined2 uVar7;
+    undefined2 uVar8;
+    undefined2 uVar9;
+    undefined2 uVar10;
+    undefined2 uVar11;
+    undefined2 uVar12;
+    undefined2 uVar13;
+    undefined2 uVar14;
+
+  [20] 0x0006931C — no function
+--- [21] 0x00079434 FUN_00079434 ---
+  
+  /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+  
+  void FUN_00079434(void)
+  
+  {
+    int iVar1;
+    short sVar6;
+    short sVar7;
+    short sVar8;
+    int iVar2;
+    short sVar9;
+    undefined4 uVar3;
+    undefined4 uVar4;
+    undefined4 uVar5;
+    int unaff_r15;
+    short *psVar10;
+    
+    iVar1 = Math_Mul((int)_VSSCD_v_2_mp,DAT_007f93ac);
+    psVar10 = *(short **)(unaff_r15 + 0x18c);
+
+  [22] 0x00078B8C — no function
+--- [23] 0x000D584C LIGov_FUN_000d584c ---
+  
+  /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+  
+  void LIGov_FUN_000d584c(void)
+  
+  {
+    int iVar1;
+    short sVar9;
+    int iVar2;
+    short sVar10;
+    int iVar3;
+    short sVar11;
+    short sVar12;
+    int iVar4;
+    short sVar13;
+    short sVar14;
+    int iVar5;
+    undefined4 uVar6;
+    undefined4 uVar7;
+    undefined4 uVar8;
+
+--- [24] 0x000D6420 PCR_CalculateDesiredBoost ---
+  
+  /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+  
+  void PCR_CalculateDesiredBoost(void)
+  
+  {
+    uint uVar1;
+    uint uVar2;
+    short sVar6;
+    short sVar7;
+    short sVar8;
+    int iVar3;
+    short sVar9;
+    short sVar10;
+    short sVar11;
+    undefined4 uVar4;
+    int iVar5;
+    int unaff_r15;
+    uint uVar12;
+    int iVar13;
+
+--- [25] 0x000D5FA0 PCR_MainController ---
+  
+  /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+  
+  void PCR_MainController(void)
+  
+  {
+    uint uVar1;
+    uint uVar2;
+    short sVar5;
+    short sVar6;
+    short sVar7;
+    int iVar3;
+    undefined4 uVar4;
+    short sVar8;
+    short sVar9;
+    short sVar10;
+    int unaff_r15;
+    uint uVar11;
+    int iVar12;
+    undefined1 auStack_70 [4];
+
+--- [26] 0x000D6ABC PCR_Governor_PID ---
+  
+  /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+  
+  void PCR_Governor_PID(void)
+  
+  {
+    bool bVar1;
+    bool bVar2;
+    short sVar5;
+    short sVar6;
+    undefined4 uVar3;
+    short sVar7;
+    undefined4 uVar4;
+    short sVar8;
+    short sVar9;
+    short sVar10;
+    short sVar11;
+    short sVar12;
+    short sVar13;
+    ushort uVar14;
+
+--- [27] 0x000D7DDC PCR_AntiClatterDamping ---
+  
+  /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+  
+  void PCR_AntiClatterDamping(void)
+  
+  {
+    uint uVar1;
+    int iVar2;
+    int unaff_r15;
+    int iVar3;
+    char cVar4;
+    uint uVar5;
+    undefined2 local_20 [2];
+    undefined1 auStack_1c [4];
+    undefined1 auStack_18 [4];
+    undefined4 local_14;
+    undefined1 local_10;
+    undefined1 local_f;
+    
+    local_f = 0;
+
+--- [28] 0x000C03C0 ACCCD_auto_0c03c0 ---
+  
+  /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+  
+  void ACCCD_auto_0c03c0(void)
+  
+  {
+    int iVar1;
+    int iVar2;
+    short sVar4;
+    undefined4 uVar3;
+    ushort uVar5;
+    int unaff_r15;
+    undefined1 uVar6;
+    undefined1 uVar8;
+    undefined1 uVar9;
+    short sVar10;
+    int iVar11;
+    int iVar12;
+    short *psVar13;
+    undefined1 uVar7;
+
+--- [29] 0x000C0228 ACCCD_FUN_000c0228 ---
+  
+  /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+  
+  void ACCCD_FUN_000c0228(void)
+  
+  {
+    undefined4 uVar1;
+    short sVar3;
+    short sVar4;
+    int iVar2;
+    int unaff_r15;
+    int iVar5;
+    undefined1 auStack_18 [4];
+    undefined1 auStack_14 [8];
+    
+    uVar1 = AirCtl_auto_0f89b4((int)_DAT_007f96a8,-(int)_DAT_007f95d8);
+    sVar3 = AirCtl_auto_0f89b4(uVar1,-(int)_DAT_007f9a30);
+    iVar5 = *(int *)(unaff_r15 + 0x424);
+    sVar4 = AirCtl_auto_0f93f0((int)_VSSCD_v_2_mp,iVar5 + 0x44,auStack_18);
+    _DAT_009ff97e = AirCtl_auto_0f93f0((int)_VSSCD_v_2_mp,iVar5 + 6,auStack_14);
+
+--- [30] 0x0005E6A4 ACCCD_FUN_0005e6a4 ---
+  
+  /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+  
+  void ACCCD_FUN_0005e6a4(void)
+  
+  {
+    int unaff_r15;
+    int iVar1;
+    undefined1 auStack_8 [4];
+    
+    iVar1 = *(int *)(unaff_r15 + 0xb0);
+    _DAT_009fe524 = AirCtl_auto_0f93f0((int)_DAT_007fa0c2,iVar1,auStack_8);
+    _DAT_009fe526 = 0;
+    if ((_DAT_007f9924 == 0) || (*(char *)(iVar1 + 0x43) == '\0')) {
+      _DAT_007f9640 = _DAT_007fa0c2;
+    }
+    else {
+      _DAT_009fe526 = 1;
+      _DAT_007f9640 = _DAT_009fe524;
+    }
+
+--- [31] 0x0005DA3C EngM_FUN_0005da3c ---
+  
+  /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+  
+  void EngM_FUN_0005da3c(void)
+  
+  {
+    short sVar1;
+    short sVar5;
+    uint uVar2;
+    short sVar6;
+    short sVar7;
+    undefined4 uVar3;
+    int iVar4;
+    undefined2 uVar8;
+    int iVar9;
+    undefined1 *puVar10;
+    int unaff_r15;
+    int iVar11;
+    int iVar12;
+    int iVar13;

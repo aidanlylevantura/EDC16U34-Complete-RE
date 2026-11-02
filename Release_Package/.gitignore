@@ -1,0 +1,11 @@
+# Commercial/copyrighted Damos files - do not upload
+*.csv
+*.ols
+
+# Original personal EEPROM - do not upload
+Eeprom.bin
+*Original_Eeprom*
+
+# Windows junk
+Thumbs.db
+desktop.ini

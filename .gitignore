@@ -1,0 +1,37 @@
+# Firmware binaries - NEVER commit
+*.bin
+*.ori
+*.mod
+*.hex
+
+# WinOLS / Damos data - NEVER commit
+*.csv
+*.ols
+*.damos
+
+# Ghidra decompiled output - derivative of copyrighted binary
+*.c
+System_*.c
+EDC16U34_*.c
+
+# Ghidra project files
+*.gpr
+*.rep
+*.lock
+
+# Generated analysis output
+outputs/*
+!outputs/.gitkeep
+Structure_Map_Report.txt
+DTC_Table.txt
+ECU_100_Percent_Blueprint.md
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db

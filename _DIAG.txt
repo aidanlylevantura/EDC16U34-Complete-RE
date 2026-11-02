@@ -1,0 +1,9 @@
+=== DIAG START ===
+globals has currentProgram: False
+currentProgram = Seat Leon 1.9 TDI 105 hp 2006 EDC16U34 03G906021LK 0281013279 1037382081 bdm.bin - .ProgramDB
+globals has state: False
+state = ghidra.app.script.GhidraState@5a170ace
+ProgramManager: ghidra.app.plugin.core.progmgr.ProgramManagerPlugin@44f6313c
+PM.getCurrentProgram(): Seat Leon 1.9 TDI 105 hp 2006 EDC16U34 03G906021LK 0281013279 1037382081 bdm.bin - .ProgramDB
+OUT_DIR exists: True
+=== DIAG END ===

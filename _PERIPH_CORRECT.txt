@@ -1,0 +1,20 @@
+==============================================================================
+HAL / EEPROM / CAN — CORRECT IMMR BASE (0x006FC000)
+==============================================================================
+
+Instructions scanned: 400998
+
+--- Peripherals by function (sorted by hit count) ---
+
+==============================================================================
+BIT-BANG EEPROM candidates (shifts 8-11 = CLK/DI/DO bit positions)
+==============================================================================
+  (none — EEPROM likely via DSPI hardware, not bit-bang)
+
+==============================================================================
+CONCLUSION
+==============================================================================
+
+If [DSPI_A] / [DSPI_B] block populated above → EEPROM driver found
+If [FlexCAN_*] block populated above → CAN driver found
+If [eQADC] / [eMIOS] block populated above → HAL found

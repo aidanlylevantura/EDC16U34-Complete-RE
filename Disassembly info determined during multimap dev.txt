@@ -1,0 +1,286 @@
+EDC16U34 Disassembly Reference — Consolidated
+Everything established across this project about the binary, the memory map, the toolchain, and the remaining open questions. Organized for future disassembly work. Each fact is tagged verified (reproduced from bytes or independent implementation), inferred (strong RE evidence, not confirmed on hardware), or unresolved (conflicting evidence).
+
+1. Target identification
+Field	Value	Status
+ECU	Bosch EDC16U34-3.42	verified
+VAG part number	03G906021KH	verified (ident string @ 0x1C0CB0)
+Bosch part number	0281013226	verified
+Software version	382083	verified (ident string @ 0x1C0CBC)
+Engine descriptor	R4 1,9L EDC	verified (ident string @ 0x1C0CD4)
+Vehicle	2006 VW Golf MK5 1.9 TDI PD BXE	context
+Gearbox	DQ250 6-speed DSG	context
+Microcontroller	Motorola/Freescale MPC562 (PowerPC RCPU, big-endian, 66 MHz)	verified from OS structure
+External flash	2 MB (0x00000000..0x001FFFFF)	verified
+Reference file	stock_382083.ori — not a full BDM read (boot region is 0xFF)	verified
+Important caveat on stock_382083.ori: bytes 0x00000..0x3FFFF are entirely 0xFF. The real ECU has boot block, reset vector, and bootloader code there. All disassembly below is against the external flash region only; the internal MPC562 flash (containing OS boot/RAM-init code) is not present in any file currently in the tree. It must be read via BDM during bench prep.
+
+2. Toolchain
+Tool	Purpose	Notes
+dis2.py	PowerPC disassembler	Used for all static RE
+ppc_emu.py	PowerPC emulator	Implements only the ISA subset used by the patch; cannot run OS boot code
+build_v3_r1.py	R1 builder	Reproduces candidate bit-for-bit from stock_382083.ori with --stalk-can
+annotated_diff.py	Byte diff	Produces annotated spans
+verify_checksums.py	Region checksum verifier	Three-region additive sum with balance words
+liveness_analysis.py	CFG dataflow	Register liveness, invariant proofs
+ramdiff.py	RAM differ	Masked comparison for bench
+cansniff_38a.py	CAN monitor/parser	Fixed version — original silently returned zero on candump text
+test_symbolic_thunk.py	Z3 formal proof	Requires z3-solver
+Reproducibility: python build_v3_r1.py --stalk-can binaries/03G906021KH_382083_MULTIMAP_v3_STALK_INERT.bin out.bin yields SHA-256 37208719b44576193bbef12fee8427f0e1ed423dd5fa81eaf82431e79a3f7191 byte-for-byte.
+
+3. Memory architecture
+Flash (external, 2 MB)
+Region	Span	Purpose	Checksum
+Boot	0x00000..0x3FFFF	0xFF in reference file — missing boot block	not present
+OS code	0x040000..0x17FFFF	Operating system, driver code	yes (balance word at end)
+Cal1	0x180000..0x1BFFFF	Calibration 1	yes
+Cal2	0x1C0000..0x1FDFFF	Calibration 2 (maps)	yes
+Flash tail	0x1FE000..0x1FFFFF	Erased (0xFF) — patch code lives here	see §9
+Unresolved: the Cal2 balance word address is reported as both 0x1FDFFC (span 0x1C0000..0x1FDFFF) and 0x1FFEF8 (which would extend the span into the patch region). These cannot both be correct. Check from boot block once BDM read is in hand.
+
+RAM
+The Small Data Area base is established at boot:
+
+text
+0x000228: lis r13, 0x0080
+0x00022C: addi r13, r13, -16       ; r13 = 0x007FFFF0
+All r13-relative accesses resolve as RAM = 0x007FFFF0 + offset.
+
+Symbol	Address	r13 offset	Size	Notes
+ActiveSlot	0x007F9210	-0x6DE0	1 B	0=Stock, 1=Stage1, 2=Eco
+LastStalk	0x007F9211	-0x6DDF	1 B	rising-edge latch
+SlotCheck	0x007F9212	-0x6DDE	1 B	ActiveSlot ^ 0xA5
+TestStalk	0x007F9213	-0x6DDD	1 B	harness injection
+Chk32	0x007F9214	-0x6DDC	4 B	0xA5C35A3C ^ ActiveSlot
+Pedal gate var	0x007F95C4	-0x6A2C	2 B (signed)	likely pedal, unconfirmed
+Map X input	0x007F95D8	-0x6A18	2 B (signed)	fed to 28 lookups
+Map Y input	0x007FA0A0	—	2 B	rpm-like, 0..5100
+CAN 0x38A buffer	0x007FF120	-0x0ED0	8 B	raw frame
+Frame byte 1	0x007FF121	—	1 B	main switch bit 0
+Frame byte 2	0x007FF122	—	1 B	SET bit 0, RESUME bit 1, CANCEL bit 2, counter bits 4-7
+Frame byte 3	0x007FF123	—	1 B	tip bits (not unused — contradicts an earlier Mermaid diagram)
+r13 anchor	0x007FFFF0	—	4 B	SDA pointer
+RAM zero-fill claim (unresolved): one analysis says the OS zero-fills 0x7F8000..0x7FE4D8 and 0x7FF000..0x800000 at startup; a later static scan found no clear loop touching 0x7F9210 in the OS region. The boot block is not in the image, so this cannot be resolved offline. Bench warm-reset dump settles it.
+
+4. The intercepted map call site
+The patch replaces one instruction in the Driver Wish torque evaluation routine at 0x09B2A8:
+
+text
+0x09B2A8: addi r5, r31, 382        ; factory: 0x1D1578 + 0x17E = 0x1D16F6 (stock TL map)
+         ↓ (patched to)
+0x09B2A8: bl 0x1FE200              ; opcode 0x48162F59
+0x09B2AC: addi r6, r1, 24          ; factory continuation, writes r6
+0x09B2B0: bl 0x0F94DC              ; map lookup routine
+0x09B2B4: addi r28, r3, 0
+0x09B2B8: lha  r3, -27160(r13)     ; load 0x7F95D8 (X for next lookup)
+0x09B2BC: lha  r4, -24400(r13)     ; load 0x7FA0A0 (Y for next lookup)
+0x09B2C0: addi r5, r31, 362        ; next map
+0x09B2C4: addi r6, r1, 36
+0x09B2C8: bl 0x0F94DC
+0x09B2CC: extsh r21, r28
+0x09B2D0: neg r4, r21
+0x09B2D4: bl 0x0F89B4
+0x09B2D8: lha  r9, -17434(r13)     ; unconditional overwrite of r9
+The enclosing function: 0x09AFDC..0x09B93C (2,404 bytes). Allocates a 152-byte stack frame (stwu r1, -152(r1)), saves its own LR at 156(r1) (= old SP + 4 in its parent's frame, not its own).
+
+Map lookup routine 0x0F94DC semantics: r3 = X (compared against first axis, nx entries), r4 = Y (compared against second axis), r5 = map pointer. Returns interpolated value in r3.
+
+The intercepted map's axes (stock): X = [600, 700, 890, 930] — not pedal percent. Y = rpm-like. The map is indexed by 0x7F95D8, not by the pedal gate variable 0x7F95C4. This is the fundamental mismatch flagged by the peer audit.
+
+5. CAN 0x38A receive path (fully traced)
+This is the strongest piece of RE in the project — all verified from bytes, no inference.
+
+Frame descriptor
+text
+0x1C0DBC:  00 00 | 03 8A | 01 00 | 03 00 | 04 00 | 00 00
+           Pad     CAN ID  Flags   Group=0   DLC=4  Pad
+0x1C0DC8:  10 01 00 02       ; 20 ms repetition, max 2 timeouts
+Group 0, block 3 → hardware acceptance filter bank at 0x707130.
+
+Active CAN Message Table entry 21
+Table base 0x0413F8, 43 records × 20 bytes. Entry 21 at 0x04159C:
+
+text
+0x04159C: 15 00 00 00    ; tag = 21 / handle 0x15
+0x0415A0: 00 00 00 00    ; callback = none
+0x0415A4: 01 1C 0D C8    ; trailer pointer
+0x0415A8: 01 1C 0D BC    ; config pointer → ID 0x38A
+0x0415AC: 00 7F F1 20    ; buffer pointer → 0x007FF120
+0x007FF120 appears exactly once in the entire 2 MB image — at 0x0415AC. This is the single cross-reference that proves the buffer is dedicated to this frame.
+
+Delivery routine 0xFB6F4
+text
+0xFB704: lwz  r11, 0x86(r12)     ; load CAN payload bytes 0-3
+0xFB708: lwz  r10, 0x8A(r12)     ; load payload bytes 4-7
+0xFB70C: stw  r11, 0x00(r4)      ; store bytes 0-3  → 0x7FF120
+0xFB710: stw  r10, 0x04(r4)      ; store bytes 4-7  → 0x7FF124
+Bytes are copied verbatim in order. Therefore 0x007FF122 = CAN payload byte 2 — confirmed, not inferred.
+
+GRA_Neu byte layout
+Byte	Address	Meaning
+0	0x7FF120	checksum / CRC
+1	0x7FF121	main cruise switch (Bit 0) + status bits
+2	0x7FF122	Bit 0 = SET, Bit 1 = RESUME, Bit 2 = CANCEL, Bits 4-7 = rolling counter
+3	0x7FF123	tip down/up + status (not "unused")
+Bit assignments within byte 2 are inferred from community opendbc GRA_Neu_Setzen / GRA_Recall naming, not confirmed from this ECU. No OS code reads 0x7FF120..0x7FF127 anywhere in the image — there is no in-binary cross-check. Only a bench CAN capture with a real stalk press can confirm which bit the J527 actually sets.
+
+DFES trap — do not confuse with the button
+Flag 0x1B3 at 0x6F82A3/0x7FF18D in the 456-flag DFES matrix is a fault qualification byte (CAN 0x38A communication timeout DTC status), not the button. Disassembly at 0x858CC and 0x85960 confirms: it reads fault notification entries, tests bit masks, and sets ISO 14229 status byte 0x11 (TestFailed). It will never toggle on a human press.
+
+6. The patch regions
+Call site
+Span	Bytes	Purpose
+0x09B2A8..0x09B2AB	4	addi r5, r31, 382 → bl 0x1FE200
+Map clones
+Span	Bytes	Contents
+0x1EB000..0x1EB0D3	212	Stage 1 torque limiter clone
+0x1EC000..0x1EC0D3	212	Eco torque limiter clone
+Map structure (all three, stock + 2 clones): 4B header + 8B X-axis + 40B Y-axis + 160B data = 212 bytes.
+
+X-axis (P_amb): 600, 800, 900, 1000 mbar
+
+Y-axis (RPM): 0, 800, 1000, 1250, 1500, 1750, 2000, 2250, 2500, 2750, 3000, 3250, 3500, 3750, 4000, 4250, 4500, 4750, 5000, 5300
+
+Stock peak: raw 2780 (278 Nm)
+
+Stage 1 peak: raw 3500 (350 Nm)
+
+Eco peak: raw 2100 (210 Nm)
+
+The clones only change the torque limiter. Fuel, boost, injection advance, smoke, and EGR maps are unchanged from stock.
+
+Hook, wrapper, thunk
+Span	Bytes	Contents
+0x1FE000..0x1FE10F	272	Hook — CAN read, pedal gate, state machine, key compute
+0x1FE200..0x1FE21F	32	Wrapper — LR save, hook call, thunk tail-branch
+0x1FE280..0x1FE2E7	104	R1 dual-key thunk
+Wrapper disassembly (verified from candidate bytes)
+text
+0x1FE200  9421FFF0   stwu  r1, -16(r1)
+0x1FE204  7C0802A6   mflr  r0
+0x1FE208  90010014   stw   r0, 20(r1)       ; = caller_sp + 4, standard EABI LR save
+0x1FE20C  4BFFFDF5   bl    0x1FE000
+0x1FE210  80010014   lwz   r0, 20(r1)
+0x1FE214  7C0803A6   mtlr  r0
+0x1FE218  38210010   addi  r1, r1, 16
+0x1FE21C  48000064   b     0x1FE280
+The stw r0, 20(r1) writes into the caller's LR save slot — standard PowerPC EABI, not a bug. Liveness analysis proved the caller at 0x09AFDC never reads 4(r1) for its own purposes (its actual LR lives at 156(caller_r1)).
+
+R1 thunk
+text
+0x1FE280: lbz   r5, -0x6DE0(r13)    ; ActiveSlot
+0x1FE284: lbz   r0, -0x6DDE(r13)    ; SlotCheck
+0x1FE288: xori  r0, r0, 0xA5
+0x1FE28C: cmplw r0, r5
+0x1FE290: bne   .SELECT_STOCK
+0x1FE294: lwz   r0, -0x6DDC(r13)    ; Chk32
+0x1FE298: lis   r5, 0xA5C3
+0x1FE29C: ori   r5, r5, 0x5A3C
+0x1FE2A0: xor   r0, r0, r5
+0x1FE2A4: lbz   r5, -0x6DE0(r13)    ; reload ActiveSlot
+0x1FE2A8: cmplw r0, r5
+0x1FE2AC: bne   .SELECT_STOCK
+0x1FE2B0: cmpwi r5, 1
+0x1FE2B4: beq   .SELECT_STAGE1
+0x1FE2B8: cmpwi r5, 2
+0x1FE2BC: beq   .SELECT_ECO
+.SELECT_STOCK:  addi r5, r31, 382       ; 0x1D16F6
+.SELECT_STAGE1: lis r5, 0x001E; ori r5, r5, 0xB000   ; 0x1EB000
+.SELECT_ECO:    lis r5, 0x001E; ori r5, r5, 0xC000   ; 0x1EC000
+Uses only {r0, r5}, touches CR0, leaves r9 untouched. Dual-key check: SlotCheck == ActiveSlot ^ 0xA5 and Chk32 == ActiveSlot ^ 0xA5C35A3C. Either fails → Stock.
+
+7. Register and dataflow facts
+All from static analysis of stock_382083.ori:
+
+Fact	Evidence	Status
+r31 = 0x001D1578 at 0x09B2A8	loaded at 0x09AFE8 from descriptor table @ 0x04C8A0 + 0x300; no intervening writes	verified
+r9 is dead across 0x09B2A8	unconditional lha r9, -17434(r13) at 0x09B2D8; no read between	verified
+r4 preserved across 0x1FE000	hook prologue saves r4 at 16(r1), epilogue restores	verified
+Caller's actual LR save at 156(caller_r1)	caller prologue stwu r1,-152(r1) then stw r0, 156(r1)	verified
+4(r1) is not used by caller for own storage	liveness scan of 0x09AFDC..0x09B93C	verified
+Hook write set confined to state block	emulator write log; stray writes none	verified
+Register clobber set {r0, r5} in thunk, {CR0}	disassembly	verified
+Hook saves all GPRs r0, r3..r10	prologue at 0x1FE000; epilogue at 0x1FE0D4	verified
+8. Other routines of interest
+Address	Role	Notes
+0x0F94DC	Map lookup (X/Y interpolation)	Called with r3=X, r4=Y, r5=map
+0x0F89B4	Post-lookup processing	Called at 0x09B2D4
+0x64410	Function containing 0x7F95C4 writer	Single write at 0x64790 (sth r9, -27180(r13))
+0x636F0	In/out processing routine for 0x7F95C4	Passed by pointer via addi r4, r1, 46 at 0x64428
+0x595C4	Second map using 0x7F95C4 as load axis	Paired with 0x7FA0A0 (rpm-like)
+0xAF3D4	Exact-equality compare of 0x7F95C4 against 10000	Full-scale test — supports 0..10000 range inference
+0x858CC	DFES fault qualification reader	Reads 0x6F82A3 (flag 0x1B3)
+0x85960	DFES fault status writer	Sets ISO 14229 0x11
+0x707130	Hardware CAN acceptance filter, Group 0, Block 3	Matches ID 0x38A
+9. Checksums
+Bosch EDC16 convention: each region's 32-bit big-endian word sum is balanced to 0xD01FE500 by a 4-byte complement stored at the end of the region. This is an additive sum, not a CRC.
+
+Region	Span	Expected total
+OS	0x040000..0x17FFFF	0xD01FE500
+Cal1	0x180000..0x1BFFFF	0xD01FE500
+Cal2	0x1C0000..0x1FDFFF (end unresolved, see below)	0xD01FE500
+Reported raw sums have changed between document revisions for the same binary. Two sets exist:
+
+Region	Set A (Round 2)	Set B (later report)
+OS raw	0x4A23523C	0x93308967
+Cal1 raw	0xF940B5DC	0xE63943CA
+Cal2 raw	0xC9E01A9E	0x9D58E2F2
+Both sets balance to 0xD01FE500 with their respective complement words, but they cannot both be correct for the same binary with the same algorithm over the same regions. Re-run verify_checksums.py fresh and commit the raw stdout before relying on either set.
+
+Cal2 span end — unresolved. Balance word is reported as both 0x1FDFFC (implying span end 0x1FDFFF) and 0x1FFEF8 (implying span extends into 0x1FE000..0x1FFFFF, i.e., covers the patch code). If the second is true, the patch code is factory-protected and the "accept-and-document" residual-risk decision is moot. Resolve from boot block (internal flash) once BDM read is available.
+
+Patch footprint (corrected spans, sum = 841):
+
+Span	Length
+0x09B2A8..0x09B2AB	4
+0x17FFFC..0x17FFFF (OS balance)	4
+0x1EB000..0x1EB0D3	212
+0x1EC000..0x1EC0D3	212
+0x1FDFFC..0x1FE001 (Cal2 balance + hook entry)	6
+0x1FE003..0x1FE10F (hook body, 0x1FE002=0xFF skipped)	269
+0x1FE200..0x1FE201 (wrapper prologue)	2
+0x1FE203..0x1FE20C (0x1FE202=0xFF skipped)	10
+0x1FE20E..0x1FE21F (0x1FE20D=0xFF skipped)	18
+0x1FE280..0x1FE2E7	104
+Total	841
+The 0xFF bytes at 0x1FE002, 0x1FE202, 0x1FE20D coincidentally match erased stock, splitting what would be 3 contiguous regions into 5. Any span table that doesn't sum to 841 is wrong — a recent document revision printed a table summing to 929; use the table above.
+
+10. Constants quick reference
+text
+K8  = 0xA5                          ; SlotCheck XOR key
+K32 = 0xA5C35A3C                    ; Chk32 XOR key
+SDA = 0x007FFFF0                    ; r13 anchor
+STOCK_MAP   = 0x001D16F6            ; r31 + 382 = 0x1D1578 + 0x17E
+STAGE1_MAP  = 0x001EB000
+ECO_MAP     = 0x001EC000
+PEDAL_GATE_THRESHOLD = 5000         ; raw units, 0.01% (inferred)
+11. Open questions (ranked by impact on further RE)
+Cal2 span end — 0x1FDFFF or further? Determines whether the patch code is checksum-protected. Resolve from boot block or by finding the checksum routine's span constants in OS disassembly.
+
+Checksum raw sums — which set is correct? Re-run verify_checksums.py, save raw stdout.
+
+Pedal gate variable identity — 0x7F95C4 vs 0x7F95D8. Higher-confidence RE would need: disassemble 0x636F0 (what kind of processing does 0x7F95C4 undergo?), identify map at 0x595C4 (what is 0x7F95C4 controlling?), check neighbors 0x7F95C2/0x7F95C6, or cross-reference to community damos/A2L files for EDC16U34.
+
+SET bit within 0x7FF122 — bench CAN capture required. Bit 0 = SET is from community DBC.
+
+Warm-reset RAM behavior — internal flash read or bench dump.
+
+Boot block contents — nothing in this project has seen the real boot block. First BDM read reveals it.
+
+12. Caveats for future disassembly
+File offsets = CPU code addresses for the external flash region. No translation needed.
+
+stock_382083.ori is not a full image. Any analysis assuming the boot region is "supposed to be 0xFF" is wrong. The real ECU has code there.
+
+Static-only. Nothing in this document was observed on a running ECU. Every RAM address, every register fact, every call-site trace comes from static disassembly of stock_382083.ori or from emulator behavior.
+
+The emulator implements only the ISA subset the patch uses. It cannot run OS boot code, the CAN driver, the diagnostic task, or anything else outside the three patched regions. Claims about OS behavior derived from the emulator are claims about the model, not the machine.
+
+The DFES flag 0x1B3 is a trap. It appears in 456-flag tables and looks like a live signal. It is not — it is a fault qualification byte. Disassembly at 0x858CC proves this.
+
+The bit meaning of 0x7FF122 Bit 0 vs Bit 1 is not encoded anywhere in the binary. It comes from a community DBC. If a future disassembly of the J527 module's firmware is ever possible, that's the authoritative source.
+
+Z3 proofs are against a semantic model of the opcodes, not the silicon. The proof holds if and only if the AST faithfully represents PowerPC semantics for those 26 instructions. The test_symbolic_thunk.py script verifies the byte identity of the opcodes against the candidate and models their semantics — so the fidelity chain is: candidate bytes → disassembly → AST. A transcription error in the AST would invalidate the proof without failing the byte assertion.
+
+That's the complete reference. The strongest verified material is §5 (CAN receive path) and §6 (patch disassembly) — both proven from bytes with zero inference. The weakest is §3 (RAM zeroing) and §11 (open questions) — those are the things bench work exists to settle.
+

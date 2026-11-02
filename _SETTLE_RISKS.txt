@@ -1,0 +1,366 @@
+==============================================================================
+SECTION 1 — CRUISE STALK DECODER (Item 1)
+==============================================================================
+
+--- Xrefs to CAN table entry 21 @ 0x0004159C ---
+  (no xrefs)
+
+--- Xrefs to entry 21 buffer ptr @ 0x004155AC ---
+  (no xrefs)
+
+--- Xrefs to direct CAN buffer @ 0x007FF122 ---
+  (no xrefs)
+
+--- Dump CAN entry 21 (0x04159C, 64 bytes as 32-bit BE) ---
+  [ 0] 0x0004159C = 0x15000000
+  [ 1] 0x000415A0 = 0x00000000
+  [ 2] 0x000415A4 = 0x011C0DC8
+  [ 3] 0x000415A8 = 0x011C0DBC
+  [ 4] 0x000415AC = 0x007FF120
+  [ 5] 0x000415B0 = 0x16000000
+  [ 6] 0x000415B4 = 0x00000000
+  [ 7] 0x000415B8 = 0x011C0DF8
+  [ 8] 0x000415BC = 0x011C0DEC
+  [ 9] 0x000415C0 = 0x007FF12C
+  [10] 0x000415C4 = 0x17000000
+  [11] 0x000415C8 = 0x00000000
+  [12] 0x000415CC = 0x011C0D3C
+  [13] 0x000415D0 = 0x011C0D30
+  [14] 0x000415D4 = 0x007FF138
+  [15] 0x000415D8 = 0x18000000
+
+--- Signal descriptor table search (start=16, len=1, msg=21) ---
+Scanning for 0x0010 followed by 0x0001 followed by 0x0015 within 32 bytes
+Candidates: 5
+  @ 0x0007C55E
+  @ 0x000BA8F2
+  @ 0x000D495A
+  @ 0x000EC552
+  @ 0x0010F8A6
+
+==============================================================================
+SECTION 2 — INTEGRITY DESCRIPTORS + TAIL BLOCKS (Item 2)
+==============================================================================
+
+--- Xrefs to descriptor 0x40030 @ 0x00040030 ---
+  (no xrefs)
+
+--- Xrefs to descriptor 0x40030 alias @ 0x01400030 ---
+  (no xrefs)
+
+--- Xrefs to descriptor 0x180030 @ 0x00180030 ---
+  (no xrefs)
+
+--- Xrefs to descriptor 0x180030 alias @ 0x01180030 ---
+  (no xrefs)
+
+--- Xrefs to descriptor 0x1C0030 @ 0x001C0030 ---
+  (no xrefs)
+
+--- Xrefs to descriptor 0x1C0030 alias @ 0x011C0030 ---
+  (no xrefs)
+
+--- Table @ 0x49420 (first 128 bytes as 32-bit BE) ---
+  [ 0] 0x00049420 = 0xFFFFF3FF
+  [ 1] 0x00049424 = 0xFFFFFF0F
+  [ 2] 0x00049428 = 0x011C0058
+  [ 3] 0x0004942C = 0x0017FF78
+  [ 4] 0x00049430 = 0x011FDF74
+  [ 5] 0x00049434 = 0x009FFFF8
+  [ 6] 0x00049438 = 0x01000258
+  [ 7] 0x0004943C = 0x3800FFFF
+  [ 8] 0x00049440 = 0xFFFFFFFF
+  [ 9] 0x00049444 = 0xFFFFFFFF
+  [10] 0x00049448 = 0xFFFFFFFF
+  [11] 0x0004944C = 0xFFFFFFFF
+  [12] 0x00049450 = 0xFFFF0000
+  [13] 0x00049454 = 0xFFFFFFFF
+  [14] 0x00049458 = 0xFFFFFFFF
+  [15] 0x0004945C = 0xFFFFFFFF
+  [16] 0x00049460 = 0xFFFFFFFF
+  [17] 0x00049464 = 0xFFFFFFFF
+  [18] 0x00049468 = 0xFFFFFFFF
+  [19] 0x0004946C = 0xFFFFFFFF
+  [20] 0x00049470 = 0xFFFF0004
+  [21] 0x00049474 = 0xFFFFFFFF
+  [22] 0x00049478 = 0xFFFF0010
+  [23] 0x0004947C = 0x06D30000
+  [24] 0x00049480 = 0x06D306D3
+  [25] 0x00049484 = 0x06C306C3
+  [26] 0x00049488 = 0x06C306C3
+  [27] 0x0004948C = 0x00180018
+  [28] 0x00049490 = 0x07F306D3
+  [29] 0x00049494 = 0xFFFF06D3
+  [30] 0x00049498 = 0x06D306D3
+  [31] 0x0004949C = 0x06D306D3
+
+--- Xrefs to 0x49420 ---
+
+==============================================================================
+SECTION 3 — RUNTIME SUM CHECK + STATUS BYTE 0x7FA8B4 (Item 3)
+==============================================================================
+
+--- Xrefs to status byte 0x7FA8B4 ---
+  from 0x0004D360 [WRITE] in (no fn) @ 0x00000000
+  from 0x0004D53C [WRITE] in func_04d520 @ 0x0004D520
+  from 0x0004D57C [WRITE] in func_04d520 @ 0x0004D520
+  from 0x0004D5A8 [READ] in func_04d520 @ 0x0004D520
+  from 0x0004D5B4 [WRITE] in func_04d520 @ 0x0004D520
+  from 0x0004D604 [READ] in func_04d520 @ 0x0004D520
+  from 0x0004D610 [WRITE] in func_04d520 @ 0x0004D520
+  from 0x0004D674 [READ] in func_04d520 @ 0x0004D520
+  from 0x0004D680 [WRITE] in func_04d520 @ 0x0004D520
+  from 0x0004D6DC [READ] in func_04d520 @ 0x0004D520
+  from 0x0004D704 [READ] in func_04d520 @ 0x0004D520
+  from 0x0004D74C [WRITE] in func_04d714 @ 0x0004D714
+  from 0x0004D764 [WRITE] in func_04d714 @ 0x0004D714
+  from 0x0004D79C [READ] in func_04d714 @ 0x0004D714
+  from 0x0004D7A8 [WRITE] in func_04d714 @ 0x0004D714
+  from 0x0004D7E0 [READ] in func_04d714 @ 0x0004D714
+  from 0x0004D7EC [WRITE] in func_04d714 @ 0x0004D714
+  from 0x0004D824 [READ] in func_04d714 @ 0x0004D714
+  from 0x0004D830 [WRITE] in func_04d714 @ 0x0004D714
+  from 0x0004D868 [READ] in func_04d714 @ 0x0004D714
+  from 0x0004D874 [WRITE] in func_04d714 @ 0x0004D714
+  from 0x0004D8C8 [READ] in func_04d714 @ 0x0004D714
+  from 0x0004D8D4 [WRITE] in func_04d714 @ 0x0004D714
+  from 0x0004D984 [READ] in func_04d714 @ 0x0004D714
+  from 0x0004D990 [WRITE] in func_04d714 @ 0x0004D714
+  from 0x0004DA90 [READ] in func_04d714 @ 0x0004D714
+
+--- Xrefs to nearby 0x7FA8B0-B8 (adjacent flags) ---
+  0x007FA8B0:
+    from 0x0004D34C [WRITE] in (no fn) @ 0x00000000
+    from 0x0004D5F0 [READ] in func_04d520 @ 0x0004D520
+    from 0x0004D638 [WRITE] in func_04d520 @ 0x0004D520
+    from 0x0004D658 [WRITE] in func_04d520 @ 0x0004D520
+    from 0x0004D65C [READ] in func_04d520 @ 0x0004D520
+    from 0x0004D69C [WRITE] in func_04d520 @ 0x0004D520
+    from 0x0004D6A0 [READ] in func_04d520 @ 0x0004D520
+    from 0x0004D6B4 [WRITE] in func_04d520 @ 0x0004D520
+    from 0x0004D6C4 [READ] in func_04d520 @ 0x0004D520
+    from 0x0004D8B4 [READ] in func_04d714 @ 0x0004D714
+    from 0x0004D8F8 [WRITE] in func_04d714 @ 0x0004D714
+    from 0x0004D914 [WRITE] in func_04d714 @ 0x0004D714
+    from 0x0004D924 [READ] in func_04d714 @ 0x0004D714
+    from 0x0004D95C [READ] in func_04d714 @ 0x0004D714
+  0x007FA8B4:
+    from 0x0004D360 [WRITE] in (no fn) @ 0x00000000
+    from 0x0004D53C [WRITE] in func_04d520 @ 0x0004D520
+    from 0x0004D57C [WRITE] in func_04d520 @ 0x0004D520
+    from 0x0004D5A8 [READ] in func_04d520 @ 0x0004D520
+    from 0x0004D5B4 [WRITE] in func_04d520 @ 0x0004D520
+    from 0x0004D604 [READ] in func_04d520 @ 0x0004D520
+    from 0x0004D610 [WRITE] in func_04d520 @ 0x0004D520
+    from 0x0004D674 [READ] in func_04d520 @ 0x0004D520
+    from 0x0004D680 [WRITE] in func_04d520 @ 0x0004D520
+    from 0x0004D6DC [READ] in func_04d520 @ 0x0004D520
+    from 0x0004D704 [READ] in func_04d520 @ 0x0004D520
+    from 0x0004D74C [WRITE] in func_04d714 @ 0x0004D714
+    from 0x0004D764 [WRITE] in func_04d714 @ 0x0004D714
+    from 0x0004D79C [READ] in func_04d714 @ 0x0004D714
+    from 0x0004D7A8 [WRITE] in func_04d714 @ 0x0004D714
+    from 0x0004D7E0 [READ] in func_04d714 @ 0x0004D714
+    from 0x0004D7EC [WRITE] in func_04d714 @ 0x0004D714
+    from 0x0004D824 [READ] in func_04d714 @ 0x0004D714
+    from 0x0004D830 [WRITE] in func_04d714 @ 0x0004D714
+    from 0x0004D868 [READ] in func_04d714 @ 0x0004D714
+    from 0x0004D874 [WRITE] in func_04d714 @ 0x0004D714
+    from 0x0004D8C8 [READ] in func_04d714 @ 0x0004D714
+    from 0x0004D8D4 [WRITE] in func_04d714 @ 0x0004D714
+    from 0x0004D984 [READ] in func_04d714 @ 0x0004D714
+    from 0x0004D990 [WRITE] in func_04d714 @ 0x0004D714
+    from 0x0004DA90 [READ] in func_04d714 @ 0x0004D714
+
+--- Candidate sum-check functions (section-base lis + loop) ---
+Candidates: 8
+  Ramp_auto_020800 @ 0x00020800
+  Debounce_auto_021084 @ 0x00021084
+  Debounce_auto_021104 @ 0x00021104
+  thunk_func_02164c @ 0x0002164C
+  thunk_func_02183c @ 0x0002183C
+  Math_auto_07ffe8 @ 0x0007FFE8
+  Math_auto_09561c @ 0x0009561C
+  AirCtl_FUN_000a14d4 @ 0x000A14D4
+
+--- Of those candidates, which reference 0x7FA8B4? ---
+
+==============================================================================
+SECTION 4 — RAM INIT AND RST CAUSE (Item 4)
+==============================================================================
+
+--- SIU register reads/writes (0x6FC000-0x6FC100, likely RSR + config) ---
+  SIU +0x00 (0x006FC000):
+    from 0x00000EC4 [READ] in DSM_func_000e98 @ 0x00000E98
+    from 0x00000ED0 [WRITE] in DSM_func_000e98 @ 0x00000E98
+    from 0x000012A0 [DATA] in DSM_helper_auto_001298 @ 0x00001298
+    from 0x00002414 [PARAM] in Debounce_auto_002400 @ 0x00002400
+    from 0x00000F34 [DATA] in DSM_func_000f24 @ 0x00000F24
+    from 0x000008E8 [READ] in DSM_FUN_000006a0 @ 0x000006A0
+  SIU +0x04 (0x006FC004):
+    from 0x00004F28 [READ] in DSM_FUN_00004cbc @ 0x00004CBC
+    from 0x00004F40 [WRITE] in DSM_FUN_00004cbc @ 0x00004CBC
+    from 0x00003764 [READ] in Ramp_func_0036f8 @ 0x000036F8
+    from 0x00103304 [WRITE] in (no fn) @ 0x00000000
+  SIU +0x10 (0x006FC010):
+    from 0x00000F38 [READ] in DSM_func_000f24 @ 0x00000F24
+    from 0x00000F44 [READ] in DSM_func_000f24 @ 0x00000F24
+    from 0x00000F4C [WRITE] in DSM_func_000f24 @ 0x00000F24
+    from 0x0000073C [READ] in DSM_FUN_000006a0 @ 0x000006A0
+    from 0x000232B8 [WRITE] in Shtrp_func_023294 @ 0x00023294
+    from 0x000003F8 [READ] in func_00032c @ 0x0000032C
+  SIU +0x14 (0x006FC014):
+    from 0x000232EC [WRITE] in Shtrp_func_023294 @ 0x00023294
+    from 0x00021BD4 [WRITE] in thunk_auto_021bc8 @ 0x00021BC8
+    from 0x00054174 [READ] in func_054110 @ 0x00054110
+    from 0x00054190 [READ] in func_054110 @ 0x00054110
+    from 0x000541CC [WRITE] in func_054110 @ 0x00054110
+    from 0x00054274 [WRITE] in func_054110 @ 0x00054110
+  SIU +0x18 (0x006FC018):
+    from 0x00000AF8 [WRITE] in DSM_FUN_000006a0 @ 0x000006A0
+    from 0x000232B0 [WRITE] in Shtrp_func_023294 @ 0x00023294
+  SIU +0x28 (0x006FC028):
+    from 0x000008FC [READ] in DSM_FUN_000006a0 @ 0x000006A0
+    from 0x00000920 [READ] in DSM_FUN_000006a0 @ 0x000006A0
+    from 0x00000A94 [READ] in DSM_FUN_000006a0 @ 0x000006A0
+    from 0x00000A9C [WRITE] in DSM_FUN_000006a0 @ 0x000006A0
+    from 0x00000AB0 [READ] in DSM_FUN_000006a0 @ 0x000006A0
+    from 0x00000AB8 [WRITE] in DSM_FUN_000006a0 @ 0x000006A0
+  SIU +0x2C (0x006FC02C):
+    from 0x00000EB4 [READ] in DSM_func_000e98 @ 0x00000E98
+    from 0x00000EC0 [WRITE] in DSM_func_000e98 @ 0x00000E98
+    from 0x000008D8 [READ] in DSM_FUN_000006a0 @ 0x000006A0
+    from 0x000008E4 [WRITE] in DSM_FUN_000006a0 @ 0x000006A0
+    from 0x00000A84 [READ] in DSM_FUN_000006a0 @ 0x000006A0
+    from 0x00000A90 [WRITE] in DSM_FUN_000006a0 @ 0x000006A0
+  SIU +0x38 (0x006FC038):
+    from 0x00000790 [WRITE] in DSM_FUN_000006a0 @ 0x000006A0
+    from 0x0002131C [READ] in State_auto_0212d8 @ 0x000212D8
+    from 0x00021328 [WRITE] in State_auto_0212d8 @ 0x000212D8
+  SIU +0x3C (0x006FC03C):
+    from 0x000040D4 [READ] in State_auto_0040b0 @ 0x000040B0
+    from 0x00004110 [WRITE] in State_auto_0040b0 @ 0x000040B0
+    from 0x00000798 [WRITE] in DSM_FUN_000006a0 @ 0x000006A0
+    from 0x000043DC [WRITE] in State_auto_0040b0 @ 0x000040B0
+    from 0x0002308C [WRITE] in Shtrp_FUN_00023064 @ 0x00023064
+    from 0x00021308 [READ] in State_auto_0212d8 @ 0x000212D8
+  SIU +0x48 (0x006FC048):
+    from 0x00021BD8 [WRITE] in thunk_auto_021bc8 @ 0x00021BC8
+    from 0x00021BB0 [WRITE] in (no fn) @ 0x00000000
+  SIU +0x4C (0x006FC04C):
+    from 0x00021BDC [WRITE] in thunk_auto_021bc8 @ 0x00021BC8
+    from 0x00021BB4 [WRITE] in (no fn) @ 0x00000000
+
+--- SPR 0x3F2 (RSR) mfspr reads ---
+SPR RSR reads: 0
+
+--- RAM-clear / RAM-test loop candidates ---
+Functions with 'lis 0x7F80/0x7F8/0x7F9' AND store AND loop
+Candidates: 1
+  DSM_FUN_00004cbc @ 0x00004CBC
+
+==============================================================================
+SECTION 5 — LOOKUP PRIMITIVE 0xF94DC CLAMP (Item 6)
+==============================================================================
+
+Function: ACCCD_auto_0f94dc @ 0x000F94DC  size=480 bytes
+
+Full decompiled body:
+  
+  int ACCCD_auto_0f94dc(int param_1,int param_2,short *param_3,byte *param_4)
+  
+  {
+    short sVar1;
+    uint uVar2;
+    int iVar3;
+    int iVar4;
+    uint uVar5;
+    int iVar6;
+    int iVar7;
+    int iVar8;
+    short *psVar9;
+    
+    sVar1 = *param_3;
+    iVar7 = (int)param_3[1];
+    param_3 = param_3 + 2;
+    if (*param_3 < param_1) {
+      uVar5 = (int)sVar1 - 1;
+      if (param_3[uVar5] <= param_1) goto LAB_000f9588;
+      if (*param_4 < uVar5) {
+        uVar5 = (uint)*param_4;
+      }
+      if (param_3[uVar5] < param_1) {
+        psVar9 = param_3 + uVar5;
+        uVar2 = uVar5;
+        do {
+          uVar5 = uVar2;
+          psVar9 = psVar9 + 1;
+          uVar2 = uVar5 + 1;
+        } while (*psVar9 <= param_1);
+      }
+      else if (param_1 < param_3[uVar5]) {
+        psVar9 = param_3 + uVar5;
+        do {
+          psVar9 = psVar9 + -1;
+          uVar5 = uVar5 - 1;
+        } while (param_1 < *psVar9);
+      }
+      *param_4 = (byte)uVar5;
+      iVar3 = ((param_1 - param_3[uVar5]) * 0x10000) / ((int)param_3[uVar5 + 1] - (int)param_3[uVar5])
+      ;
+    }
+    else {
+      uVar5 = 0;
+  LAB_000f9588:
+      iVar3 = 0;
+    }
+    param_3 = param_3 + sVar1;
+    iVar6 = uVar5 * iVar7;
+    if (*param_3 < param_2) {
+      uVar5 = iVar7 - 1;
+      if (param_2 < param_3[uVar5]) {
+        if (param_4[1] < uVar5) {
+          uVar5 = (uint)param_4[1];
+        }
+        if (param_3[uVar5] < param_2) {
+          psVar9 = param_3 + uVar5;
+          uVar2 = uVar5;
+          do {
+            uVar5 = uVar2;
+            psVar9 = psVar9 + 1;
+            uVar2 = uVar5 + 1;
+          } while (*psVar9 <= param_2);
+        }
+        else if (param_2 < param_3[uVar5]) {
+          psVar9 = param_3 + uVar5;
+          do {
+            psVar9 = psVar9 + -1;
+            uVar5 = uVar5 - 1;
+          } while (param_2 < *psVar9);
+        }
+        param_4[1] = (byte)uVar5;
+        iVar6 = iVar6 + uVar5;
+        iVar4 = ((param_2 - param_3[uVar5]) * 0x10000) /
+                ((int)param_3[uVar5 + 1] - (int)param_3[uVar5]);
+        goto LAB_000f9644;
+      }
+      iVar6 = iVar6 + uVar5;
+    }
+    iVar4 = 0;
+  LAB_000f9644:
+    param_3 = param_3 + iVar7 + iVar6;
+    iVar6 = (int)*param_3;
+    if (iVar4 != 0) {
+      iVar6 = iVar6 + ((param_3[1] - iVar6) * iVar4 >> 0x10);
+    }
+    if (iVar3 != 0) {
+      iVar8 = (int)param_3[iVar7];
+      if (iVar4 != 0) {
+        iVar8 = iVar8 + (((param_3 + iVar7)[1] - iVar8) * iVar4 >> 0x10);
+      }
+      iVar6 = iVar6 + ((iVar8 - iVar6) * iVar3 >> 0x10);
+    }
+    return (int)(short)iVar6;
+  }
+  
+  

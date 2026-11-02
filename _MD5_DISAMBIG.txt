@@ -1,0 +1,53 @@
+==============================================================================
+MD5 0x601c (MD5 #1)
+==============================================================================
+
+  --- caller: State_Init_00006a38 @ 0x6a38 ---
+    void State_Init_00006a38(undefined4 param_1,int param_2)
+      uVar1 = *(uint *)(param_2 + 0x10) >> 3 & 0x3f;
+      iVar3 = param_2 + uVar1;
+        State_helper_auto_006cb0(param_2 + 0x18,0x10);
+        Debounce_auto_00601c(param_2,param_2 + 0x18);
+        iVar3 = param_2 + 0x18;
+      State_helper_auto_006cb0(param_2 + 0x18,0xe);
+      *(undefined4 *)(param_2 + 0x50) = *(undefined4 *)(param_2 + 0x10);
+      *(undefined4 *)(param_2 + 0x54) = *(undefined4 *)(param_2 + 0x14);
+      Debounce_auto_00601c(param_2,param_2 + 0x18);
+      State_helper_auto_006cb0(param_2,4);
+      State_helper_auto_006c8c(param_1,param_2,0x10);
+      State_helper_auto_006c70(param_2,0,4);
+
+
+  --- caller: State_auto_006b1c @ 0x6b1c ---
+    void State_auto_006b1c(int param_1,int param_2,uint param_3)
+        State_helper_auto_006c8c(iVar2,param_2,uVar3);
+        Debounce_auto_00601c(param_1,param_1 + 0x18);
+        param_2 = param_2 + uVar3;
+        FUN_00006cec(param_1 + 0x18,param_2,0x10);
+        Debounce_auto_00601c(param_1,param_1 + 0x18);
+        param_2 = param_2 + 0x40;
+      State_helper_auto_006c8c(param_1 + 0x18,param_2,param_3);
+
+==============================================================================
+MD5 0x26768 (MD5 #2)
+==============================================================================
+
+  --- caller: State_auto_0272f8 @ 0x272f8 ---
+    void State_auto_0272f8(int param_1,uint param_2)
+      uVar2 = _DAT_007f8ee4 + param_2 * 8;
+      _DAT_007f8ee8 = _DAT_007f8ee8 + (param_2 >> 0x1d);
+        bVar1 = param_2 < uVar2;
+          FUN_00026704(uVar3 + 0x7f8eec,param_1,param_2);
+        State_helper_auto_026768(&DAT_007f8ed4,0x7f8eec);
+        param_2 = param_2 - uVar2;
+      for (; 0x3f < param_2; param_2 = param_2 - 0x40) {
+        State_helper_auto_026768(&DAT_007f8ed4,0x7f8eec);
+      FUN_00026704(0x7f8eec,param_1,param_2);
+
+
+  --- caller: State_Init_0002723c @ 0x2723c ---
+        State_helper_auto_026768(&DAT_007f8ed4,0x7f8eec);
+
+
+  --- caller: State_auto_0271c4 @ 0x271c4 ---
+      State_helper_auto_026768(&DAT_007f8ed4,0x7f8eec);

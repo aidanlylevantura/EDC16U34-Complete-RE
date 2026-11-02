@@ -1,0 +1,218 @@
+=== BLOCK BASE TABLE ===
+FLASH: C:\Users\user\Documents\Complete ECU Disassembly\divide and conquer\Flash.bin
+TABLE_BASE: 0x04CB0C
+COUNT: 137
+
+index   0  table_off 0x04CB0C  value 0x1D0068
+index   1  table_off 0x04CB10  value 0x1D006A
+index   2  table_off 0x04CB14  value 0x1D006C
+index   3  table_off 0x04CB18  value 0x1D0078
+index   4  table_off 0x04CB1C  value 0x1D00A0
+index   5  table_off 0x04CB20  value 0x1D01FC
+index   6  table_off 0x04CB24  value 0x1D02BC
+index   7  table_off 0x04CB28  value 0x1D030C
+index   8  table_off 0x04CB2C  value 0x1D0328
+index   9  table_off 0x04CB30  value 0x1D03E8
+index  10  table_off 0x04CB34  value 0x1D0528
+index  11  table_off 0x04CB38  value 0x1D055C
+index  12  table_off 0x04CB3C  value 0x1D05F8
+index  13  table_off 0x04CB40  value 0x1D0718
+index  14  table_off 0x04CB44  value 0x1D071A
+index  15  table_off 0x04CB48  value 0x1D0810
+index  16  table_off 0x04CB4C  value 0x1D0AEC
+index  17  table_off 0x04CB50  value 0x1D0BCE
+index  18  table_off 0x04CB54  value 0x1D0BD2  <== KNOWN BLOCK BASE 0x1D0BD2
+index  19  table_off 0x04CB58  value 0x1D0EF0
+index  20  table_off 0x04CB5C  value 0x1D0FA0
+index  21  table_off 0x04CB60  value 0x1D1074
+index  22  table_off 0x04CB64  value 0x1D10E0
+index  23  table_off 0x04CB68  value 0x1D11B0
+index  24  table_off 0x04CB6C  value 0x1D123C
+index  25  table_off 0x04CB70  value 0x1D1240
+index  26  table_off 0x04CB74  value 0x1D1248
+index  27  table_off 0x04CB78  value 0x1D1262
+index  28  table_off 0x04CB7C  value 0x1D12CA
+index  29  table_off 0x04CB80  value 0x1D1314
+index  30  table_off 0x04CB84  value 0x1D1346
+index  31  table_off 0x04CB88  value 0x1D135C
+index  32  table_off 0x04CB8C  value 0x1D1360
+index  33  table_off 0x04CB90  value 0x1D1388
+index  34  table_off 0x04CB94  value 0x1D13C0
+index  35  table_off 0x04CB98  value 0x1D1402
+index  36  table_off 0x04CB9C  value 0x1D1564
+index  37  table_off 0x04CBA0  value 0x1D1578
+index  38  table_off 0x04CBA4  value 0x1D1984
+index  39  table_off 0x04CBA8  value 0x1D2080
+index  40  table_off 0x04CBAC  value 0x1D20C0
+index  41  table_off 0x04CBB0  value 0x1D20CC
+index  42  table_off 0x04CBB4  value 0x1D20D2
+index  43  table_off 0x04CBB8  value 0x1D215C
+index  44  table_off 0x04CBBC  value 0x1D2C90
+index  45  table_off 0x04CBC0  value 0x1D2D6C
+index  46  table_off 0x04CBC4  value 0x1D2DBC
+index  47  table_off 0x04CBC8  value 0x1D3D38
+index  48  table_off 0x04CBCC  value 0x1D3D54
+index  49  table_off 0x04CBD0  value 0x1D3DDC
+index  50  table_off 0x04CBD4  value 0x1D3DE8
+index  51  table_off 0x04CBD8  value 0x1D3DF0
+index  52  table_off 0x04CBDC  value 0x1D3E16
+index  53  table_off 0x04CBE0  value 0x1D3E1C
+index  54  table_off 0x04CBE4  value 0x1D3E20
+index  55  table_off 0x04CBE8  value 0x1D3EF0
+index  56  table_off 0x04CBEC  value 0x1D3F88
+index  57  table_off 0x04CBF0  value 0x1D4278
+index  58  table_off 0x04CBF4  value 0x1D42F0
+index  59  table_off 0x04CBF8  value 0x1D4518
+index  60  table_off 0x04CBFC  value 0x1D451C
+index  61  table_off 0x04CC00  value 0x1D4578
+index  62  table_off 0x04CC04  value 0x1D458C
+index  63  table_off 0x04CC08  value 0x1D459E
+index  64  table_off 0x04CC0C  value 0x1D45C2
+index  65  table_off 0x04CC10  value 0x1D45D8
+index  66  table_off 0x04CC14  value 0x1D45EC
+index  67  table_off 0x04CC18  value 0x1D4606
+index  68  table_off 0x04CC1C  value 0x1D464C
+index  69  table_off 0x04CC20  value 0x1D4676
+index  70  table_off 0x04CC24  value 0x1D468A
+index  71  table_off 0x04CC28  value 0x1D4694
+index  72  table_off 0x04CC2C  value 0x1D46BA
+index  73  table_off 0x04CC30  value 0x1D46D6
+index  74  table_off 0x04CC34  value 0x1D46F2
+index  75  table_off 0x04CC38  value 0x1D46FC
+index  76  table_off 0x04CC3C  value 0x1D470E
+index  77  table_off 0x04CC40  value 0x1D476C
+index  78  table_off 0x04CC44  value 0x1D47D8
+index  79  table_off 0x04CC48  value 0x1D4AB8
+index  80  table_off 0x04CC4C  value 0x1D4ADC
+index  81  table_off 0x04CC50  value 0x1D4BEE
+index  82  table_off 0x04CC54  value 0x1D4BF0
+index  83  table_off 0x04CC58  value 0x1D4C18
+index  84  table_off 0x04CC5C  value 0x1D4C1C
+index  85  table_off 0x04CC60  value 0x1D4C2A
+index  86  table_off 0x04CC64  value 0x1D4C2C
+index  87  table_off 0x04CC68  value 0x1D4CC4
+index  88  table_off 0x04CC6C  value 0x1D4CC6
+index  89  table_off 0x04CC70  value 0x1D4CE0
+index  90  table_off 0x04CC74  value 0x1D4CFC
+index  91  table_off 0x04CC78  value 0x1D4D4C
+index  92  table_off 0x04CC7C  value 0x1D4E68
+index  93  table_off 0x04CC80  value 0x1D4F30
+index  94  table_off 0x04CC84  value 0x1D51E0
+index  95  table_off 0x04CC88  value 0x1D527E
+index  96  table_off 0x04CC8C  value 0x1D52A0
+index  97  table_off 0x04CC90  value 0x1D556C
+index  98  table_off 0x04CC94  value 0x1D5798
+index  99  table_off 0x04CC98  value 0x1D57B4
+index 100  table_off 0x04CC9C  value 0x1D5944
+index 101  table_off 0x04CCA0  value 0x1D595C
+index 102  table_off 0x04CCA4  value 0x1D5978
+index 103  table_off 0x04CCA8  value 0x1D59A4
+index 104  table_off 0x04CCAC  value 0x1D59B0
+index 105  table_off 0x04CCB0  value 0x1D5A38
+index 106  table_off 0x04CCB4  value 0x1D5A54
+index 107  table_off 0x04CCB8  value 0x1D5AB8
+index 108  table_off 0x04CCBC  value 0x1D5ADC
+index 109  table_off 0x04CCC0  value 0x1D6298
+index 110  table_off 0x04CCC4  value 0x1D6384
+index 111  table_off 0x04CCC8  value 0x1D6408
+index 112  table_off 0x04CCCC  value 0x1D6414
+index 113  table_off 0x04CCD0  value 0x1D82B0
+index 114  table_off 0x04CCD4  value 0x1D9CF8
+index 115  table_off 0x04CCD8  value 0x1D9F20
+index 116  table_off 0x04CCDC  value 0x1DA9B4
+index 117  table_off 0x04CCE0  value 0x1DADA8
+index 118  table_off 0x04CCE4  value 0x1DAEA4
+index 119  table_off 0x04CCE8  value 0x1DB754
+index 120  table_off 0x04CCEC  value 0x1DB8CC
+index 121  table_off 0x04CCF0  value 0x1DBCC0
+index 122  table_off 0x04CCF4  value 0x1DC0CC
+index 123  table_off 0x04CCF8  value 0x1DCE40
+index 124  table_off 0x04CCFC  value 0x1DD5B8
+index 125  table_off 0x04CD00  value 0x1DDA40
+index 126  table_off 0x04CD04  value 0x1DEBC8
+index 127  table_off 0x04CD08  value 0x1DEDFC
+index 128  table_off 0x04CD0C  value 0x1DEE00
+index 129  table_off 0x04CD10  value 0x1DEE70
+index 130  table_off 0x04CD14  value 0x1DEE72
+index 131  table_off 0x04CD18  value 0x1DF02E
+index 132  table_off 0x04CD1C  value 0x1DF046
+index 133  table_off 0x04CD20  value 0x1DF04E
+index 134  table_off 0x04CD24  value 0x1DF054
+index 135  table_off 0x04CD28  value 0x1DFCA6
+index 136  table_off 0x04CD2C  value 0x1DFEE0
+
+KNOWN_BASE index: 18
+
+=== DUPLICATE TABLES ===
+
+copy_1802F0 @ 0x1802F0
+  matches main table: False
+    index   0  value 0x1D0068
+    index   1  value 0x1D006A
+    index   2  value 0x1D006C
+    index   3  value 0x1D0078
+    index   4  value 0x1D00A0
+    index   5  value 0x1D01FC
+    index   6  value 0x1D02BC
+    index   7  value 0x1D030C
+    index   8  value 0x1D0328
+    index   9  value 0x1D03E8
+    index  10  value 0x1D0528
+    index  11  value 0x1D055C
+    index  12  value 0x1D05F8
+    index  13  value 0x1D0718
+    index  14  value 0x1D071A
+    index  15  value 0x1D0810
+    index  16  value 0x1D0AEC
+    index  17  value 0x1D0BCE
+    index  18  value 0x1D0BD2
+    index  19  value 0x1D0EF0
+    ...
+
+copy_180914 @ 0x180914
+  matches main table: False
+    index   0  value 0x1D0068
+    index   1  value 0x1D006A
+    index   2  value 0x1D006C
+    index   3  value 0x1D0078
+    index   4  value 0x1D00A0
+    index   5  value 0x1D01FC
+    index   6  value 0x1D02BC
+    index   7  value 0x1D030C
+    index   8  value 0x1D0328
+    index   9  value 0x1D03E8
+    index  10  value 0x1D0528
+    index  11  value 0x1D055C
+    index  12  value 0x1D05F8
+    index  13  value 0x1D0718
+    index  14  value 0x1D071A
+    index  15  value 0x1D0810
+    index  16  value 0x1D0AEC
+    index  17  value 0x1D0BCE
+    index  18  value 0x1D0BD2
+    index  19  value 0x1D0EF0
+    ...
+
+copy_180F38 @ 0x180F38
+  matches main table: False
+    index   0  value 0x1D0068
+    index   1  value 0x1D006A
+    index   2  value 0x1D006C
+    index   3  value 0x1D0078
+    index   4  value 0x1D00A0
+    index   5  value 0x1D01FC
+    index   6  value 0x1D02BC
+    index   7  value 0x1D030C
+    index   8  value 0x1D0328
+    index   9  value 0x1D03E8
+    index  10  value 0x1D0528
+    index  11  value 0x1D055C
+    index  12  value 0x1D05F8
+    index  13  value 0x1D0718
+    index  14  value 0x1D071A
+    index  15  value 0x1D0810
+    index  16  value 0x1D0AEC
+    index  17  value 0x1D0BCE
+    index  18  value 0x1D0BD2
+    index  19  value 0x1D0EF0
+    ...

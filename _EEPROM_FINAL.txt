@@ -1,0 +1,45 @@
+==============================================================================
+SECTION 1: External memory accesses (outside flash/IMMR/SRAM)
+==============================================================================
+
+  >>> No external memory references <<<
+  >>> EEPROM is NOT on external CS bus <<<
+
+
+==============================================================================
+SECTION 2: eTPU access (0x700000-0x7EFFFF)
+==============================================================================
+
+eTPU can drive SPI on MPC561/563. Byte transfers to eTPU RAM
+would reveal an eTPU-based EEPROM driver.
+
+  (no eTPU accesses)
+
+==============================================================================
+SECTION 3: Functions with IMMR base + stb/lbz (byte-granularity)
+==============================================================================
+
+SPI/I2C EEPROM drivers write single bytes to peripheral data regs,
+so a function containing both an IMMR literal AND byte-level ops
+is a strong EEPROM-driver candidate.
+
+  (none)
+
+==============================================================================
+SECTION 4: I2C signature — same function touches GPDI AND GPDO
+==============================================================================
+
+  (none)
+
+==============================================================================
+VERDICT
+==============================================================================
+
+  ALL FOUR sections returned empty.
+
+  --> EEPROM driver is DEFINITIVELY not in flash.
+  --> Options: RAM-loaded, inlined in dispatcher, or absent.
+  --> Clone CEILING = 98% without physical chip access.
+
+  Static analysis is exhausted. Next step is JTAG trace or
+  physical 93C86/95160 read.

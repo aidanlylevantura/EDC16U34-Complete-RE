@@ -1,0 +1,492 @@
+==============================================================================
+SECTION 1: Exception vector handlers (MPC563 standard layout)
+==============================================================================
+
+--- system_reset @ 0x0100 ---
+  first insn: ba 0x00000180
+  branches to: 00000180
+  handler: thunk_auto_000180 @ 0x00000180 size=188
+  decompiled (first 40 lines):
+    
+    /* WARNING: This function may have set the stack pointer */
+    /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+    
+    void thunk_auto_000180(void)
+    
+    {
+      _DAT_007fffc0 = 0;
+      DSM_FUN_000006a0(0x7f7f7f7f,0x7f7f7f7f,0x7f7f7f7f,0x7f7f7f7f,0x7f7f7f7f,0x7f7f7f7f,0x7f7f7f7f,
+                       0x7f7f7f7f);
+      return;
+    }
+    
+    
+
+--- machine_check @ 0x0200 ---
+  first insn: li r0,0x0
+
+--- data_storage @ 0x0300 ---
+  first insn: li r3,0x0
+
+--- instruction_storage @ 0x0400 ---
+  first insn: beq 0x00000430
+  branches to: 00000430
+  handler: FUN_0000032c @ 0x0000032C size=520
+  decompiled (first 40 lines):
+    
+    /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+    
+    undefined8 FUN_0000032c(undefined4 param_1,undefined4 param_2)
+    
+    {
+      int iVar1;
+      code *pcVar2;
+      code *pcVar3;
+      int iVar4;
+      undefined4 in_MSR;
+      undefined4 in_SRR1;
+      
+      pcVar3 = (code *)0x0;
+      if (DAT_007fef5c == '\x1c') {
+        pcVar3 = (code *)0x40000;
+      }
+      pcVar2 = pcVar3 + *(int *)((int)&PTR_PTR_00010130 + (int)pcVar3);
+      if (pcVar2 < (code *)0x47ffff) {
+        iVar4 = *(int *)(pcVar2 + 0x20);
+        iVar1 = *(int *)(pcVar2 + 0x24);
+      }
+      else {
+        iVar4 = 0;
+        iVar1 = 0;
+      }
+      if (((((_DAT_006fc010 & 0x40000000) == 0) || ((_DAT_006fc240 & 0x80) != 0x80)) || (iVar4 == -1))
+         || (iVar1 + -0x21524111 != iVar4)) {
+        if (DAT_007fef5c == '\x1c') {
+          pcVar3 = FUN_001b0000;
+        }
+        pcVar2 = pcVar3 + *(int *)((int)&PTR_PTR_00010130 + (int)pcVar3);
+        if (pcVar2 < (code *)0x47ffff) {
+          iVar4 = *(int *)(pcVar2 + 0x20);
+          iVar1 = *(int *)(pcVar2 + 0x24);
+        }
+        else {
+          iVar4 = 0;
+          iVar1 = 0;
+        }
+
+--- external_interrupt @ 0x0500 ---
+  first insn: lwz r11,0x48(r1)
+
+--- alignment @ 0x0600 ---
+  (no instruction)
+
+--- program @ 0x0700 ---
+  first insn: mullw r4,r4,r5
+
+--- fp_unavailable @ 0x0800 ---
+  first insn: sth r11,0x4(r9)
+
+--- decrementer @ 0x0900 ---
+  first insn: addi r28,r3,0x0
+
+--- fixed_interval_timer @ 0x0A00 ---
+  first insn: lwz r12,0x284(r31)
+
+--- watchdog @ 0x0B00 ---
+  first insn: rlwinm r3,r3,0x0,0x8,0xf
+
+--- data_tlb @ 0x0C00 ---
+  first insn: addi r11,r11,0x118
+
+--- inst_tlb @ 0x0D00 ---
+  first insn: mtspr LR,r0
+
+--- debug @ 0x0E00 ---
+  first insn: lhz r31,-0x102a(r12)
+
+--- spe @ 0x0F00 ---
+  first insn: sth r11,0xe(r31)
+
+==============================================================================
+SECTION 2: RAM-reflash stub source @ 0x28767 (20 bytes)
+==============================================================================
+
+thunk_helper_auto_021570 copies 20 bytes from 0x28767 -> 0x7F9293.
+That stub is what the flash-write loop runs from RAM.
+
+Raw bytes @ 0x28767 (64):
+  0x00028767  20 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00    ...............
+  0x00028777  00 00 00 00 00 FF FF FF FF FF FF FF FF FF FF FF   ................
+  0x00028787  FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF   ................
+  0x00028797  FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF   ................
+
+Disassembly @ 0x28767:
+
+==============================================================================
+SECTION 3: RAM reflash core thunk_helper_auto_021570 @ 0x21570
+==============================================================================
+
+Size: 220 bytes
+
+Disassembly:
+  0x00021570  stwu r1,-0x8(r1)                 
+  0x00021574  mfspr r0,LR                      
+  0x00021578  stw r0,0xc(r1)                   
+  0x0002157C  bl 0x00021908                    -> 00021908
+  0x00021580  lis r5,0x80                      
+  0x00021584  subi r5,r5,0x8000                
+  0x00021588  lis r3,0x80                      
+  0x0002158C  subi r3,r3,0x113c                
+  0x00021590  li r4,0x0                        
+  0x00021594  b 0x000215a0                     -> 000215a0
+  0x00021598  stw r4,0x0(r5)                   
+  0x0002159C  addi r5,r5,0x4                   
+  0x000215A0  cmplw r3,r5                      
+  0x000215A4  bgt 0x00021598                   -> 00021598
+  0x000215A8  lis r5,0x80                      
+  0x000215AC  subi r5,r5,0x1000                
+  0x000215B0  lis r3,0x80                      
+  0x000215B4  addi r3,r3,0x0                   
+  0x000215B8  b 0x000215c4                     -> 000215c4
+  0x000215BC  stw r4,0x0(r5)                   
+  0x000215C0  addi r5,r5,0x4                   
+  0x000215C4  cmplw r3,r5                      
+  0x000215C8  bgt 0x000215bc                   -> 000215bc
+  0x000215CC  li r11,0x14                      
+  0x000215D0  cmpwi r11,0x0                    
+  0x000215D4  lis r5,0x3                       
+  0x000215D8  subi r5,r5,0x7898                
+  0x000215DC  beq 0x000215fc                   -> 000215fc
+  0x000215E0  lis r4,0x80                      
+  0x000215E4  subi r4,r4,0x6d6d                
+  0x000215E8  subi r5,r5,0x1                   
+  0x000215EC  mtspr CTR,r11                    
+  0x000215F0  lbzu r12,0x1(r5)                 
+  0x000215F4  stbu r12,0x1(r4)                 
+  0x000215F8  bdnz 0x000215f0                  -> 000215f0
+  0x000215FC  lis r12,0x80                     
+  0x00021600  li r11,0x0                       
+  0x00021604  sth r11,-0x102c(r12)             
+  0x00021608  lis r3,0x81                      
+  0x0002160C  ori r3,r3,0xbff1                 
+  0x00021610  bl 0x00024600                    -> 00024600
+  0x00021614  bl 0x00024454                    -> 00024454
+  0x00021618  li r3,0x0                        
+  0x0002161C  bl 0x0001292c                    -> 0001292c
+  0x00021620  bl 0x0002389c                    -> 0002389c
+  0x00021624  bl 0x0002146c                    -> 0002146c
+  0x00021628  cmpwi r3,0x1c                    
+  0x0002162C  beq 0x00021634                   -> 00021634
+  0x00021630  bl 0x000233ec                    -> 000233ec
+  0x00021634  li r3,0x1                        
+  0x00021638  bl 0x00021b04                    -> 00021b04
+  0x0002163C  lwz r0,0xc(r1)                   
+  0x00021640  mtspr LR,r0                      
+  0x00021644  addi r1,r1,0x8                   
+  0x00021648  b 0x000231ac                     -> 000231ac
+  0x0002164C  stwu r1,-0x8(r1)                 
+  0x00021650  mfspr r0,LR                      
+  0x00021654  stw r0,0xc(r1)                   
+  0x00021658  bl 0x0002193c                    -> 0002193c
+  0x0002165C  lis r12,0x156f                   
+  0x00021660  ori r12,r12,0xa332               
+  0x00021664  stw r12,-0x10b0(r13)             
+  0x00021668  lis r11,0x80                     
+  0x0002166C  lbz r11,-0x10a4(r11)             
+  0x00021670  cmpwi r11,0x1c                   
+  0x00021674  bne 0x00021730                   -> 00021730
+  0x00021678  lis r5,0x80                      
+  0x0002167C  subi r5,r5,0x8000                
+  0x00021680  lis r3,0x80                      
+  0x00021684  subi r3,r3,0x113c                
+  0x00021688  li r4,0x0                        
+  0x0002168C  b 0x00021698                     -> 00021698
+  0x00021690  stw r4,0x0(r5)                   
+  0x00021694  addi r5,r5,0x4                   
+  0x00021698  cmplw r3,r5                      
+  0x0002169C  bgt 0x00021690                   -> 00021690
+  0x000216A0  lis r5,0x80                      
+  0x000216A4  subi r5,r5,0x1000                
+  0x000216A8  lis r3,0x80                      
+  0x000216AC  addi r3,r3,0x0                   
+  0x000216B0  b 0x000216bc                     -> 000216bc
+  0x000216B4  stw r4,0x0(r5)                   
+  0x000216B8  addi r5,r5,0x4                   
+  0x000216BC  cmplw r3,r5                      
+  0x000216C0  bgt 0x000216b4                   -> 000216b4
+  0x000216C4  lis r12,0x3                      
+  0x000216C8  lis r11,0x1c                     
+  0x000216CC  subi r12,r12,0x7898              
+  0x000216D0  addi r11,r11,0x0                 
+  0x000216D4  add r12,r12,r11                  
+  0x000216D8  li r11,0x14                      
+  0x000216DC  cmpwi r11,0x0                    
+  0x000216E0  lis r10,0x1                      
+  0x000216E4  addi r10,r10,0x0                 
+  0x000216E8  subf r5,r10,r12                  
+  0x000216EC  beq 0x0002170c                   -> 0002170c
+  0x000216F0  lis r4,0x80                      
+  0x000216F4  subi r4,r4,0x6d6d                
+  0x000216F8  subi r5,r5,0x1                   
+  0x000216FC  mtspr CTR,r11                    
+  0x00021700  lbzu r12,0x1(r5)                 
+  0x00021704  stbu r12,0x1(r4)                 
+  0x00021708  bdnz 0x00021700                  -> 00021700
+  0x0002170C  lis r3,0x81                      
+  0x00021710  ori r3,r3,0xbff1                 
+  0x00021714  bl 0x00024600                    -> 00024600
+  0x00021718  bl 0x00024454                    -> 00024454
+  0x0002171C  li r3,0x1                        
+  0x00021720  bl 0x0001292c                    -> 0001292c
+  0x00021724  bl 0x0002389c                    -> 0002389c
+  0x00021728  bl 0x000233ec                    -> 000233ec
+  0x0002172C  bl 0x000231ac                    -> 000231ac
+  0x00021730  li r3,0x1d                       
+  0x00021734  lwz r0,0xc(r1)                   
+  0x00021738  mtspr LR,r0                      
+  0x0002173C  addi r1,r1,0x8                   
+  0x00021740  b 0x0002149c                     -> 0002149c
+  0x00021744  li r12,0x0                       
+  0x00021748  stwu r1,-0x8(r1)                 
+  0x0002174C  mfspr r0,LR                      
+  0x00021750  stw r0,0xc(r1)                   
+  0x00021754  stw r12,-0x10b0(r13)             
+  0x00021758  bl 0x000233ec                    -> 000233ec
+  0x0002175C  lis r3,0x81                      
+  0x00021760  ori r3,r3,0xbff1                 
+  0x00021764  bl 0x00024600                    -> 00024600
+  0x00021768  bl 0x00024454                    -> 00024454
+  0x0002176C  lwz r0,0xc(r1)                   
+  0x00021770  mtspr LR,r0                      
+  0x00021774  addi r1,r1,0x8                   
+  0x00021778  b 0x00040100                     -> 00040100
+  0x0002177C  stwu r1,-0x8(r1)                 
+  0x00021780  mfspr r0,LR                      
+  0x00021784  stw r0,0xc(r1)                   
+  0x00021788  bl 0x00021908                    -> 00021908
+  0x0002178C  lis r5,0x80                      
+  0x00021790  subi r5,r5,0x7f88                
+  0x00021794  lis r3,0x80                      
+  0x00021798  subi r3,r3,0x113c                
+  0x0002179C  li r4,0x0                        
+  0x000217A0  b 0x000217ac                     -> 000217ac
+  0x000217A4  stw r4,0x0(r5)                   
+  0x000217A8  addi r5,r5,0x4                   
+  0x000217AC  cmplw r3,r5                      
+  0x000217B0  bgt 0x000217a4                   -> 000217a4
+  0x000217B4  lis r5,0x80                      
+  0x000217B8  subi r5,r5,0x1000                
+  0x000217BC  lis r3,0x80                      
+  0x000217C0  addi r3,r3,0x0                   
+  0x000217C4  b 0x000217d0                     -> 000217d0
+  0x000217C8  stw r4,0x0(r5)                   
+  0x000217CC  addi r5,r5,0x4                   
+  0x000217D0  cmplw r3,r5                      
+  0x000217D4  bgt 0x000217c8                   -> 000217c8
+  0x000217D8  li r11,0x14                      
+  0x000217DC  cmpwi r11,0x0                    
+  0x000217E0  lis r5,0x3                       
+  0x000217E4  subi r5,r5,0x7898                
+  0x000217E8  beq 0x00021808                   -> 00021808
+  0x000217EC  lis r4,0x80                      
+  0x000217F0  subi r4,r4,0x6d6d                
+  0x000217F4  subi r5,r5,0x1                   
+  0x000217F8  mtspr CTR,r11                    
+  0x000217FC  lbzu r12,0x1(r5)                 
+  0x00021800  stbu r12,0x1(r4)                 
+  0x00021804  bdnz 0x000217fc                  -> 000217fc
+  0x00021808  lis r3,0x81                      
+  0x0002180C  ori r3,r3,0xbff1                 
+  0x00021810  bl 0x00024600                    -> 00024600
+  0x00021814  bl 0x00024454                    -> 00024454
+  0x00021818  li r3,0x0                        
+  0x0002181C  bl 0x0001292c                    -> 0001292c
+  0x00021820  bl 0x0002389c                    -> 0002389c
+  0x00021824  li r3,0x1                        
+  0x00021828  bl 0x00021b04                    -> 00021b04
+  0x0002182C  lwz r0,0xc(r1)                   
+  0x00021830  mtspr LR,r0                      
+  0x00021834  addi r1,r1,0x8                   
+  0x00021838  b 0x000231ac                     -> 000231ac
+  0x0002183C  stwu r1,-0x8(r1)                 
+  0x00021840  mfspr r0,LR                      
+  0x00021844  stw r0,0xc(r1)                   
+  0x00021848  bl 0x00023304                    -> 00023304
+  0x0002184C  bl 0x0002193c                    -> 0002193c
+  0x00021850  lis r5,0x80                      
+  0x00021854  subi r5,r5,0x7f88                
+  0x00021858  lis r3,0x80                      
+  0x0002185C  subi r3,r3,0x113c                
+  0x00021860  li r4,0x0                        
+  0x00021864  b 0x00021870                     -> 00021870
+  0x00021868  stw r4,0x0(r5)                   
+  0x0002186C  addi r5,r5,0x4                   
+  0x00021870  cmplw r3,r5                      
+  0x00021874  bgt 0x00021868                   -> 00021868
+  0x00021878  lis r5,0x80                      
+  0x0002187C  subi r5,r5,0x1000                
+  0x00021880  lis r3,0x80                      
+  0x00021884  addi r3,r3,0x0                   
+  0x00021888  b 0x00021894                     -> 00021894
+  0x0002188C  stw r4,0x0(r5)                   
+
+Decompiled:
+  
+  /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+  
+  void thunk_helper_auto_021570(void)
+  
+  {
+    undefined1 *puVar1;
+    undefined4 *puVar2;
+    undefined1 *puVar3;
+    int iVar4;
+    
+    FUN_00021908();
+    for (puVar2 = (undefined4 *)&SUB_007f8000; puVar2 < &DAT_007feec4; puVar2 = puVar2 + 1) {
+      *puVar2 = 0;
+    }
+    for (puVar2 = (undefined4 *)&SUB_007ff000; puVar2 < (undefined4 *)0x800000; puVar2 = puVar2 + 1) {
+      *puVar2 = 0;
+    }
+    puVar1 = (undefined1 *)0x7f9293;
+    puVar3 = (undefined1 *)0x28767;
+    iVar4 = 0x14;
+    do {
+      puVar3 = puVar3 + 1;
+      puVar1 = puVar1 + 1;
+      *puVar1 = *puVar3;
+      iVar4 = iVar4 + -1;
+    } while (iVar4 != 0);
+    _DAT_007fefd4 = 0;
+    Debounce_Def_00024600(0x81bff1);
+    Debounce_auto_024454();
+    thunk_auto_012878(0);
+    FUN_0002389c();
+    iVar4 = Debounce_auto_02146c();
+    if (iVar4 != 0x1c) {
+      FUN_000233ec();
+    }
+    FUN_00021b04(1);
+    Debounce_auto_0231ac();
+    return;
+  }
+  
+  
+
+==============================================================================
+SECTION 4: Task table candidate @ 0x43B24
+==============================================================================
+
+Raw bytes (128):
+  0x00043B24  00 0D F8 74 00 0C 94 E4 00 05 61 80 00 05 6B 00
+  0x00043B34  00 05 6E 14 00 05 77 B8 00 05 48 04 00 08 49 D0
+  0x00043B44  00 0D F0 B8 00 07 D9 2C 00 07 E1 98 00 07 DE EC
+  0x00043B54  00 0D EB 38 00 0B 3A 2C 00 07 D2 4C 00 07 BC 98
+  0x00043B64  00 07 81 04 00 07 B0 C8 00 07 87 4C 00 0C B0 24
+  0x00043B74  00 06 93 1C 00 07 94 34 00 07 8B 8C 00 0D 58 4C
+  0x00043B84  00 0D 64 20 00 0D 5F A0 00 0D 6A BC 00 0D 7D DC
+  0x00043B94  00 0C 03 C0 00 0C 02 28 00 05 E6 A4 00 05 DA 3C
+
+As 32-bit words (big-endian):
+  [ 0] @0x00043B24  = 0x000DF874
+  [ 1] @0x00043B28  = 0x000C94E4
+  [ 2] @0x00043B2C  = 0x00056180
+  [ 3] @0x00043B30  = 0x00056B00
+  [ 4] @0x00043B34  = 0x00056E14
+  [ 5] @0x00043B38  = 0x000577B8
+  [ 6] @0x00043B3C  = 0x00054804
+  [ 7] @0x00043B40  = 0x000849D0
+  [ 8] @0x00043B44  = 0x000DF0B8
+  [ 9] @0x00043B48  = 0x0007D92C
+  [10] @0x00043B4C  = 0x0007E198
+  [11] @0x00043B50  = 0x0007DEEC
+  [12] @0x00043B54  = 0x000DEB38
+  [13] @0x00043B58  = 0x000B3A2C
+  [14] @0x00043B5C  = 0x0007D24C
+  [15] @0x00043B60  = 0x0007BC98
+  [16] @0x00043B64  = 0x00078104
+  [17] @0x00043B68  = 0x0007B0C8
+  [18] @0x00043B6C  = 0x0007874C
+  [19] @0x00043B70  = 0x000CB024
+  [20] @0x00043B74  = 0x0006931C
+  [21] @0x00043B78  = 0x00079434
+  [22] @0x00043B7C  = 0x00078B8C
+  [23] @0x00043B80  = 0x000D584C
+  [24] @0x00043B84  = 0x000D6420
+  [25] @0x00043B88  = 0x000D5FA0
+  [26] @0x00043B8C  = 0x000D6ABC
+  [27] @0x00043B90  = 0x000D7DDC
+  [28] @0x00043B94  = 0x000C03C0
+  [29] @0x00043B98  = 0x000C0228
+  [30] @0x00043B9C  = 0x0005E6A4
+  [31] @0x00043BA0  = 0x0005DA3C
+
+Xrefs to 0x43B24:
+
+==============================================================================
+SECTION 5: RAM workspace 0x7F8000-0x7F8100 writers by cluster
+==============================================================================
+
+--- 0x7F8000-0x7F801F ---
+  ACC_helper_auto_1153fc                   4 writes
+  DSM_FUN_00004cbc                         14 writes
+  Debounce_auto_011384                     3 writes
+  Debounce_auto_01bc78                     1 writes
+  FUN_0002164c                             1 writes
+  thunk_helper_auto_021570                 1 writes
+
+--- 0x7F8020-0x7F803F ---
+  ACC_helper_auto_1153fc                   2 writes
+
+--- 0x7F8040-0x7F805F ---
+  Debounce_Def_0001d368                    13 writes
+  FUN_0001da2c                             8 writes
+
+--- 0x7F8060-0x7F807F ---
+  Debounce_Def_0001d368                    3 writes
+  FUN_0001da2c                             2 writes
+  FUN_0002177c                             1 writes
+  FUN_0002183c                             1 writes
+
+--- 0x7F8080-0x7F809F ---
+  FUN_000107c8                             6 writes
+  FUN_000109f4                             2 writes
+
+--- 0x7F80A0-0x7F80FF ---
+  ACCCD_auto_0ede9c                        1 writes
+  Debounce_Def_000123ec                    3 writes
+  Debounce_auto_011f3c                     7 writes
+  PCR_auto_059c68                          2 writes
+  StSys_FUN_00012c24                       2 writes
+  StSys_auto_012c50                        1 writes
+  thunk_auto_012898                        1 writes
+  thunk_auto_0128c0                        3 writes
+  thunk_auto_012900                        1 writes
+
+--- 0x7F8100-0x7F813F ---
+  Debounce_auto_0cb828                     2 writes
+  Debounce_auto_0cba38                     2 writes
+  Ramp_Dec16_000138f0                      2 writes
+  Ramp_Inc16_00013e90                      11 writes
+  Ramp_Inc16_00014220                      3 writes
+  Ramp_auto_0138d4                         2 writes
+  Ramp_auto_013e7c                         1 writes
+  Ramp_auto_013e84                         1 writes
+  Ramp_auto_0141e8                         1 writes
+  Ramp_auto_014298                         4 writes
+  Ramp_auto_0142e0                         1 writes
+  Shtrp_FUN_00023064                       1 writes
+
+==============================================================================
+SUMMARY
+==============================================================================
+
+What this gives you:
+  - Section 1: scheduler/IRQ entry points (task tick evidence)
+  - Section 2: the literal 20-byte RAM stub (reflash core bootstrap)
+  - Section 3: full RAM reflash core (flash controller writes)
+  - Section 4: task table contents (if any)
+  - Section 5: RAM workspace clustering by purpose
+
+These fill in the Custom OS gap (currently 75%).

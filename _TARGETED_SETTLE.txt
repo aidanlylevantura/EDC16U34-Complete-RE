@@ -1,0 +1,179 @@
+==============================================================================
+SECTION 1 — INTEGRITY REFERENCE VALUES @ 0x4D2A0
+==============================================================================
+
+These are the values copied by the init function at 0x4D2C4
+into 0x7FA898 / 0x7FA89C / 0x7FA8A0 / 0x7FA8AC / 0x7FA8B0.
+They are the boot-time integrity anchors for the sum check.
+
+  0x0004D2A0  = 0x0004D284
+  0x0004D2A4  = 0x00052804
+  0x0004D2A8  = 0xFADECAFE
+  0x0004D2AC  = 0xCAFEAFFE
+  0x0004D2B0  = 0x001C1938
+  0x0004D2B4  = 0x001C1D18
+  0x0004D2B8  = 0xFADECAFE
+  0x0004D2BC  = 0xCAFEAFFE
+
+==============================================================================
+SECTION 2 — BYTE SEARCH for pointer constants in flash
+==============================================================================
+
+Reading 4 MB once, then doing in-memory byte searches.
+
+  Buffer: 4194304 bytes loaded
+--- 0x0004159C (CAN entry 21 base) ---
+  Pattern: 00 04 15 9C
+  Hits: 0
+
+--- 0x004155AC (entry 21 buffer ptr) ---
+  Pattern: 00 41 55 AC
+  Hits: 0
+
+--- 0x00049420 (integrity table base) ---
+  Pattern: 00 04 94 20
+  Hits: 0
+
+--- 0x000413F8 (CAN table base) ---
+  Pattern: 00 04 13 F8
+  Hits: 0
+
+--- 0x007FC80D (tamper marker byte) ---
+  Pattern: 7F C8 0D
+  Hits: 0
+
+--- 0x007FCB38 (stalk state) ---
+  Pattern: 7F CB 38
+  Hits: 0
+
+==============================================================================
+SECTION 3 — RAM state xrefs: 0x7FC80D (tamper), 0x7FCB38 (stalk)
+==============================================================================
+
+--- 0x7FC80D (tamper marker = 0xAA) ---
+  from 0x00051A60 [WRITE] in func_051918 @ 0x00051918
+  from 0x000F3A2C [WRITE] in Debounce_auto_0f39e4 @ 0x000F39E4
+  from 0x000F3B24 [WRITE] in Debounce_auto_0f3ae8 @ 0x000F3AE8
+  from 0x000F3BEC [WRITE] in DSM_helper_auto_0f3ba8 @ 0x000F3BA8
+  from 0x0004DDEC [WRITE] in func_04dc38 @ 0x0004DC38
+  from 0x0004DE44 [WRITE] in func_04dc38 @ 0x0004DC38
+  from 0x0004DF2C [WRITE] in func_04dc38 @ 0x0004DC38
+  from 0x0004E22C [WRITE] in func_04dc38 @ 0x0004DC38
+  from 0x0004E76C [WRITE] in func_04dc38 @ 0x0004DC38
+  from 0x0004F09C [WRITE] in func_04dc38 @ 0x0004DC38
+  from 0x0004FC74 [WRITE] in func_04dc38 @ 0x0004DC38
+  from 0x0004FE40 [WRITE] in func_04dc38 @ 0x0004DC38
+  from 0x0004FFD4 [WRITE] in func_04dc38 @ 0x0004DC38
+  from 0x000500DC [WRITE] in func_04dc38 @ 0x0004DC38
+  from 0x0004ECD8 [WRITE] in func_04dc38 @ 0x0004DC38
+  from 0x0004E934 [WRITE] in func_04dc38 @ 0x0004DC38
+  from 0x00050E8C [WRITE] in func_050e04 @ 0x00050E04
+  from 0x00051FE8 [WRITE] in func_051f9c @ 0x00051F9C
+  from 0x000520A0 [WRITE] in func_051f9c @ 0x00051F9C
+  from 0x000501B4 [WRITE] in func_050110 @ 0x00050110
+
+--- 0x7FCB38 (stalk state) ---
+  from 0x000DB10C [WRITE] in CrCtl_FUN_000db0a0 @ 0x000DB0A0
+  from 0x000DB180 [WRITE] in CrCtl_FUN_000db0a0 @ 0x000DB0A0
+  from 0x000DB0D4 [WRITE] in CrCtl_FUN_000db0a0 @ 0x000DB0A0
+  from 0x000DA6E4 [READ] in ACCtl_FUN_000da57c @ 0x000DA57C
+  from 0x000DA6F4 [WRITE] in ACCtl_FUN_000da57c @ 0x000DA57C
+  from 0x000DA708 [READ] in ACCtl_FUN_000da57c @ 0x000DA57C
+  from 0x000DAF64 [READ] in ACCtl_FUN_000da57c @ 0x000DA57C
+
+--- 0x7FA7EC (sum-check result) ---
+  from 0x00051A68 [WRITE] in func_051918 @ 0x00051918
+  from 0x00051AAC [WRITE] in func_051918 @ 0x00051918
+  from 0x00051BF0 [WRITE] in func_051918 @ 0x00051918
+  from 0x00051CD4 [WRITE] in func_051918 @ 0x00051918
+  from 0x00051D3C [READ] in func_051918 @ 0x00051918
+  from 0x00051DCC [WRITE] in func_051918 @ 0x00051918
+  from 0x0004DDFC [WRITE] in func_04dc38 @ 0x0004DC38
+  from 0x0004E810 [READ] in func_04dc38 @ 0x0004DC38
+  from 0x0004F028 [READ] in func_04dc38 @ 0x0004DC38
+  from 0x0004F454 [READ] in func_04dc38 @ 0x0004DC38
+  from 0x0004FBE4 [READ] in func_04dc38 @ 0x0004DC38
+  from 0x0004FC24 [READ] in func_04dc38 @ 0x0004DC38
+  from 0x0004FD7C [READ] in func_04dc38 @ 0x0004DC38
+  from 0x0004FDBC [READ] in func_04dc38 @ 0x0004DC38
+  from 0x0004FDFC [READ] in func_04dc38 @ 0x0004DC38
+  from 0x0005008C [READ] in func_04dc38 @ 0x0004DC38
+  from 0x00050F0C [WRITE] in func_050e04 @ 0x00050E04
+  from 0x0005109C [READ] in func_050e04 @ 0x00050E04
+  from 0x00050140 [READ] in func_050110 @ 0x00050110
+  from 0x0005047C [READ] in func_050110 @ 0x00050110
+
+--- 0x7FA7E6 (sum-check status flag) ---
+  from 0x000523F0 [READ] in func_0523a4 @ 0x000523A4
+  from 0x000523FC [WRITE] in func_0523a4 @ 0x000523A4
+  from 0x00052474 [READ] in func_052428 @ 0x00052428
+  from 0x00052480 [WRITE] in func_052428 @ 0x00052428
+  from 0x0005249C [READ] in func_052428 @ 0x00052428
+  from 0x000524A8 [WRITE] in func_052428 @ 0x00052428
+  from 0x00052538 [READ] in func_0524fc @ 0x000524FC
+  from 0x0005256C [READ] in func_0524fc @ 0x000524FC
+  from 0x00052624 [READ] in func_0524fc @ 0x000524FC
+  from 0x00052664 [READ] in func_0524fc @ 0x000524FC
+  from 0x0005266C [WRITE] in func_0524fc @ 0x000524FC
+  from 0x000526A0 [READ] in func_0524fc @ 0x000524FC
+  from 0x000526E4 [READ] in func_0524fc @ 0x000524FC
+  from 0x000526EC [WRITE] in func_0524fc @ 0x000524FC
+  from 0x00051A50 [READ] in func_051918 @ 0x00051918
+  from 0x00051A5C [WRITE] in func_051918 @ 0x00051918
+  from 0x000F3A1C [READ] in Debounce_auto_0f39e4 @ 0x000F39E4
+  from 0x000F3A28 [WRITE] in Debounce_auto_0f39e4 @ 0x000F39E4
+  from 0x000F3B14 [READ] in Debounce_auto_0f3ae8 @ 0x000F3AE8
+  from 0x000F3B20 [WRITE] in Debounce_auto_0f3ae8 @ 0x000F3AE8
+
+==============================================================================
+SECTION 4 — FAST LIS+ADDI SCAN (single instruction pass)
+==============================================================================
+
+Scanning instructions ONE time, tracking 'lis rX, 0x0004' then
+checking the next 12 instructions for addi/ori matching target offsets.
+
+  Instructions scanned: 400998
+
+  LIS-0x0004 + target-addi matches: 0
+
+
+--- Direct 'lwz/lhz/lbz rY, 0x159C(reg)' or similar ---
+  Load-store with target offset in same fn as lis-0x0004: 0
+
+==============================================================================
+SECTION 5 — RAM-CLEAR HELPER: DSM_helper_auto_001334 (Item 4)
+==============================================================================
+
+Called twice at 0x6A0 with args 0x704000 and 0x704400.
+Decompile shows if RAM clear is conditional or unconditional.
+
+Function: DSM_helper_auto_001334 @ 0x00001334  size=72 bytes
+
+--- Conditional branches ---
+
+--- Full decompiled ---
+  
+  void DSM_helper_auto_001334(ushort *param_1)
+  
+  {
+    *param_1 = *param_1 | 0x8000;
+    param_1[0x14] = param_1[0x14] | 0x80;
+    param_1[0x14] = param_1[0x14] & 0xff7f;
+    return;
+  }
+  
+  
+
+==============================================================================
+SECTION 6 — CALLERS OF FUN_0009AFDC (Item 8)
+==============================================================================
+
+FUN_0009AFDC not in the 32-entry task table. Find its callers —
+the caller's task entry gives the effective period.
+
+Function: EngPrt_FUN_0009afdc @ 0x0009AFDC  size=2404 bytes
+
+Callers: 0
+
+--- Direct 'bl 0x9AFDC' at instruction level ---
+  Direct bl hits: 0

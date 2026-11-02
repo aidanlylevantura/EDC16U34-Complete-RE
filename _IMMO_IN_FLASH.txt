@@ -1,0 +1,115 @@
+==============================================================================
+Reading 4194304 bytes with per-byte exception guard
+==============================================================================
+
+Read complete: 4194304 bytes
+
+==============================================================================
+ASCII runs >= 8 chars
+==============================================================================
+
+ASCII runs: 212
+
+--- VIN candidates (0) ---
+  (none)
+
+--- WSC candidates (0) ---
+  (none)
+
+--- Keywords ---
+  IMMO             : 0
+  WFS              : 0
+  Wegfahrsperre    : 0
+  IMMOBIL          : 0
+  EEPROM           : 0
+  93C86            : 0
+  95160            : 0
+  PIN              : 0
+  VIN              : 0
+  Secret           : 0
+  KEYID            : 0
+  WVW              : 0
+  VSSZZZ           : 0
+  SEAT             : 0
+  LEON             : 0
+
+==============================================================================
+Entropy per 64KB block
+==============================================================================
+
+  0x000000  h=3.92
+  0x010000  h=6.17
+  0x020000  h=4.27
+  0x030000  h=1.66  [SPARSE]
+  0x040000  h=5.82
+  0x050000  h=6.43
+  0x060000  h=6.53
+  0x070000  h=6.41
+  0x080000  h=6.51
+  0x090000  h=6.46
+  0x0A0000  h=6.45
+  0x0B0000  h=6.48
+  0x0C0000  h=6.50
+  0x0D0000  h=6.48
+  0x0E0000  h=6.41
+  0x0F0000  h=6.36
+  0x100000  h=6.36
+  0x110000  h=3.40
+  0x120000  h=0.00  [SPARSE]
+  0x130000  h=0.00  [SPARSE]
+  0x140000  h=0.00  [SPARSE]
+  0x150000  h=0.00  [SPARSE]
+  0x160000  h=0.00  [SPARSE]
+  0x170000  h=0.04  [SPARSE]
+  0x180000  h=0.03  [SPARSE]
+  0x190000  h=0.00  [SPARSE]
+  0x1A0000  h=0.00  [SPARSE]
+  0x1B0000  h=0.04  [SPARSE]
+  0x1C0000  h=5.44
+  0x1D0000  h=5.03
+  0x1E0000  h=4.22
+  0x1F0000  h=0.04  [SPARSE]
+  0x200000  h=0.00  [SPARSE]
+  0x210000  h=0.00  [SPARSE]
+  0x220000  h=0.00  [SPARSE]
+  0x230000  h=0.00  [SPARSE]
+  0x240000  h=0.00  [SPARSE]
+  0x250000  h=0.00  [SPARSE]
+  0x260000  h=0.00  [SPARSE]
+  0x270000  h=0.00  [SPARSE]
+  0x280000  h=0.00  [SPARSE]
+  0x290000  h=0.00  [SPARSE]
+  0x2A0000  h=0.00  [SPARSE]
+  0x2B0000  h=0.00  [SPARSE]
+  0x2C0000  h=0.00  [SPARSE]
+  0x2D0000  h=0.00  [SPARSE]
+  0x2E0000  h=0.00  [SPARSE]
+  0x2F0000  h=0.00  [SPARSE]
+  0x300000  h=0.00  [SPARSE]
+  0x310000  h=0.00  [SPARSE]
+  0x320000  h=0.00  [SPARSE]
+  0x330000  h=0.00  [SPARSE]
+  0x340000  h=0.00  [SPARSE]
+  0x350000  h=0.00  [SPARSE]
+  0x360000  h=0.00  [SPARSE]
+  0x370000  h=0.00  [SPARSE]
+  0x380000  h=0.00  [SPARSE]
+  0x390000  h=0.00  [SPARSE]
+  0x3A0000  h=0.00  [SPARSE]
+  0x3B0000  h=0.00  [SPARSE]
+  0x3C0000  h=0.00  [SPARSE]
+  0x3D0000  h=0.00  [SPARSE]
+  0x3E0000  h=0.00  [SPARSE]
+  0x3F0000  h=0.00  [SPARSE]
+
+==============================================================================
+VERDICT
+==============================================================================
+
+  VIN found:           no
+  WSC found:           no
+  Keywords found:      no
+  High-entropy blocks: no
+
+  >>> No inline markers, no encrypted blocks <<<
+  >>> IMMO data is external. Clone = 98% ceiling. <<<
