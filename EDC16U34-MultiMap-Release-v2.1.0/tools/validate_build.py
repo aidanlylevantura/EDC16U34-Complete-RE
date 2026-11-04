@@ -304,6 +304,29 @@ def main():
     check("boot block unchanged", mod[:0x40000] == stock[:0x40000])
     check("Cal2 tail/descriptor area (0x1FDF74-0x1FDFFB) unchanged", mod[0x1FDF74:0x1FDFFC] == stock[0x1FDF74:0x1FDFFC])
 
+    # ---- signature chain: the three 136-byte tail blocks and the region headers
+    # These are a cross-referencing digest chain (OS[4:8] reappears at Cal2[0:4],
+    # Cal1[0:4] at Cal2[4:8]). They are NOT a standard hash and cannot be
+    # regenerated, so the only guarantee we can give is that we never touch them.
+    # 136 bytes each: 132-byte digest + 4-byte length; the additive sum word
+    # sits immediately after the block and is ours to recompute.
+    for nm, a, b in (("OS", 0x17FF74, 0x17FFFC), ("Cal1", 0x1BFF74, 0x1BFFFC),
+                     ("Cal2", 0x1FDF74, 0x1FDFFC)):
+        check(f"{nm} signature chain block 0x{a:06X}-0x{b-1:06X} byte-identical to stock",
+              mod[a:b] == stock[a:b],
+              "differs at first offset %d" % next((i for i in range(b - a) if mod[a+i] != stock[a+i]), -1)
+              if mod[a:b] != stock[a:b] else "")
+    for nm, base in (("OS", 0x040000), ("Cal1", 0x180000), ("Cal2", 0x1C0000)):
+        hdr = slice(base + 0x30, base + 0x50)
+        check(f"{nm} region header (base/end/magics/ptr) unchanged",
+              mod[hdr] == stock[hdr],
+              "header differs" if mod[hdr] != stock[hdr] else "")
+    # the descriptors must still point at their own tail blocks
+    for nm, base, want in (("OS", 0x040000, 0x17FF74), ("Cal1", 0x180000, 0x1BFF74),
+                           ("Cal2", 0x1C0000, 0x1FDF74)):
+        check(f"{nm} descriptor ptr @0x{base+0x48:06X} still -> 0x{want:06X}",
+              u32(mod, base + 0x48) == want, f"{u32(mod, base+0x48):#010x}")
+
     # ---- hooks
     for name, a, t in (("TL", HOOK_TL, THUNK_TL), ("reader", HOOK_READER, THUNK_READER),
                        ("SOI A", HOOK_SOI[0][0], THUNK_SOI[0]), ("SOI B", HOOK_SOI[1][0], THUNK_SOI[1])):

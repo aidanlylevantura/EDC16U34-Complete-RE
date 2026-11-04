@@ -110,3 +110,19 @@ PEDAL PROVENANCE - WHAT WAS RULED OUT
   Remaining: QADC/TPU layer. FUN_00004cbc drives 0x6FC004, 0x700004, 0x704800,
   0x704A00, 0x704C00, 0x704E00, 0x706806, 0x706816, 0x702000 - all outside the
   2 MB flash. Needs the MPC562 peripheral map.
+
+TAIL SIGNATURE CHAIN (P0601 question)
+  Region descriptors at 0x040000 / 0x180000 / 0x1C0000:
+    +0x34 base   +0x38 end   +0x3C FADECAFE   +0x40 CAFEAFDE
+    +0x44 0x0003FE78         +0x48 -> 136-byte block
+  Blocks at 0x17FF74 / 0x1BFF74 / 0x1FDF74, 136 B each; additive sum word
+  follows immediately at 0x17FFFC / 0x1BFFFC / 0x1FDFFC.
+  CHAIN: OS block +0x04 (81 8E E6 85) reappears at Cal2 +0x00;
+         Cal1 block +0x00 (C6 99 84 ED) reappears at Cal2 +0x04.
+  NOT md5/sha1/sha256/sha512/crc32/adler32 of the region (tested, with and
+  without the 0x188-byte header).
+  NO CODE addresses them: zero lis+addi/ori formations reach any byte inside
+  the blocks; no instruction loads FADECAFE or CAFEAFDE. Only references are
+  descriptor +0x48 and two data tables (0x180070, 0x04942C).
+  => manufacturer signature, not regenerable; enforcement not proven either
+     way. Validator now asserts the blocks, headers and pointers are untouched.

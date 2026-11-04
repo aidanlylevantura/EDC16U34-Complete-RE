@@ -139,8 +139,8 @@ software number, so 382083 and 382414 are neighbouring revisions.
 ```
 python builders/build_multimap.py                        # -> binaries/03G906021KH_MultiMap_v2.1.0.bin
 python builders/build_multimap.py --inert                # -> binaries/..._INERT.bin
-python tools/validate_build.py                           # 72/72 expected
-python tools/validate_build.py binaries/Stock_Baseline.bin binaries/03G906021KH_MultiMap_v2.1.0_INERT.bin --inert   # 65/65
+python tools/validate_build.py                           # 81/81 expected
+python tools/validate_build.py binaries/Stock_Baseline.bin binaries/03G906021KH_MultiMap_v2.1.0_INERT.bin --inert   # 74/74
 ```
 
 The builder refuses another software version, and aborts if a write target is not
@@ -336,8 +336,8 @@ mask is wrong - try another `MAPS_SRC` or another bit.
 tests are now enumerated behaviour instead of a reference model. Current result:
 
 ```
-active  72/72 PASS
-inert   65/65 PASS
+active  81/81 PASS
+inert   74/74 PASS
 ```
 
 ### Trigger-source coverage
@@ -376,6 +376,62 @@ Polarity and contact identity are hardware facts. The offline suite proves
 structure, checksums and emulated behaviour - not that this car's stalk sets
 bits 7/6 of `0x7F9413`. Verify by reading `0x7F9218` with ignition on, engine
 off, pressing each stalk function in turn.
+
+## The tail signature chain (P0601 question)
+
+Each of the three flash regions starts with a descriptor and ends with a
+136-byte block. This is the structure that decides whether a modified image can
+throw P0601.
+
+Region descriptors, at the base of each region:
+
+```
++0x30  0x00000004
++0x34  region base       0x040000 / 0x180000 / 0x1C0000
++0x38  region end        0x17FFFF / 0x1BFFFF / 0x1FDFFF
++0x3C  0xFADECAFE        marker
++0x40  0xCAFEAFDE        marker
++0x44  0x0003FE78
++0x48  pointer to that region's 136-byte block
++0x4C  0x00000108    +0x50  0x00010108
+```
+
+The blocks themselves sit at `0x17FF74`, `0x1BFF74` and `0x1FDF74`, 136 bytes
+each, with the additive sum word immediately after at `0x17FFFC`, `0x1BFFFC`
+and `0x1FDFFC`.
+
+**They are a cross-referencing chain, not a plain hash.** The four bytes at
+OS block `+0x04` (`81 8E E6 85`) reappear at Cal2 block `+0x00`, and Cal1 block
+`+0x00` (`C6 99 84 ED`) reappears at Cal2 block `+0x04`. Each block carries a
+fragment of the previous one.
+
+**They are not md5, sha1, sha256, sha512, crc32 or adler32 of their region.**
+All seven were computed over the region, and with and without the 0x188-byte
+header, and none appears anywhere in the block.
+
+**No code addresses them.** A scan for `lis`+`addi`/`ori` formations reaching
+any byte inside the three blocks returns zero hits, and no instruction anywhere
+loads either marker constant (`0xFADECAFE`, `0xCAFEAFDE`). The only references
+to these blocks in the whole image are the descriptor `+0x48` fields and two
+data tables (`0x180070`, `0x04942C`).
+
+### What that means
+
+The chain is almost certainly a manufacturer signature, produced by the OEM
+flashing tool and checked, if at all, during programming rather than by the
+running application. It cannot be regenerated from the image - there is no key
+and no algorithm in the firmware.
+
+We therefore cannot prove the running ECU ignores it, but we can prove we never
+corrupt it. `tools/validate_build.py` now asserts, for all three regions:
+
+- the 136-byte block is byte-identical to stock;
+- the region header (`+0x30..+0x50`) is byte-identical to stock;
+- the descriptor `+0x48` pointer still resolves to the right block.
+
+The residual risk is unchanged and empirical: flash the `--inert` image first
+and read DTCs. If the chain were enforced, a P0601 would appear at key-on with
+the inert build, before any map switching is involved.
 
 ## Changes vs v2.0.0
 
@@ -420,7 +476,7 @@ Also from that report: the WinOLS parameter rows now carry real addresses. The o
 - whether the limiters in the torque chain mask Stage 1;
 - reset/RAM-retention behaviour of the slot word;
 - real-time cost of the reader/DOI thunks;
-- integrity of the chained 136-byte tail blocks (`0x17FF74`, `0x1BFF74`, `0x1FDF74`) - unresolved and left unchanged. Do not assume "no P0601"; flash `--inert` first.
+- whether the running ECU enforces the tail signature chain - no code in the image reads it, and it cannot be regenerated; see *The tail signature chain*. The blocks are asserted untouched, but the enforcement question is settled only by flashing `--inert` and reading DTCs.
 
 ## Editing maps
 
