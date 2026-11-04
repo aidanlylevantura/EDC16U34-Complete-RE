@@ -70,7 +70,7 @@ checksums  additive, target 0xD01FE500, words 0x17FFFC / 0x1BFFFC / 0x1FDFFC
 
 - **`builders/build_multimap.py`** - Builder. `python builders/build_multimap.py [stock.bin] [out.bin] [--inert]`
 - **`tools/validate_build.py`** - Validator. `python tools/validate_build.py [stock.bin] [built.bin] [--inert]`, exit 1 on failure
-- **`mappack/EDC16U34_MultiMap_maps_v2.1.0.csv`** - WinOLS mappack: 148 rows (39 per slot), no DTCs, per-slot addresses
+- **`mappack/EDC16U34_MultiMap_maps_v2.1.0.csv`** - WinOLS mappack: 149 rows (39 per slot), no DTCs, per-slot addresses
 - **`binaries/Stock_Baseline.bin`** - Complete stock bin used as build input (see below)
 - **`binaries/03G906021KH_MultiMap_v2.1.0.bin`** - Built image
 - **`binaries/03G906021KH_MultiMap_v2.1.0_INERT.bin`** - Same footprint, stalk never read (flash first)
@@ -211,31 +211,37 @@ Note the difference: `MAPS_CFG` and the two masks are pure calibration, but
 `MAPS_SRC` selects a **different address** in the thunk, so hardwiring a
 non-default source is a one-line builder change rather than a CSV edit.
 
-### Pedal gate (unchanged - predates v2.0.1)
+### Pedal gate (`MAPS_PEDAL_MAX`, `0x1EA7CC`)
 
-Map switching is blocked above a pedal threshold. The check is the first thing
-the thunk does, and it is identical in v2.0.1 and v2.1.0:
-
-```
-lha    r12, 0x7F95C4     signed load - negatives sign-extend
-cmplwi r12, 200          unsigned compare - a negative becomes huge
-bgt    <original code>
-```
-
-So switching only happens with the pedal released, and a negative or corrupt
-value blocks it rather than allowing it.
-
-What the threshold means depends on the pedal scale, and that is **not settled**:
+Map switching is blocked above a pedal threshold. The check runs first in the
+thunk:
 
 ```
-0x7F95C4 = 0..10000 (0.01 %)   -> 200 = 2.00 %  (foot essentially off)
-0x7F95C4 = 0..250 (%)          -> 200 = 80 %    (nearly full throttle)
+lha    r12, 0x7F95C4        signed load - negatives sign-extend
+cmpwi  r12, 0
+blt    <original>           negative pedal always blocked
+lhz    r11, 0x1EA7CC        the u16 parameter
+cmpwi  r11, 0
+beq    <proceed>            threshold 0 = gate disabled
+cmplw  r12, r11
+bgt    <original>           pedal above threshold - blocked
 ```
 
-Both are consistent with the code; only measurement decides. VCDS measuring
-block 054 or 062 shows accelerator pedal position - read it at idle and at full
-throttle. Values topping out near 10000 confirm the first reading, near 250 the
-second. Until then `PEDAL_MAX = 200` is a raw threshold, not a percentage.
+Defaults: **`0x1EA7CC = 0x0000`**, i.e. the gate is disabled and switching works
+at any pedal. Negative values are blocked regardless, so a corrupt or signed
+wraparound value cannot enable switching.
+
+In WinOLS the parameter is 16-bit with **factor 0.1**, so it reads as 0-100 %.
+The raw value is compared directly, so the factor is presentation only. If the
+pedal scale turns out to be 0..10000 rather than 0..1000, change the factor to
+0.01 - no rebuild needed.
+
+The pedal scale itself is **unresolved**: `0x7F95C4` is an s16 written once, by
+`sth` at `0x064790`, copied unscaled from a struct filled by `0x0FEBC0`, which
+has not been decompiled. The reference A2L contradicts itself - its MEASUREMENT
+limits imply x0.01 (0..10000) while its `Prc` COMPU_METHOD computes y = 100x,
+implying a 0..1 ratio. Reading `0x7F95C4` at idle and at full throttle settles
+it; VCDS measuring block 054 or 062 shows accelerator pedal position.
 
 ### Switching is inhibited unless cruise is off
 

@@ -55,12 +55,11 @@ R13 = 0x7FFFF0
 ADDR_ACTIVE_SLOT = 0x7F9210   # informational mirror (0/1/2). NOT used for decisions.
 ADDR_LAST_STALK = 0x7F9211    # previous SET level (edge latch)
 ADDR_SLOT_WORD = 0x7F9214     # authoritative: KEY32 ^ slot (32-bit, aligned, single store)
-ADDR_PEDAL = 0x7F95C4         # s16 pedal raw value; SCALE UNRESOLVED, see README
+ADDR_PEDAL = 0x7F95C4         # s16, 0.01 % units, 0..10000 (identity = inference, see README)
 ADDR_SET_BYTE = 0x7FF122      # DEPRECATED - byte 2 of frame 0x7D0, not the stalk. Kept for reference.
 KEY32 = 0xA5C35A3C
-PEDAL_MAX = 200               # switching only at pedal <= 200 RAW. Meaning depends on the
-                              # pedal scale, which is not settled: 2.00 % if 0..10000,
-                              # 80 % if 0..250. See README 'Pedal gate'.
+PEDAL_MAX_DEFAULT = 0x0000    # raw threshold, 0 = pedal gate DISABLED (switch at any pedal)
+                              # exposed as a u16 parameter; WinOLS factor 0.1 => 0..100 %
 
 # ---- trigger (v2.1.0): real stalk contacts, WinOLS-tunable -----------------
 # Verified against SW 1037382083: 0x7F9413 is the switch-contact byte assembled by
@@ -81,6 +80,7 @@ ADDR_MASK_NEXT = PARAM_BASE + 0   # bit of 0x7F9413 that means "next map"
 ADDR_MASK_PREV = PARAM_BASE + 1   # bit that means "previous map"
 ADDR_MAPS_CFG  = PARAM_BASE + 2   # bit0: 1 = only while CC is off ; bit1: 1 = disable
 ADDR_MAPS_SRC  = PARAM_BASE + 3   # which byte the masks read (see DEF_MAPS_SRC)
+ADDR_PEDAL_MAX = PARAM_BASE + 4   # u16 raw pedal threshold; 0 = gate disabled
 # NOTE: if MASK_NEXT == MASK_PREV both edges fire in the same call and the slot
 # advances +1 then +2, i.e. +3 mod 3 = no change. Harmless, but while testing
 # always give the two masks different bits.
@@ -152,6 +152,7 @@ def xoris(ra, rs, i): return _d(27, rs, ra, i)
 def lwz(rt, ra, d): return _d(32, rt, ra, d)
 def lbz(rt, ra, d): return _d(34, rt, ra, d)
 def lha(rt, ra, d): return _d(42, rt, ra, d)
+def lhz(rt, ra, d): return _d(40, rt, ra, d)
 def stb(rs, ra, d): return _d(38, rs, ra, d)
 def stw(rs, ra, d): return _d(36, rs, ra, d)
 def cmplwi(ra, i): return (10 << 26) | (ra << 16) | (i & 0xFFFF)
@@ -232,7 +233,16 @@ def tl_thunk(displaced):
         a.L("s%s1" % tag); E(lbz(reg, 13, disp(ADDR_SWITCH_WORD))); a.b("s%sd" % tag)
         a.L("s%s2" % tag); E(lbz(reg, 13, disp(ADDR_MODE_BYTE)))
         a.L("s%sd" % tag)
-    E(lha(12, 13, disp(ADDR_PEDAL))); E(cmplwi(12, PEDAL_MAX)); a.bc(BGT, "orig")     # signed negatives -> huge -> blocked
+    # ---- pedal gate: only switch with the pedal released
+    # 0x7F95C4 is s16. Its scale is unresolved (0..10000 or 0..1000 or 0..250),
+    # so the threshold is a RAW parameter and the WinOLS factor is presentation.
+    # 0 = gate disabled, which is the shipped default.
+    E(lha(12, 13, disp(ADDR_PEDAL)))
+    E(cmpwi(12, 0)); a.bc(BLT, "orig")           # negative pedal always blocked
+    E(lis(11, hi(ADDR_PEDAL_MAX))); E(ori(11, 11, lo(ADDR_PEDAL_MAX))); E(lhz(11, 11, 0))
+    E(cmpwi(11, 0)); a.bc(BEQ, "pedok")          # threshold 0 -> no upper limit
+    E(cmplw(12, 11)); a.bc(BGT, "orig")          # pedal above threshold -> block
+    a.L("pedok")
     if INERT:
         E(li(12, 0))
         E(stb(12, 13, disp(ADDR_LAST_NEXT))); E(stb(12, 13, disp(ADDR_LAST_PREV)))
@@ -446,10 +456,12 @@ def main():
     for i, (site, _) in enumerate(HOOK_SOI):
         d[site:site + 4] = b_insn(site, THUNK_SOI[i])
     # ---- trigger parameters (WinOLS-tunable, in verified-erased filler)
-    assert FREE_LO <= PARAM_BASE and PARAM_BASE + 4 <= FREE_HI, "parameter area outside free run"
-    assert stock[PARAM_BASE:PARAM_BASE + 4] == b"\xFF" * 4, "parameter area is not erased in stock"
+    assert FREE_LO <= PARAM_BASE and PARAM_BASE + 6 <= FREE_HI, "parameter area outside free run"
+    assert stock[PARAM_BASE:PARAM_BASE + 6] == b"\xFF" * 6, "parameter area is not erased in stock"
     _src = DEF_MAPS_SRC if SRC_OVERRIDE is None else SRC_OVERRIDE
     d[PARAM_BASE:PARAM_BASE + 4] = bytes([DEF_MASK_NEXT, DEF_MASK_PREV, DEF_MAPS_CFG, _src])
+    d[ADDR_PEDAL_MAX:ADDR_PEDAL_MAX + 2] = bytes([(PEDAL_MAX_DEFAULT >> 8) & 0xFF,
+                                                  PEDAL_MAX_DEFAULT & 0xFF])
     fix_checksums(d)
     open(OUTPUT_FILE, "wb").write(d)
 

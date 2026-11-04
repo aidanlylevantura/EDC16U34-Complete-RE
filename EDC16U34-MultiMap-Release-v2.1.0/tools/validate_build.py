@@ -141,6 +141,7 @@ class CPU:
         elif op == 11: self._cmp(s32(g[ra]), s)
         elif op == 32: g[rd] = self.m.rd(ea(), 4)
         elif op == 34: g[rd] = self.m.rd(ea(), 1)
+        elif op == 40: g[rd] = self.m.rd(ea(), 2)                    # lhz
         elif op == 42: g[rd] = s16(self.m.rd(ea(), 2)) & M32
         elif op == 36: self.m.wr(ea(), 4, g[rd])
         elif op == 38: self.m.wr(ea(), 1, g[rd])
@@ -356,7 +357,7 @@ def main():
     for a in [HOOK_TL, HOOK_READER] + [s for s, _ in HOOK_SOI] + BAL: allowed.update(range(a, a + 4))
     allowed.update(range(DOI_S1, DOI_S1 + DOI_LEN)); allowed.update(range(DOI_S2, DOI_S2 + DOI_LEN))
     allowed.update(range(DOI_TABLE, DOI_TABLE + 16))
-    allowed.update(range(PARAM_BASE, PARAM_BASE + 4))     # v2.1.0 trigger parameters
+    allowed.update(range(PARAM_BASE, PARAM_BASE + 6))     # v2.1.0 trigger parameters
     for i, (site, reg, off) in enumerate(DOI_SITES):
         allowed.update(range(site, site + 4))
         allowed.update(range(DOI_THUNK + i * DOI_STRIDE, DOI_THUNK + i * DOI_STRIDE + DOI_STRIDE))
@@ -408,7 +409,19 @@ def main():
         gated = sim([(MASK_NEXT, 1), (0x00, 1), (MASK_NEXT, 1)])
         check("gate: CC switch state != 0 blocks switching", set(gated) == {0}, str(gated))
 
-        check("pedal above gate blocks switching", set(sim([(MASK_NEXT, 0), (0x00, 0)] * 4, ped=300)) == {0})
+        pmax = (mod[PARAM_BASE + 4] << 8) | mod[PARAM_BASE + 5]
+        hi_ped = pmax + 100 if pmax else 300
+        seq = [(MASK_NEXT, 0), (0x00, 0)] * 4
+        if pmax:
+            check("pedal above gate (%d) blocks switching" % pmax,
+                  set(sim(seq, ped=hi_ped)) == {0}, "thresh=%d pedal=%d" % (pmax, hi_ped))
+            check("pedal at/below gate allows switching",
+                  sim([(MASK_NEXT, 0)], ped=pmax) == [1], "thresh=%d" % pmax)
+        else:
+            check("gate disabled (threshold 0): high pedal does not block",
+                  sim([(MASK_NEXT, 0)], ped=hi_ped) == [1], "pedal=%d" % hi_ped)
+            check("gate disabled: negative pedal is still blocked",
+                  set(sim(seq, ped=-1)) == {0})
 
         g1 = sim([(MASK_NEXT, 0)], word=0x55555555)
         check("garbage state word + press -> clean slot 1", g1 == [1])
