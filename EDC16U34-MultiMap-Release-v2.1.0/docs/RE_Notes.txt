@@ -126,3 +126,13 @@ TAIL SIGNATURE CHAIN (P0601 question)
   descriptor +0x48 and two data tables (0x180070, 0x04942C).
   => manufacturer signature, not regenerable; enforcement not proven either
      way. Validator now asserts the blocks, headers and pointers are untouched.
+
+PEDAL SCALE RESOLVED (supersedes the "unresolved" notes above)
+  DAMOS writes RAT_FUNC COEFFS as raw = b x physical (inverse of ASAP2):
+    Fact  COEFFS 0 8192 0 0 0 1  -> raw = 8192 x factor  (resolution 1/8192)
+    Prc   COEFFS 0 100  0 0 0 1  -> raw = 100 x percent
+  => 0x7F95C4 is hundredths of a percent: raw 0..10000 = 0..100.00 %.
+  Both A2Ls (EDC16U34 damos, EDC16CP C426CP9I0) carry Prc with +-327.68 limits,
+  consistent. Firmware corroborates: cmpwi 0x2710 at 0x661B38, 0x661D30, 0x66950,
+  0x66988, 0x669B8.
+  MAPS_PEDAL_MAX factor is therefore 0.01, not 0.1. 200 raw = 2.00 %.

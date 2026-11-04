@@ -236,39 +236,41 @@ Defaults: **`0x1EA7CC = 0x0000`**, i.e. the gate is disabled and switching works
 at any pedal. Negative values are blocked regardless, so a corrupt or signed
 wraparound value cannot enable switching.
 
-In WinOLS the parameter is 16-bit with **factor 0.1**, so it reads as 0-100 %.
-The raw value is compared directly, so the factor is presentation only. If the
-pedal scale turns out to be 0..10000 rather than 0..1000, change the factor to
-0.01 - no rebuild needed.
+In WinOLS the parameter is 16-bit with **factor 0.01**, so it reads as
+0-100.00 %. The raw value is compared directly, so the factor is presentation
+only; `200` means 2.00 %.
 
-The pedal scale itself is **unresolved**, and the static route to it is dead
-end for now. What is known:
+### The pedal scale is 0.01 % (resolved)
 
-`0x064790` is **not** a producer, it is a restore. The same function reads the
-value at `0x064428` and stashes it on the stack, then writes it back at
-`0x064790` - a save/restore around unrelated work.
+`0x7F95C4` counts **hundredths of a percent**: raw `0..10000` = `0..100.00 %`.
 
-`0x0FEBC0`, the function called just before, is a **descriptor-driven job
-submitter**, not a scaler: 12-byte descriptors at `0x445CC` indexed by
-`param_1 * 0xC`, a type byte from `0x4BCC2`, a data base pointer `0x7FEA04`, and
-a four-entry completion ring at `0x7FF490` (index `0x7FD691`, size from
-`0x44791`). Its switch copies bytes or runs a checksum (`0xFDB90`) and enters
-critical sections - it never converts units.
+The evidence came from the Bosch DAMOS convention, which writes `RAT_FUNC`
+coefficients as **raw = b x physical**, not the other way round:
 
-There is **no other writer**: a scan for `r13`-relative stores and for absolute
-`lis 0x7F / ori 0x95C4` formation finds nothing else. The value therefore most
-likely arrives through that descriptor/transfer layer from the ADC, which is
-the least reverse-engineered part of this ECU.
+```
+Fact   COEFFS 0 8192 0 0 0 1   -> raw = 8192 x factor   (resolution 1/8192)
+       comment: "Faktor mit Auflösung 1 / 8192"
+Prc    COEFFS 0 100  0 0 0 1   -> raw = 100 x percent
+       comment: "Prozent ... Darstellung in Prozent (0...100%)"
+```
 
-The reference A2L also contradicts itself - MEASUREMENT limits imply x0.01
-(0..10000) while its `Prc` COMPU_METHOD computes y = 100x, implying a 0..1
-ratio. Weak evidence for 0..10000 exists elsewhere: the pedal chain contains
-`cmpwi ..., 0x2710` (10000) comparisons at `0x661B38`, `0x661D30`, `0x66950`,
-`0x66988`, `0x669B8`.
+Read that way, the `Prc` coefficients and the `+-327.68` measurement limits agree
+exactly, in both independent A2Ls available for this generation (EDC16U34 damos
+and EDC16CP `C426CP9I0`). The firmware corroborates it: the pedal chain contains
+five `cmpwi ..., 0x2710` tests against 10000, at `0x661B38`, `0x661D30`,
+`0x66950`, `0x66988` and `0x669B8`.
 
-So: measure it. Reading `0x7F95C4` at idle and at full throttle settles it in
-one session - VCDS measuring block 054 or 062 also shows accelerator pedal
-position, no CAN tooling required.
+An earlier revision of this file called the scale unresolved and set the factor
+to 0.1. That was a misreading of the ASAP2 formula, which describes the forward
+mapping while DAMOS stores the inverse. The scale is not in doubt any more; only
+a measurement on the car can add anything, and it is no longer needed to use the
+parameter.
+
+**What did not change:** no instruction writes `0x7F95C4` except the save/restore
+at `0x064790`, and `0x0FEBC0` cannot reach it. The static hunt for a producer was
+a dead end for a different reason - the value arrives from the peripheral layer -
+and that hunt is no longer needed, because the scale is known from the encoding
+convention rather than from the producer.
 
 #### What was ruled out
 
