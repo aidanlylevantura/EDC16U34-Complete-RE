@@ -72,7 +72,7 @@ checksums  additive, target 0xD01FE500, words 0x17FFFC / 0x1BFFFC / 0x1FDFFC
 
 - **`builders/build_multimap.py`** - Builder. `python builders/build_multimap.py [stock.bin] [out.bin] [--inert]`
 - **`tools/validate_build.py`** - Validator. `python tools/validate_build.py [stock.bin] [built.bin] [--inert]`, exit 1 on failure
-- **`mappack/EDC16U34_MultiMap_maps_v2.1.1.csv`** - WinOLS mappack: 149 rows (39 per slot), no DTCs, per-slot addresses
+- **`mappack/EDC16U34_MultiMap_maps_v2.1.1.csv`** - WinOLS mappack: 152 rows (39 per slot), no DTCs, per-slot addresses
 - **`binaries/Stock_Baseline.bin`** - Complete stock bin used as build input (see below)
 - **`binaries/03G906021KH_MultiMap_v2.1.1.bin`** - Built image
 - **`binaries/03G906021KH_MultiMap_v2.1.1_INERT.bin`** - Same footprint, stalk never read (flash first)
@@ -126,6 +126,30 @@ The closest non-matching dump is `382414`, 9,398 bytes away - a different
 software number, so 382083 and 382414 are neighbouring revisions.
 
 **Do not flash a map pack.** Boot is erased in them; they are for map work only.
+
+### Mappack rewritten for readability
+
+Every row now carries an actionable name and a full explanation, so a change does
+not require consulting this file:
+
+```
+Name     "<folder>: <what it is>"        e.g. "2. Slot 1 (Stage 1): target boost"
+Comment  "<original> | WHAT TO CHANGE: <shape> at <addr>, factor, unit
+          | <what raising/lowering does>  | CAUTION: <what it breaks>"
+```
+
+Three pedal curves were added under `4. Constant (All Slots)\Pedal Calibration`,
+identified from a matched A2L and HEX pair of the same Bosch generation:
+
+- `APPCD_rLinAPP1_CUR` @ `0x1C7920` - axis `[104, 805]` -> `[0, 100.00 %]`
+- `APPCD_rLinAPP2_CUR` @ `0x1C79C0` - axis `[182, 755]` -> `[0, 100.00 %]`
+- `APPCD_rLinAPP_WIN`  @ `0x1C794E` - axis `[0, 51, 438, 1023]` -> `[0, 0, 100, 100] %`
+
+These are **global**: they are sensor calibration, not map data, so they are not
+cloned per slot and editing them affects all three slots plus the APP1/APP2
+plausibility cross-check at `0x062B8C`. The two tracks are normalised separately,
+which is why their axis spans differ - that is how the 1:2 hardware voltage ratio
+is divided out.
 
 ## Requirements
 
