@@ -265,6 +265,38 @@ So: measure it. Reading `0x7F95C4` at idle and at full throttle settles it in
 one session - VCDS measuring block 054 or 062 also shows accelerator pedal
 position, no CAN tooling required.
 
+#### What was ruled out
+
+Four independent checks, so nobody repeats them:
+
+**The transfer engine cannot reach the address.** `FUN_000febc0` computes
+`iVar4 = 0x7FEA04 + u16_offset + param_2`, so every write lands in
+`0x7FEA04 .. 0x80EA03`. The pedal at `0x7F95C4` is `0x5440` below that base.
+`param_2` is stored into a single byte, so it is a small offset, not a negative
+gateway into lower RAM.
+
+**That region is data, not missed code.** Entropy of `0x4BCA4..0x4BD40` is
+4.40-4.88 bits/byte against 5.17 for known code. `0x4BCC2` is a type registry
+interleaved with handler pointers (`0x4BCDC -> 0x0010F934`,
+`0x4BCE0 -> 0x0010FA20`, `0x4BCE4 -> 0x0022FFF0`). Ghidra's `??` means
+undefined, not undecoded.
+
+**The engine is diagnostic transport, not sensor input.** `FUN_00004cbc` stages
+code into `0x7FF000` / `0x7F8000` and executes it through a RAM trampoline - a
+flash driver in RAM - writing status to `0x7FEF5D..0x7FEF60`. `FUN_000febc0`
+tests `_DAT_007fefd4 == 2` from the **same block**, so its busy-wait is a boot
+or programming state, not an ADC conversion.
+
+**The knob is a restore.** `0x064790` writes the pedal back after `0x064428`
+read it. It is not a producer.
+
+What is left is the QADC/TPU layer. `FUN_00004cbc` drives memory-mapped
+registers at `0x6FC004`, `0x700004`, `0x704800`, `0x704A00`, `0x704C00`,
+`0x704E00`, `0x706806`, `0x706816` and `0x702000` - all outside the 2 MB flash,
+with `0x2100` / `0x2101` / `0x3F` written at 256-byte strides. Identifying those
+needs the MPC562 peripheral map, which is a datasheet question rather than a
+disassembly one, and a much bigger job than this threshold warrants.
+
 ### Switching is inhibited unless cruise is off
 
 `MAPS_CFG` bit 0 gates on `0x7F953A == 0`, which is the firmware's own

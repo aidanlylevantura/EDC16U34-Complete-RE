@@ -96,3 +96,17 @@ PEDAL GATE (present since before v2.0.1, unchanged in v2.1.0)
   v2.1.0: the threshold is now a parameter, MAPS_PEDAL_MAX at 0x1EA7CC (u16),
   default 0x0000 = gate disabled. Non-zero blocks switching above it; negative
   pedal is always blocked. WinOLS factor 0.1 gives a 0-100 % display.
+
+PEDAL PROVENANCE - WHAT WAS RULED OUT
+  1. FUN_000febc0 cannot reach 0x7F95C4: iVar4 = 0x7FEA04 + u16_offset + param_2,
+     so targets are 0x7FEA04..0x80EA03. Pedal is 0x5440 BELOW the base.
+  2. 0x4BCA4..0x4BD40 is DATA, not missed code: entropy 4.40-4.88 vs 5.17 for code.
+     0x4BCC2 is a type registry with handlers at 0x4BCDC (0x0010F934),
+     0x4BCE0 (0x0010FA20), 0x4BCE4 (0x0022FFF0).
+  3. FUN_00004cbc stages code to 0x7FF000 / 0x7F8000 and runs it via a RAM
+     trampoline; status at 0x7FEF5D..0x7FEF60. FUN_000febc0's _DAT_007fefd4 == 2
+     is in that same block => boot/programming state, not ADC.
+  4. 0x064790 is a RESTORE of the value read at 0x064428.
+  Remaining: QADC/TPU layer. FUN_00004cbc drives 0x6FC004, 0x700004, 0x704800,
+  0x704A00, 0x704C00, 0x704E00, 0x706806, 0x706816, 0x702000 - all outside the
+  2 MB flash. Needs the MPC562 peripheral map.
