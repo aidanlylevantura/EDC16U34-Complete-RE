@@ -72,7 +72,7 @@ checksums  additive, target 0xD01FE500, words 0x17FFFC / 0x1BFFFC / 0x1FDFFC
 
 - **`builders/build_multimap.py`** - Builder. `python builders/build_multimap.py [stock.bin] [out.bin] [--inert]`
 - **`tools/validate_build.py`** - Validator. `python tools/validate_build.py [stock.bin] [built.bin] [--inert]`, exit 1 on failure
-- **`mappack/EDC16U34_MultiMap_maps_v2.1.1.csv`** - WinOLS mappack: 152 rows (39 per slot), no DTCs, per-slot addresses
+- **`mappack/EDC16U34_MultiMap_maps_v2.1.1.csv`** - WinOLS mappack: 159 rows (39 per slot), no DTCs, per-slot addresses
 - **`binaries/Stock_Baseline.bin`** - Complete stock bin used as build input (see below)
 - **`binaries/03G906021KH_MultiMap_v2.1.1.bin`** - Built image
 - **`binaries/03G906021KH_MultiMap_v2.1.1_INERT.bin`** - Same footprint, stalk never read (flash first)
@@ -150,6 +150,37 @@ cloned per slot and editing them affects all three slots plus the APP1/APP2
 plausibility cross-check at `0x062B8C`. The two tracks are normalised separately,
 which is why their axis spans differ - that is how the 1:2 hardware voltage ratio
 is divided out.
+
+### The kickdown switch (110 % over-travel) is in the mappack
+
+The pedal's over-travel detent does not produce a percentage - the ECU compares
+the **raw sensor count** against a learned voltage threshold with hysteresis.
+That block is at `0x1C79DC..0x1C79F2`, immediately after the APP2 linearisation,
+and it matches the EDC16CP A2L field for field:
+
+```
+0x1C79DC  65535   fault debounce (disabled)
+0x1C79E0   1000   learning timeout
+0x1C79E2      4   debounce, falling
+0x1C79E4      4   debounce, rising
+0x1C79EA     45   correction applied to the learned value
+0x1C79EC    844   UPPER hysteresis threshold   <- 4.124 V, the switch
+0x1C79EE     16   lower hysteresis threshold   <- 0.078 V, the release
+0x1C79F0    830   default learned threshold    <- 4.057 V until learning runs
+```
+
+The reference calibration carries the same distinctive sequence
+`65535 / 0 / 1000 / 4 / 4 / 45 / 844 / 16`, differing only in its default
+threshold (722 against our 830) - which is calibration-specific, as it should be.
+
+Seven rows were added under `4. Constant (All Slots)\Pedal Calibration`, with
+factor `0.0048876` (5.000 V / 1023 counts) so the thresholds read directly in
+volts. Because these are compared against raw counts, **the percent axis does
+not apply to them**.
+
+All seven are global, not cloned per slot. Moving the upper threshold changes
+when DSG/automatic cars downshift under full throttle, so it is a driving
+characteristic as much as a diagnostic constant.
 
 ## Requirements
 
