@@ -211,6 +211,32 @@ Note the difference: `MAPS_CFG` and the two masks are pure calibration, but
 `MAPS_SRC` selects a **different address** in the thunk, so hardwiring a
 non-default source is a one-line builder change rather than a CSV edit.
 
+### Pedal gate (unchanged - predates v2.0.1)
+
+Map switching is blocked above a pedal threshold. The check is the first thing
+the thunk does, and it is identical in v2.0.1 and v2.1.0:
+
+```
+lha    r12, 0x7F95C4     signed load - negatives sign-extend
+cmplwi r12, 200          unsigned compare - a negative becomes huge
+bgt    <original code>
+```
+
+So switching only happens with the pedal released, and a negative or corrupt
+value blocks it rather than allowing it.
+
+What the threshold means depends on the pedal scale, and that is **not settled**:
+
+```
+0x7F95C4 = 0..10000 (0.01 %)   -> 200 = 2.00 %  (foot essentially off)
+0x7F95C4 = 0..250 (%)          -> 200 = 80 %    (nearly full throttle)
+```
+
+Both are consistent with the code; only measurement decides. VCDS measuring
+block 054 or 062 shows accelerator pedal position - read it at idle and at full
+throttle. Values topping out near 10000 confirm the first reading, near 250 the
+second. Until then `PEDAL_MAX = 200` is a raw threshold, not a percentage.
+
 ### Switching is inhibited unless cruise is off
 
 `MAPS_CFG` bit 0 gates on `0x7F953A == 0`, which is the firmware's own

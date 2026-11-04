@@ -55,10 +55,12 @@ R13 = 0x7FFFF0
 ADDR_ACTIVE_SLOT = 0x7F9210   # informational mirror (0/1/2). NOT used for decisions.
 ADDR_LAST_STALK = 0x7F9211    # previous SET level (edge latch)
 ADDR_SLOT_WORD = 0x7F9214     # authoritative: KEY32 ^ slot (32-bit, aligned, single store)
-ADDR_PEDAL = 0x7F95C4         # s16, 0.01 % units, 0..10000 (identity = inference, see README)
+ADDR_PEDAL = 0x7F95C4         # s16 pedal raw value; SCALE UNRESOLVED, see README
 ADDR_SET_BYTE = 0x7FF122      # DEPRECATED - byte 2 of frame 0x7D0, not the stalk. Kept for reference.
 KEY32 = 0xA5C35A3C
-PEDAL_MAX = 200               # switching only at pedal <= 200 raw (= 2.00 % if units are 0.01 %)
+PEDAL_MAX = 200               # switching only at pedal <= 200 RAW. Meaning depends on the
+                              # pedal scale, which is not settled: 2.00 % if 0..10000,
+                              # 80 % if 0..250. See README 'Pedal gate'.
 
 # ---- trigger (v2.1.0): real stalk contacts, WinOLS-tunable -----------------
 # Verified against SW 1037382083: 0x7F9413 is the switch-contact byte assembled by
