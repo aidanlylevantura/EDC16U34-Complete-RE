@@ -411,7 +411,7 @@ Also from that report: the WinOLS parameter rows now carry real addresses. The o
 - reader thunk redirects exactly the 12 headers, stock for slot 0 / invalid state;
 - SOI thunks: slot 0/invalid -> stock pointer, 1/2 -> clone base;
 - DOI: stock pointer table 286-289, 18 sites are `lwz rX,0x478/47C/480/484(r15)`, 18 thunks, slot table, and the six computed Duration pointers resolving into each slot's clone (51/51 checks);
-- the build writes **no map data** - every map byte equals the source bin.
+- the build writes **no map data** - every map byte equals the source bin; the parameter block at `0x1EA7C8` is written last.
 
 **Unverified (bench items):**
 - which bit of `0x7F9413` is SET and which is RES (needs a capture of the stalk);
