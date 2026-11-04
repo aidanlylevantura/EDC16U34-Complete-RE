@@ -236,12 +236,34 @@ The raw value is compared directly, so the factor is presentation only. If the
 pedal scale turns out to be 0..10000 rather than 0..1000, change the factor to
 0.01 - no rebuild needed.
 
-The pedal scale itself is **unresolved**: `0x7F95C4` is an s16 written once, by
-`sth` at `0x064790`, copied unscaled from a struct filled by `0x0FEBC0`, which
-has not been decompiled. The reference A2L contradicts itself - its MEASUREMENT
-limits imply x0.01 (0..10000) while its `Prc` COMPU_METHOD computes y = 100x,
-implying a 0..1 ratio. Reading `0x7F95C4` at idle and at full throttle settles
-it; VCDS measuring block 054 or 062 shows accelerator pedal position.
+The pedal scale itself is **unresolved**, and the static route to it is dead
+end for now. What is known:
+
+`0x064790` is **not** a producer, it is a restore. The same function reads the
+value at `0x064428` and stashes it on the stack, then writes it back at
+`0x064790` - a save/restore around unrelated work.
+
+`0x0FEBC0`, the function called just before, is a **descriptor-driven job
+submitter**, not a scaler: 12-byte descriptors at `0x445CC` indexed by
+`param_1 * 0xC`, a type byte from `0x4BCC2`, a data base pointer `0x7FEA04`, and
+a four-entry completion ring at `0x7FF490` (index `0x7FD691`, size from
+`0x44791`). Its switch copies bytes or runs a checksum (`0xFDB90`) and enters
+critical sections - it never converts units.
+
+There is **no other writer**: a scan for `r13`-relative stores and for absolute
+`lis 0x7F / ori 0x95C4` formation finds nothing else. The value therefore most
+likely arrives through that descriptor/transfer layer from the ADC, which is
+the least reverse-engineered part of this ECU.
+
+The reference A2L also contradicts itself - MEASUREMENT limits imply x0.01
+(0..10000) while its `Prc` COMPU_METHOD computes y = 100x, implying a 0..1
+ratio. Weak evidence for 0..10000 exists elsewhere: the pedal chain contains
+`cmpwi ..., 0x2710` (10000) comparisons at `0x661B38`, `0x661D30`, `0x66950`,
+`0x66988`, `0x669B8`.
+
+So: measure it. Reading `0x7F95C4` at idle and at full throttle settles it in
+one session - VCDS measuring block 054 or 062 also shows accelerator pedal
+position, no CAN tooling required.
 
 ### Switching is inhibited unless cruise is off
 
