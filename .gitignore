@@ -1,0 +1,43 @@
+# Firmware binaries - NEVER commit
+*.bin
+*.ori
+*.mod
+*.hex
+
+# WinOLS / Damos data - NEVER commit
+*.csv
+*.ols
+*.damos
+
+# Ghidra decompiled output - derivative of copyrighted binary
+*.c
+System_*.c
+EDC16U34_*.c
+
+# Ghidra project files
+*.gpr
+*.rep
+*.lock
+
+# Generated analysis output
+outputs/*
+!outputs/.gitkeep
+Structure_Map_Report.txt
+DTC_Table.txt
+ECU_100_Percent_Blueprint.md
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Hand-written reconstructions are deliverables, unlike the bulk
+# decompiler dump (*.c is ignored above).
+!EDC16U34-Complete-RE-main/CRUISE_CONTROL.c
+!EDC16U34-Complete-RE-main/MEASURING_BLOCKS.c
+!EDC16U34-Complete-RE-main/MEASURING_BLOCKS.csv
