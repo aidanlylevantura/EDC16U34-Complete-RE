@@ -56,7 +56,7 @@ hooks      TL 0x09B2A8   reader 0x0F94DC   SOI 0x0C0898, 0x0C09F8
 DOI sites  0xC5108 0xC53A0 0xC56FC 0xC57E8 0xC5AC4 0xC5D50
            0xC5634 0xC58D4 0xC595C 0xC5BC8 0xC5E3C 0xC5F54 0xC60E0
            0xC6188 0xC61C0 0xE3124 0xC5FE0 0xC6244
-thunks     TL 0x1FC000 (124 B)   reader 0x1FC400 (612 B)
+thunks     TL 0x1FC000 (500 B)   reader 0x1FC400 (612 B)
            SOI 0x1FC800 / 0x1FC880 (60 B each)   DOI 0x1FC900 + i*0x60 (96 B each)
 clones     12 maps     0x1F0000 (slot1) / 0x1F2000 (slot2)  4004 B/slot
            SOI block   0x1EB000 / 0x1ED000   0x1E9C B
@@ -139,7 +139,7 @@ software number, so 382083 and 382414 are neighbouring revisions.
 ```
 python builders/build_multimap.py                        # -> binaries/03G906021KH_MultiMap_v2.1.0.bin
 python builders/build_multimap.py --inert                # -> binaries/..._INERT.bin
-python tools/validate_build.py                           # 69/69 expected
+python tools/validate_build.py                           # 72/72 expected
 python tools/validate_build.py binaries/Stock_Baseline.bin binaries/03G906021KH_MultiMap_v2.1.0_INERT.bin --inert   # 65/65
 ```
 
@@ -165,7 +165,7 @@ v2.1.0 reads.
 A second, independent byte `0x7F9412` holds the firmware's own "any stalk
 contact active" flag; it is available as an alternative mask source.
 
-### Three WinOLS-tunable parameters
+### Four WinOLS-tunable parameters
 
 Which contact means "next" and which means "previous" cannot be proven
 statically: the firmware collapses all eight contacts into one flag, so no code
@@ -186,6 +186,11 @@ distinguishes them. Rather than hardcode a guess, v2.1.0 exposes the masks:
 Swapping the two mask bytes inverts the polarity, in the car, with no rebuild.
 Any bit of `0x7F9413` may be used, so if the inferred tip pair is wrong the
 parameter still lets the correct contact be found empirically.
+
+**Never give both masks the same bit.** If `MAPS_MASK_NEXT == MAPS_MASK_PREV`,
+both rising edges fire in the same call: the slot advances +1 and then +2, which
+is +3 mod 3 - no net change. Harmless, but it looks like a dead trigger while
+testing.
 
 ### Testing the ON / CANCEL / OFF rocker
 
@@ -314,13 +319,15 @@ Both tips are edge-detected through separate latches at `0x7F9212` and
 ```
 0x7F9210  active slot mirror (0/1/2)
 0x7F9212  next-tip latch          0x7F9213  prev-tip latch
-0x7F9218  last raw 0x7F9413       0x7F9219  last raw 0x7F953A
-0x7F921A  trigger counter         0x7F921B  gate-passed flag
+0x7F9218  last byte from the SELECTED source (0x7F9413 by default)
+0x7F9219  last raw 0x7F953A (only written when the gate runs)
+0x7F921A  trigger counter
+0x7F921B  1 = the off-gate ran and passed, 0 = gate disabled or blocked
 ```
 
 Read them with `tools/watch_ram.py` (KWP service `0x23`). `0x7F9218` is the one
-to watch while pressing the stalk: if it never changes, the tip is not in
-`0x7F9413` and a different mask byte is needed.
+to watch while pressing the stalk: if it never changes, the selected source or
+mask is wrong - try another `MAPS_SRC` or another bit.
 
 ### Validation
 
@@ -329,9 +336,32 @@ to watch while pressing the stalk: if it never changes, the tip is not in
 tests are now enumerated behaviour instead of a reference model. Current result:
 
 ```
-active  71/71 PASS
+active  72/72 PASS
 inert   65/65 PASS
 ```
+
+### Trigger-source coverage
+
+`MAPS_SRC` selects which byte the masks read, and all three paths are exercised
+by the validator rather than assumed:
+
+```
+--src 0   -> 0x7F9413  switch contacts      diag mirror reads 0xA1   PASS
+--src 1   -> 0x7F9990  rocker bits 8/9/14   diag mirror reads 0xB2   PASS
+--src 2   -> 0x7F935D  decoded rocker mode  diag mirror reads 0xC3   PASS
+```
+
+The test pokes a *different* value into each of the three bytes, runs one thunk
+call, and checks that the diagnostic mirror `0x7F9218` equals the value belonging
+to the configured source. That distinguishes the three addresses - a wrong
+displacement or the wrong byte of the 16-bit word shows as a mismatch, not a
+pass. The inert build skips this test because it never reads the stalk.
+
+Build a variant with `python builders/build_multimap.py --src 1`.
+
+What this still does not prove: that the firmware really places the rocker in
+bits 8/9/14 of `0x7F9990`, or that `0x7F935D` holds 1/2/3/5/7 at runtime. Both
+are inferences from decompiled code, settled only by a bus capture or car test.
 
 ### Measuring blocks are not available
 
@@ -360,14 +390,14 @@ The v2.0.0 audit found six defects. All six are addressed:
 - **5** - Reader addresses were data addresses, not headers - true headers (dims read from each header), clones sized from the header, no fixed 0x400; Duration removed from the chain, SVRL address dropped
 - **6** - Any nonzero slot selected slot 2 - one 32-bit word `0x7F9214 = 0xA5C35A3C ^ slot`; every consumer range-checks 0-2 and falls back to stock, so power-on garbage reads stock
 
-Also from that report: the WinOLS "Pedal Gate Threshold" row pointed at a `stb`; it now points at the `cmplwi` immediate at `0x1FC006`, and the other multimap parameter rows carry real addresses.
+Also from that report: the WinOLS parameter rows now carry real addresses. The old "Pedal Gate Threshold" row pointed at a `stb`; in v2.1.0 the pedal gate is a proper 16-bit parameter at `0x1EA7CC` (see *Pedal gate* above).
 
 ### Design changes
 
 - **DOI block** (Duration 00-05, `InjVlv_numMI1_CUR` selector, `InjVCD_*` parameters) is cloned per slot and its 18 base loads redirected. The Duration maps are reached as `0x1DF054 + {0x1A,0x10E,0x390,0x612,0x894,0xB16}`, not through the 2D reader, so they switch without being in the reader chain.
 - **Limiter maps in the reader chain**: torque limiter (`0x1D16F6`), smoke airflow (`0x1D307E`), smoke pressure (`0x1D333C`), boost limiter (`0x1E49FC`) - 12 reader maps total, so a slot's request and its limits move together.
 - **SVRL** (`0x1DF052`) exposed per slot through the DOI block; **SVBL** (`0x1E4B74`) is not addressable by this software and stays a constant.
-- **Mappack CSV**: 144 rows, per-slot selectors, per-slot limiter channels, no DTCs, no duplicate addresses.
+- **Mappack CSV**: 149 rows, per-slot selectors, per-slot limiter channels, no DTCs, no duplicate addresses.
 - **Validator**: DOI pointer table, 18 sites/thunks, slot table and mapping; DOI clones and table included in the overlap and erased-in-stock checks; map counts are dynamic.
 
 ## Verification status
@@ -384,8 +414,9 @@ Also from that report: the WinOLS "Pedal Gate Threshold" row pointed at a `stb`;
 - the build writes **no map data** - every map byte equals the source bin.
 
 **Unverified (bench items):**
-- CAN `0x38A` byte 2 bit 0 = SET (needs a capture of the stalk);
-- `0x7F95C4` = accelerator pedal in 0.01 % units (inference);
+- which bit of `0x7F9413` is SET and which is RES (needs a capture of the stalk);
+- how ON / CANCEL / OFF reach `0x7F9990` bits 8/9/14 (inference, not measured);
+- the `0x7F95C4` pedal scale - `0..10000`, `0..1000` or `0..250`; see *Pedal gate*;
 - whether the limiters in the torque chain mask Stage 1;
 - reset/RAM-retention behaviour of the slot word;
 - real-time cost of the reader/DOI thunks;
@@ -402,7 +433,7 @@ builder after editing - it re-copies the clones from `binaries/Stock_Baseline.bi
 ## Known limitations
 
 - **SVBL (`0x1E4B74`) is not switchable.** No pointer, immediate, table entry or indexed access reaches it; the cell sits in a header-less array. It stays a constant in the mappack.
-- **SET is also the cruise button**: every SET press with pedal <= gate advances the slot.
+- **The stalk is also the cruise control**: with `MAPS_PEDAL_MAX = 0` (the default) any qualifying stalk press advances the slot. Set a threshold once the pedal scale is known.
 - Switching takes effect between lookups; one cycle may mix slots.
 - Slots 1 and 2 are exact copies of stock until you edit them.
 - Full-dataset switching (rewriting `r15`) was analysed and rejected: 377 absolute `lis 0x1C-0x1F` sites bypass the base pointer.
@@ -415,31 +446,3 @@ material, are not licensed here, and remain the property of their respective own
 
 Not affiliated with Volkswagen AG or Robert Bosch GmbH. Experimental software for
 off-road/development use; no warranty, and you are responsible for any ECU you flash.
-
-**Never give both masks the same bit.** If `MAPS_MASK_NEXT == MAPS_MASK_PREV`,
-both rising edges fire in the same call: the slot advances +1 and then +2, which
-is +3 mod 3 - no net change. Harmless, but it looks like a dead trigger while
-testing.
-
-### Trigger-source coverage
-
-`MAPS_SRC` selects which byte the masks read, and all three paths are exercised
-by the validator rather than assumed:
-
-```
---src 0   -> 0x7F9413  switch contacts      diag mirror reads 0xA1   PASS
---src 1   -> 0x7F9990  rocker bits 8/9/14   diag mirror reads 0xB2   PASS
---src 2   -> 0x7F935D  decoded rocker mode  diag mirror reads 0xC3   PASS
-```
-
-The test pokes a *different* value into each of the three bytes, runs one thunk
-call, and checks that the diagnostic mirror `0x7F9218` equals the value belonging
-to the configured source. That distinguishes the three addresses - a wrong
-displacement or the wrong byte of the 16-bit word shows as a mismatch, not a
-pass. The inert build skips this test because it never reads the stalk.
-
-Build a variant with `python builders/build_multimap.py --src 1`.
-
-What this still does not prove: that the firmware really places the rocker in
-bits 8/9/14 of `0x7F9990`, or that `0x7F935D` holds 1/2/3/5/7 at runtime. Both
-are inferences from decompiled code, settled only by a bus capture or car test.
