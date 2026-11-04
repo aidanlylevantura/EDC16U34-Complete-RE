@@ -2,14 +2,12 @@
 
 ## Identity
 
-| | |
-|---|---|
-| ECU | Bosch **EDC16U34** |
-| Part number | **03G 906 021 KH** |
-| Hardware number | 03G 906 021 AN |
-| Software number | **1037382083** |
-| Component | R4 1,9L EDC G000AG  9245 |
-| Vehicle | Golf Mk5 1.9 TDI BXE, DSG DQ250 |
+- **ECU** - Bosch **EDC16U34**
+- **Part number** - **03G 906 021 KH**
+- **Hardware number** - 03G 906 021 AN
+- **Software number** - **1037382083**
+- **Component** - R4 1,9L EDC G000AG  9245
+- **Vehicle** - Golf Mk5 1.9 TDI BXE, DSG DQ250
 
 ## Background and analysis
 
@@ -20,11 +18,9 @@ repository:
 
 Relevant documents there:
 
-| File | Contents |
-|---|---|
-| `CRUISE_CONTROL_RE.md` | full FGR/GRA analysis - addresses, evidence, pitfalls |
-| `CRUISE_CONTROL.c` | annotated C reconstruction of the cruise subsystem |
-| `RE_INDEX.md` | address index, script inventory, open items |
+- **`CRUISE_CONTROL_RE.md`** - full FGR/GRA analysis - addresses, evidence, pitfalls
+- **`CRUISE_CONTROL.c`** - annotated C reconstruction of the cruise subsystem
+- **`RE_INDEX.md`** - address index, script inventory, open items
 
 Everything about *why* an address is what it is belongs there. This README only
 covers what the build does and how to use it.
@@ -39,12 +35,10 @@ This is the only v2.1.0: everything before it is v2.0.0 lineage.
 
 ## What is switched
 
-| Group | Mechanism | Count |
-|---|---|---|
-| Boost 1/2, Driver Wish 1-6 | 2D reader hook `0x0F94DC` (header compare) | 8 |
-| Torque, smoke airflow/pressure, boost limiters | 2D reader hook `0x0F94DC` (header compare) | 4 |
-| Start of injection 00-09 + Soi Selector | SOI block clone, base hooks `0x0C0898` / `0x0C09F8` | 10 |
-| Duration 00-05 + Duration Selector + `InjVCD_*` parameters | DOI block clone, 18 block-load hooks | 6 + params |
+- **Boost 1/2, Driver Wish 1-6** - 2D reader hook `0x0F94DC` (header compare) - 8
+- **Torque, smoke airflow/pressure, boost limiters** - 2D reader hook `0x0F94DC` (header compare) - 4
+- **Start of injection 00-09 + Soi Selector** - SOI block clone, base hooks `0x0C0898` / `0x0C09F8` - 10
+- **Duration 00-05 + Duration Selector + `InjVCD_*` parameters** - DOI block clone, 18 block-load hooks - 6 + params
 
 The Duration maps are **not** reached through the 2D reader. The code builds six
 pointers as `0x1DF054 + {0x1A,0x10E,0x390,0x612,0x894,0xB16}` at `0xC624C` and
@@ -74,15 +68,13 @@ checksums  additive, target 0xD01FE500, words 0x17FFFC / 0x1BFFFC / 0x1FDFFC
 
 ## Files
 
-| File | Purpose |
-|---|---|
-| `builders/build_multimap.py` | Builder. `python builders/build_multimap.py [stock.bin] [out.bin] [--inert]` |
-| `tools/validate_build.py` | Validator. `python tools/validate_build.py [stock.bin] [built.bin] [--inert]`, exit 1 on failure |
-| `mappack/EDC16U34_MultiMap_maps_v2.1.0.csv` | WinOLS mappack: 148 rows (39 per slot), no DTCs, per-slot addresses |
-| `binaries/Stock_Baseline.bin` | Complete stock bin used as build input (see below) |
-| `binaries/03G906021KH_MultiMap_v2.1.0.bin` | Built image |
-| `binaries/03G906021KH_MultiMap_v2.1.0_INERT.bin` | Same footprint, stalk never read (flash first) |
-| `docs/RE_Notes.txt` | Address and analysis notes |
+- **`builders/build_multimap.py`** - Builder. `python builders/build_multimap.py [stock.bin] [out.bin] [--inert]`
+- **`tools/validate_build.py`** - Validator. `python tools/validate_build.py [stock.bin] [built.bin] [--inert]`, exit 1 on failure
+- **`mappack/EDC16U34_MultiMap_maps_v2.1.0.csv`** - WinOLS mappack: 148 rows (39 per slot), no DTCs, per-slot addresses
+- **`binaries/Stock_Baseline.bin`** - Complete stock bin used as build input (see below)
+- **`binaries/03G906021KH_MultiMap_v2.1.0.bin`** - Built image
+- **`binaries/03G906021KH_MultiMap_v2.1.0_INERT.bin`** - Same footprint, stalk never read (flash first)
+- **`docs/RE_Notes.txt`** - Address and analysis notes
 
 `Stock_Baseline.bin` = complete read `VAG_BOSCH_EDC16U34_EXT FLASH_20261102134010.bin`
 (sha `6b27b67e...`) with its calibration replaced by the factory calibration
@@ -122,13 +114,11 @@ software number. `1B69` has the same calibration but a different OS build
 
 Everything this builder modifies is inside the verified regions:
 
-| Target | Address | Confirmed by |
-|---|---|---|
-| OS hooks | `0x09B2A8`, `0x0F94DC` | OS identical to 7EA1 |
-| SOI block | `0x1D6414` + `0x1E9C` | Cal2 identical |
-| DOI block | `0x1DF02E` + `0xC30` | Cal2 identical |
-| 12 map headers | `0x1E470C` … `0x1E49FC` | Cal1/Cal2 identical |
-| boot | differs | irrelevant to the build; ours is the complete image |
+- **OS hooks** - `0x09B2A8`, `0x0F94DC` - OS identical to 7EA1
+- **SOI block** - `0x1D6414` + `0x1E9C` - Cal2 identical
+- **DOI block** - `0x1DF02E` + `0xC30` - Cal2 identical
+- **12 map headers** - `0x1E470C` … `0x1E49FC` - Cal1/Cal2 identical
+- **boot** - differs - irrelevant to the build; ours is the complete image
 
 The closest non-matching dump is `382414`, 9,398 bytes away - a different
 software number, so 382083 and 382414 are neighbouring revisions.
@@ -277,14 +267,12 @@ off, pressing each stalk function in turn.
 
 The v2.0.0 audit found six defects. All six are addressed:
 
-| # | v2.0.0 defect | Current design |
-|---|---|---|
-| 1 | Stalk masked `0x80` (top bit of the rolling counter) | `rlwinm r12,r12,0,31,31` at `0x1FC010`; SET = bit 0; counter bits never used |
-| 2 | Slot 1 and slot 2 clones overlapped (`0x1EA000-0x1EDC00` / `0x1EC000-0x1EFC00`) | 12 map clones at `0x1F0000+` / `0x1F2000+`, SOI at `0x1EB000` / `0x1ED000`, DOI at `0x1F4000` / `0x1F6000`; the builder asserts no overlap and the validator re-derives the clones by emulating the thunks |
-| 3 | Live calibration `0x1EA000-0x1EA7C8` destroyed in every slot | untouched (1,453 bytes still present); `FREE_LO = 0x1EA7C8`, lowest clone `0x1EB000`, every target asserted erased in stock |
-| 4 | SOI clone 12 bytes off (`0x1D6408` vs `0x1D6414`) and only half the sites hooked | pointer-table index 267 = `0x1D6414` is cloned exactly; both `1068(r15)` consumers (`0xC0898`, `0xC09F8`) are hooked; the `1064(r15)` sites (`0xC0454`, `0xC0610`, `0xC0664`, `0xC06B4`) are index 266 = `0x1D6408`, a different 12-byte record, correctly left alone |
-| 5 | Reader addresses were data addresses, not headers | true headers (dims read from each header), clones sized from the header, no fixed 0x400; Duration removed from the chain, SVRL address dropped |
-| 6 | Any nonzero slot selected slot 2 | one 32-bit word `0x7F9214 = 0xA5C35A3C ^ slot`; every consumer range-checks 0-2 and falls back to stock, so power-on garbage reads stock |
+- **1** - Stalk masked `0x80` (top bit of the rolling counter) - `rlwinm r12,r12,0,31,31` at `0x1FC010`; SET = bit 0; counter bits never used
+- **2** - Slot 1 and slot 2 clones overlapped (`0x1EA000-0x1EDC00` / `0x1EC000-0x1EFC00`) - 12 map clones at `0x1F0000+` / `0x1F2000+`, SOI at `0x1EB000` / `0x1ED000`, DOI at `0x1F4000` / `0x1F6000`; the builder asserts no overlap and the validator re-derives the clones by emulating the thunks
+- **3** - Live calibration `0x1EA000-0x1EA7C8` destroyed in every slot - untouched (1,453 bytes still present); `FREE_LO = 0x1EA7C8`, lowest clone `0x1EB000`, every target asserted erased in stock
+- **4** - SOI clone 12 bytes off (`0x1D6408` vs `0x1D6414`) and only half the sites hooked - pointer-table index 267 = `0x1D6414` is cloned exactly; both `1068(r15)` consumers (`0xC0898`, `0xC09F8`) are hooked; the `1064(r15)` sites (`0xC0454`, `0xC0610`, `0xC0664`, `0xC06B4`) are index 266 = `0x1D6408`, a different 12-byte record, correctly left alone
+- **5** - Reader addresses were data addresses, not headers - true headers (dims read from each header), clones sized from the header, no fixed 0x400; Duration removed from the chain, SVRL address dropped
+- **6** - Any nonzero slot selected slot 2 - one 32-bit word `0x7F9214 = 0xA5C35A3C ^ slot`; every consumer range-checks 0-2 and falls back to stock, so power-on garbage reads stock
 
 Also from that report: the WinOLS "Pedal Gate Threshold" row pointed at a `stb`; it now points at the `cmplwi` immediate at `0x1FC006`, and the other multimap parameter rows carry real addresses.
 
@@ -346,7 +334,6 @@ off-road/development use; no warranty, and you are responsible for any ECU you f
 both rising edges fire in the same call: the slot advances +1 and then +2, which
 is +3 mod 3 - no net change. Harmless, but it looks like a dead trigger while
 testing.
-
 
 ### Trigger-source coverage
 
